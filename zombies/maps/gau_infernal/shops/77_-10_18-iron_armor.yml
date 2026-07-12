@@ -1,0 +1,165 @@
+id: iron_armor
+trigger:
+  origin: { x: 77, y: -10, z: 18 }
+  lengths: { x: 1, y: 3, z: 3 }
+predicateEvaluation: ALL_TRUE
+data:
+  predicates:
+    - type: zombies.map.shop.predicate.player_state
+      states: [ zombies.player.state.alive ]
+      blacklist: false
+
+    - type: zombies.map.shop.predicate.in_game
+
+    - type: zombies.map.shop.predicate.type
+      types: [ zombies.map.shop.interaction.right_click_entity ]
+      blacklist: false
+
+  successInteractors:
+    - type: zombies.map.shop.interactor.conditional
+      evaluation: ALL_TRUE
+      predicates:
+        - type: zombies.map.shop.predicate.equipment_tier
+          slot: 41
+          tier: 2
+      successInteractors:
+        - type: zombies.map.shop.interactor.conditional
+          evaluation: ALL_TRUE
+          predicates:
+            - type: zombies.map.shop.predicate.static_cost
+              cost: 3100
+              modifierType: coin_spend.shop
+          successInteractors:
+            - type: zombies.map.shop.interactor.add_equipment
+              groupKey: zombies.group.armor
+              equipmentKey: iron_helmet
+              allowReplace: true
+              allowDuplicate: false
+              specificSlot: 41
+              successInteractors:
+                - type: zombies.map.shop.interactor.messaging
+                  messages: [ "<green>You purchased <blue>Iron Armor</blue>!</green>" ]
+                  broadcast: false
+
+                - type: zombies.map.shop.interactor.deduct_coins
+                  cost: 3100
+                  modifierType: coin_spend.shop
+
+                - type: zombies.map.shop.interactor.play_sound
+                  sound: { name: 'minecraft:block.note_block.pling', source: PLAYER, volume:
+                    10.0,  pitch: 2.0 }
+                  broadcast: false
+              failureInteractors:
+                - type: zombies.map.shop.interactor.messaging
+                  messages: [ "<red>You have already purchased Iron Armor!" ]
+                  broadcast: false
+
+                - type: zombies.map.shop.interactor.play_sound
+                  sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                           pitch: 0.0 }
+                  broadcast: false
+
+            - type: zombies.map.shop.interactor.add_equipment
+              groupKey: zombies.group.armor
+              equipmentKey: iron_chestplate
+              allowReplace: true
+              allowDuplicate: false
+              specificSlot: 42
+              successInteractors: [ ]
+              failureInteractors: [ ]
+
+            - type: zombies.map.shop.interactor.add_equipment
+              groupKey: zombies.group.armor
+              equipmentKey: iron_leggings
+              allowReplace: true
+              allowDuplicate: false
+              specificSlot: 43
+              successInteractors: [ ]
+              failureInteractors: [ ]
+
+            - type: zombies.map.shop.interactor.add_equipment
+              groupKey: zombies.group.armor
+              equipmentKey: iron_boots
+              allowReplace: true
+              allowDuplicate: false
+              specificSlot: 44
+              successInteractors: [ ]
+              failureInteractors: [ ]
+          failureInteractors:
+            - type: zombies.map.shop.interactor.messaging
+              messages: [ "<red>You don't have enough coins to purchase Iron Armor!" ]
+              broadcast: false
+
+            - type: zombies.map.shop.interactor.play_sound
+              sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                       pitch: 0.0 }
+              broadcast: false
+      failureInteractors:
+        - type: zombies.map.shop.interactor.messaging
+          messages: [ "<red>You already own this armor!" ]
+          broadcast: false
+
+        - type: zombies.map.shop.interactor.play_sound
+          sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                   pitch: 0.0 }
+          broadcast: false
+  failureInteractors: [ ]
+  displays:
+    - type: zombies.map.shop.display.interaction_point
+      offset:
+        x: 0
+        y: 0
+        z: 0
+
+    - type: zombies.map.shop.display.player
+      displayCreator:
+        type: zombies.map.shop.display.player.conditional
+        predicate:
+          type: zombies.player.condition.better_equipment
+          groupKey: zombies.group.armor
+          equipmentKey: iron_helmet
+          slot: 41
+          tier: 2
+        success:
+          - type: zombies.map.shop.display.player.hologram
+            info:
+              text: [ "<green>Iron Armor", "<gold>UNLOCKED" ]
+              position:
+                x: 0
+                y: -1.75
+                z: 0
+        failure:
+          - type: zombies.map.shop.display.player.hologram
+            info:
+              text: [ "<green>Iron Armor", "<gold>3100 Coins" ]
+              position:
+                x: 0
+                y: -1.75
+                z: 0
+
+    - type: zombies.map.shop.display.player
+      displayCreator:
+        type: zombies.map.shop.display.player.combining_armor
+        face: EAST
+        small: true
+        offset: { x: 0, y: -0.5, z: 0 }
+        items:
+          - key: HELMET
+            value:
+              stack: '{id:"minecraft:iron_helmet",Count:1}'
+              tier: 2
+
+          - key: CHESTPLATE
+            value:
+              stack: '{id:"minecraft:iron_chestplate",Count:1}'
+              tier: 2
+
+          - key: LEGGINGS
+            value:
+              stack: '{id:"minecraft:iron_leggings",Count:1}'
+              tier: 2
+
+          - key: BOOTS
+            value:
+              stack: '{id:"minecraft:iron_boots",Count:1}'
+              tier: 2

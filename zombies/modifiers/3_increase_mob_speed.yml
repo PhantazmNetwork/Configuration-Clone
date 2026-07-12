@@ -1,0 +1,17 @@
+ordinal: 3
+key: phantazm:increase_mob_speed
+exclusiveModifiers: [ 'phantazm:decrease_mob_speed' ]
+displayName: '<red>Mob Speed Increase</red>'
+webhookEmoji: '<:mob_speed_increase:1160905073652662272>'
+abbreviatedDisplayName: '<red>MSI'
+displayItem:
+  material: minecraft:redstone
+  displayName: '<!i><b><yellow>Mob Speed Increase</yellow></b></!i>'
+  lore:
+    - ''
+    - '<!i><#616575>»</#616575> <#f062c1>Increase mob speed by <b><red>+25%<red></b></#f062c1></!i>'
+modifier:
+  type: zombies.modifier.mob_attribute
+  attribute: 'generic.movement_speed'
+  amount: 0.25
+  attributeOperation: MULTIPLY_BASE

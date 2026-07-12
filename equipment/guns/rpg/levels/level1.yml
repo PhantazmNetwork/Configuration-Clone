@@ -1,0 +1,161 @@
+type: zombies.gun.level
+key: level1
+stats:
+  type: zombies.gun.stats
+  shootSpeed: 15
+  reloadSpeed: 30
+  maxAmmo: 50
+  maxClip: 5
+  shots: 1
+  shotInterval: 0
+shootTester:
+  type: zombies.gun.shoot_tester.state
+  stats: /stats
+  reloadTester: /reloadTester
+reloadTester:
+  type: zombies.gun.reload_tester.state
+  stats: /stats
+firer:
+  type: zombies.gun.firer.projectile
+  endSelector:
+    type: zombies.gun.end_selector.basic
+    blockIterations:
+      - type: zombies.gun.block_iteration.window
+      - type: zombies.gun.block_iteration.block
+        passableBlocks: [ 'minecraft:barrier' ]
+      - type: zombies.gun.block_iteration.wallshot
+        wallshootingChecker: /wallshootingChecker
+        passableBlocks: [ 'minecraft:barrier' ]
+    maxDistance: 100
+  targetFinder:
+    type: zombies.gun.target_finder.basic
+    entityFinder:
+      type: zombies.gun.entity_finder.directional.around_end
+      range: 5
+    targetTester:
+      type: zombies.gun.target_tester.phantazm_mob
+    intersectionFinder:
+      type: zombies.gun.intersection_finder.static
+    headshotTester:
+      type: zombies.gun.headshot_tester.eye_height
+    targetLimiter:
+      type: zombies.gun.target_limiter.none
+  collisionFilter:
+    type: zombies.gun.firer.projectile.collision_filter.phantazm_mob
+  shotHandlers:
+    - type: zombies.gun.shot_handler.damage
+      damage: 8
+      headshotDamage: 8
+      armorBehavior: BYPASS_ON_HEADSHOT
+
+    - type: zombies.gun.shot_handler.knockback
+      knockback: 0.3
+      headshotKnockback: 0.4
+
+    - type: zombies.gun.shot_handler.give_coins
+      normalCoins: 15
+      headshotCoins: 15
+      instaKillCoins: 50
+
+    - type: zombies.gun.shot_handler.sound
+      audienceProvider: /audienceProvider
+      sound:
+        name: 'minecraft:entity.arrow.hit_player'
+        source: PLAYER
+        volume: 10
+        pitch: 2
+      headshotSound:
+        name: 'minecraft:entity.arrow.hit_player'
+        source: PLAYER
+        volume: 10
+        pitch: 1.5
+      atShooter: true
+    - type: zombies.gun.shot_handler.explosion
+      radius: 10
+  projectileMob: rpg_projectile
+  power: 2
+  spread: 0
+  hasGravity: false
+  maxAliveTime: 200
+
+activateEffects: [ ]
+shootEffects:
+  - type: zombies.gun.effect.play_sound
+    audienceProvider: /audienceProvider
+    sound:
+      name: 'minecraft:entity.egg.throw'
+      source: PLAYER
+      volume: 10.0
+      pitch: 0.5
+reloadEffects:
+  - type: zombies.gun.effect.reload.action_bar
+    stats: /stats
+    actionBarSender: /actionBarSender
+    reloadTester: /reloadTester
+    reloadActionBarChooser:
+      type: zombies.gun.action_bar_chooser.static
+      message: <red><b>RELOADING...
+
+  - type: zombies.gun.effect.play_sound
+    audienceProvider: /audienceProvider
+    sound:
+      name: 'minecraft:entity.horse.gallop'
+      source: PLAYER
+      volume: 10.0
+      pitch: 0.5
+tickEffects:
+  - type: zombies.gun.effect.ammo_level
+
+  - type: zombies.gun.effect.exp.shoot
+    stats: /stats
+
+  - type: zombies.gun.effect.alert_no_ammo
+    audienceProvider: /audienceProvider
+    message:
+      component: <b><red>OUT OF AMMO</red></b>
+      destination: ACTION_BAR
+noAmmoEffects:
+  - type: zombies.gun.effect.send_message
+    audienceProvider: /audienceProvider
+    message:
+      component: <#ff2655>[⚠] <b><#ff2655>This weapon is out of ammo!</#ff2655> <red>You can refill ammo at the place that you purchased the weapon or through the <blue>Refill Ammo Machine</blue>.</red></b>
+      destination: CHAT
+gunStackMappers:
+  - type: zombies.gun.stack_mapper.clip.stack_count
+    reloadTester: /reloadTester
+
+  - type: zombies.gun.stack_mapper.reload.durability
+    stats: /stats
+    reloadTester: /reloadTester
+
+stack:
+  material: 'minecraft:stone_shovel'
+  displayName: '<!i><gold><b>RPG Ultimate</b></gold></!i>'
+  lore:
+    - '<!i><#9096ad>Shoots more explosive rockets,</#9096ad></!i>'
+    - '<!i><#9096ad>faster. No, sorry, it still can''t</#9096ad></!i>'
+    - '<!i><#9096ad>damage your teammates, no matter</#9096ad></!i>'
+    - '<!i><#9096ad>how bad they are at the game.</#9096ad></!i>'
+    - ''
+    - '<!i><#616575>»</#616575> <#9096ad>Damage</#9096ad><#b8bfde>:</#b8bfde> <green>8.0 HP</green></!i>'
+    - '<!i><#616575>»</#616575> <#9096ad>Headshot</#9096ad><#b8bfde>:</#b8bfde> <green>8.0 HP</green></!i>'
+    - '<!i><#616575>»</#616575> <#9096ad>Max Ammo</#9096ad><#b8bfde>:</#b8bfde> <#6b6f80>30 ➠<#6b6f80> <green>50</green></!i>'
+    - '<!i><#616575>»</#616575> <#9096ad>Clip Size</#9096ad><#b8bfde>:</#b8bfde> <#6b6f80>4 ➠<#6b6f80> <green>5</green></!i>'
+    - '<!i><#616575>»</#616575> <#9096ad>Fire Rate</#9096ad><#b8bfde>:</#b8bfde> <#6b6f80>1s (1/s) ➠<#6b6f80> <green>0.75s (1.3/s)</green></!i>'
+    - '<!i><#616575>»</#616575> <#9096ad>Reload Speed</#9096ad><#b8bfde>:</#b8bfde> <#6b6f80>2s ➠<#6b6f80> <green>1.5s</green></!i>'
+    - '<!i><#616575>»</#616575> <#9096ad>AoE Radius</#9096ad><#b8bfde>:</#b8bfde> <green>10</green></!i>'
+    - ''
+    - '<!i><yellow><b><key:key.attack><b></yellow> <#9096ad>to reload.</#9096ad></!i>'
+    - '<!i><yellow><b><key:key.use><b></yellow> <#9096ad>to shoot.</#9096ad></!i>'
+  tag: '{HideFlags:2,"Enchantments":[{id:"minecraft:unbreaking",lvl:1s}]}'
+upgrades: [ ]
+
+audienceProvider:
+  type: zombies.gun.audience_provider.player
+
+actionBarSender:
+  type: zombies.gun.action_bar.zombies_player_sender
+  priority: 1
+
+wallshootingChecker:
+  type: zombies.gun.wallshooting.wallshooting_checker.map_objects

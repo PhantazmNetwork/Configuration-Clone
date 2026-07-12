@@ -1,0 +1,74 @@
+# FG: 9, 19
+# FG Endless: 4, 10, 13, 19, 23, 29, 32, 35, 40
+# GAU: 16, 18, 22
+id: overclock
+visuals:
+  - type: zombies.powerup.visual.hologram
+    lines: [ "<aqua><b>Overclock</b></aqua>" ]
+    timeUntilBlink: 1000
+    blinkFrames:
+      - components: [ "<white><b>Overclock</b></white>" ]
+        delay: 20
+      - components: [ "<aqua><b>Overclock</b></aqua>" ]
+        delay: 20
+    heightOffset: 1.25
+
+  - type: zombies.powerup.visual.item
+    stack: '{id:"clock",Count:1}'
+    interval: 1
+    period: 40
+    periodOffset: 0
+    amplitude: 0.1
+    heightOffset: 1
+
+actions:
+  - type: zombies.powerup.action.send_message
+    format: <player> <yellow>activated <aqua><b>Overclock</b></aqua> for <red><b><time>s</b></red>!</yellow>
+    broadcast: true
+    timerSource: 4
+    tickFormatter:
+      type: core.tick_formatter.precision_second
+      decimalPlaces: 0
+
+  - type: zombies.powerup.action.play_sound
+    sound: { name: 'minecraft:block.wooden_pressure_plate.click_on', source: PLAYER, volume: 5.0, pitch: 0.5 }
+
+  - type: zombies.powerup.action.attribute_modifier
+    attribute: phantazm.gun_fire_delay
+    attributeOperation: MULTIPLY_BASE
+    amount: -0.5
+    global: true
+    deactivationPredicate:
+      type: zombies.powerup.deactivation_predicate.timed
+      time: 200
+
+  - type: zombies.powerup.action.prevent_ammo_drain
+    deactivationPredicate:
+      type: zombies.powerup.deactivation_predicate.timed
+      time: 200
+
+  - type: zombies.powerup.action.boss_bar_timer
+    duration: 200
+    format: <aqua><b>Overclock</b></aqua> <#b8bfde>-</#b8bfde> <red><b><time>s</b></red>
+    color: BLUE
+    overlay: PROGRESS
+    tickFormatter:
+      type: core.tick_formatter.precision_second
+      decimalPlaces: 1
+
+  - type: zombies.powerup.action.send_title
+    message: ""
+    titlePart: TITLE
+    broadcast: true
+
+  - type: zombies.powerup.action.send_title
+    message: <aqua><b>Overclock
+    titlePart: SUBTITLE
+    broadcast: true
+
+deactivationPredicate:
+  type: zombies.powerup.deactivation_predicate.timed
+  time: 1200
+powerupEffect:
+  type: zombies.powerup.entity_effect.glow
+  glowColor: AQUA

@@ -1,0 +1,9 @@
+id: frb_ew_synergy
+data:
+  type: zombies.upgrade.standard
+  triggers:
+    - type: zombies.upgrade.trigger.single
+  effect:
+    - type: zombies.upgrade.effect.adjust_wave_delay_attribute
+      amount: 100
+      operation: ADDITION

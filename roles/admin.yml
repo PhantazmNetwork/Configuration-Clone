@@ -1,0 +1,6 @@
+type: role.basic
+identifier: admin
+chatFormat: '<gradient:#ff6c33:#ff76b5>[Admin]</gradient> <#ff76b5><name></#ff76b5>'
+displayNameFormat: '<#ff76b5><name></#ff76b5>'
+priority: 1000
+permissions: [ ]

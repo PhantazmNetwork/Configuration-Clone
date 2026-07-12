@@ -1,0 +1,18 @@
+id: intersection
+displayName: <green><b>Intersection
+regions:
+  - origin: { x: 32, y: 0, z: -33 }
+    lengths: { x: 8, y: 7, z: 8 }
+  - origin: { x: 22, y: 0, z: -25 }
+    lengths: { x: 30, y: 6, z: 10 }
+  - origin: { x: 28, y: 0, z: -26 }
+    lengths: { x: 3, y: 7, z: 1 }
+  - origin: { x: 22, y: 0, z: -15 }
+    lengths: { x: 8, y: 6, z: 24 }
+  - origin: { x: 12, y: 0, z: -3 }
+    lengths: { x: 10, y: 5, z: 5 }
+  - origin: { x: 42, y: -3, z: -37 }
+    lengths: { x: 4, y: 10, z: 12 }
+  - origin: { x: 20, y: 0, z: -13 }
+    lengths: { x: 2, y: 5, z: 4 }
+openActions: [ ]

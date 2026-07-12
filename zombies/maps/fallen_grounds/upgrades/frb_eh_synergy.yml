@@ -1,0 +1,32 @@
+id: frb_eh_synergy
+data:
+  type: zombies.upgrade.standard
+  triggers:
+    - type: zombies.upgrade.trigger.event
+      event: ENTITY_DAMAGE_BY_GUN
+      eventFilter:
+        type: zombies.upgrade.filter.type
+        conditions:
+          - type: zombies.upgrade.filter.condition.player_shooter
+  effect:
+    type: zombies.upgrade.effect.temporal
+    resetTimerOnApply: true
+    timer:
+      type: zombies.upgrade.timer.constant
+      duration: 60
+    delegate:
+      type: zombies.upgrade.effect.apply_attribute
+      selector:
+        type: zombies.upgrade.selector.event
+        validator:
+          type: zombies.upgrade.validator.mob_in_round
+        useTarget: true
+      attribute: generic.attack_damage
+      amount: -0.01
+      operation: MULTIPLY_BASE
+      shareKey: 'frb_eh_share'
+      scaling:
+        type: zombies.upgrade.effect.scaling.health
+        end: 0.05
+        startMultiplier: 0
+        endMultiplier: 15

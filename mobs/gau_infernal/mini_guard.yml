@@ -1,0 +1,198 @@
+key: mini_guard_infernal
+type: minecraft:skeleton
+pathfinding:
+  type: proxima.path_settings.ground
+  jumpHeight: 1.6
+  fallTolerance: 6
+  stepHeight: 1.0
+
+showNameTag: true
+
+meta:
+  customName: <gray><b>Mini Guard</b></gray>
+  customNameVisible: true
+
+extra:
+  resistInstakill: true
+  resistFire: true
+  resistSlowDown: true
+  announceKill: true
+
+equipment:
+  MAIN_HAND: '{id:"charcoal",Count:1}'
+  BOOTS: '{id:"netherite_boots",Count:1}'
+  LEGGINGS: '{id:"netherite_leggings",Count:1}'
+  CHESTPLATE: '{id:"netherite_chestplate",Count:1}'
+
+attributes:
+  generic.max_health: 450
+  generic.movement_speed: 0.35
+  generic.attack_damage: 7
+  generic.armor: 10
+  generic.attack_knockback: 0.2
+  generic.knockback_resistance: 0.5
+
+skills:
+  - type: mob.skill.send_message
+    trigger: SPAWN
+    message: <yellow><#3410ad><b>INFERNAL</b></#3410ad> <gray><b>Mini Guard</b></gray> has spawned!</yellow>
+    selector:
+      type: mob.selector.entities_in_area
+      originSelector:
+        type: mob.selector.self
+      validator:
+        type: mob.validator.always
+      target: PLAYERS
+
+  - type: mob.skill.play_sound
+    trigger: SPAWN
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.lightning_bolt.thunder', source: PLAYER, volume: 100.0, pitch: 1.0 }
+
+  - type: mob.skill.group
+    trigger: ATTACK
+    delegates:
+      - type: mob.skill.damage_over_time
+        selector:
+          type: mob.selector.last_hit
+        validator: /alivePlayers
+        damageAmount: 1.2
+        bypassArmor: true
+        damageInterval: 20
+        damageTime: 100
+
+      - type: mob.skill.potion
+        selector:
+          type: mob.selector.last_hit
+        potion:
+          effect: minecraft:poison
+          amplifier: 1
+          duration: 100
+          flags: 6
+
+  - type: mob.skill.play_sound
+    trigger: DAMAGED
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.wither_skeleton.hurt', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+  - type: mob.skill.play_sound
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.wither_skeleton.death', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+  - type: mob.skill.show_healthbar
+    bar: '<#6b6f80>[<healthbar:bar_component:|:color_start:#dd3e28:color_end:#34bf25:missing_color:gray>]</#6b6f80>'
+    barWidth: 20
+
+  - type: mob.skill.random_timer
+    minInterval: 100
+    maxInterval: 160
+    delegate:
+      type: mob.skill.random
+      chance: 0.5
+      delegate:
+        type: mob.skill.play_sound
+        selector:
+          type: mob.selector.self
+        sound: { name: 'minecraft:entity.wither_skeleton.ambient', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+  - type: mob.skill.timer
+    repeat: -1
+    interval: 100
+    requiresActivation: false
+    resetOnActivation: true
+    delegate:
+      type: mob.skill.spawn_mob
+      selector:
+        type: mob.selector.self
+      callback:
+        type: zombies.mob.skill.spawn_mob.callback.add_to_round
+      identifier: phantazm:crazed_zombie
+      spawnAmount: 3
+      maxSpawn: 3
+      instanceCountKey: 'crazed_zombie_gaui_spawn'
+
+  - type: mob.skill.timer
+    interval: 175
+    delegate:
+      type: mob.skill.group
+      delegates:
+        - type: mob.skill.play_sound
+          selector:
+            type: mob.selector.self
+          sound: { name: 'minecraft:entity.warden.sonic_charge', source: HOSTILE, volume: 2.0, pitch: 2.0 }
+        
+        - type: mob.skill.timer
+          repeat: 1
+          interval: 10
+          requiresActivation: true
+          delegate:
+            type: mob.skill.group
+            delegates:
+              - type: mob.skill.push
+                power: -24
+                vertical: 8
+                selector:
+                  type: mob.selector.entities_in_area
+                  originSelector:
+                    type: mob.selector.self
+                  range: 4
+                  target: LIVING_ENTITIES
+                  validator: /alivePlayers
+
+              - type: mob.skill.spawn_particle
+                selector:
+                  type: mob.selector.self
+                particle:
+                  type: particle.wrapper
+                  particle: sonic_boom
+                  variantData:
+                    type: particle.variant_data.none
+                  distance: true
+                  offsetX: 0.5
+                  offsetY: 0.5
+                  offsetZ: 0.5
+                  data: 0.0
+                  particleCount: 10
+                bounds:
+                  origin:
+                    x: 0.0
+                    y: 0.5
+                    z: 0.0
+                  lengths:
+                    x: 0.0
+                    y: 0.0
+                    z: 0.0
+
+goals:
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: zombies.mob.goal.break_window
+        breakTicks: 10
+        breakCount: 3
+        breakRadius: 0.5
+
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: mob.goal.melee_attack
+        cooldown: 20
+        range: 0.25
+
+      - type: mob.goal.follow_entity
+        selector:
+          type: mob.selector.entities_in_area
+          originSelector:
+            type: mob.selector.self
+          validator: /alivePlayers
+          target: PLAYERS
+          limit: 1
+        retargetInterval: 20
+        followRange: 1024
+
+alivePlayers:
+  type: zombies.mob.validator.zombies_player
+  states: [ zombies.player.state.alive ]
+  blacklist: false

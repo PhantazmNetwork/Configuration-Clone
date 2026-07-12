@@ -1,0 +1,45 @@
+id: qf_ew_synergy
+data:
+  type: zombies.upgrade.standard
+  triggers:
+    - type: zombies.upgrade.trigger.event
+      event: GUN_LOSE_AMMO
+      eventFilter:
+        type: zombies.upgrade.filter.type
+        conditions:
+          - type: zombies.upgrade.filter.condition.player_shooter
+
+    - type: zombies.upgrade.trigger.event
+      event: GUN_REFILL
+      eventFilter:
+        type: zombies.upgrade.filter.type
+        conditions:
+          - type: zombies.upgrade.filter.condition.player_shooter
+  effect:
+    type: zombies.upgrade.effect.composite
+    delegates:
+      - type: zombies.upgrade.effect.apply_attribute
+        selector:
+          type: zombies.upgrade.selector.self
+        attribute: phantazm.gun_fire_delay
+        amount: -0.02
+        operation: MULTIPLY_BASE
+        shareKey: 'qf_ew_share_1'
+        scaling:
+          type: zombies.upgrade.effect.scaling.ammo
+          end: 0.05
+          startMultiplier: 0
+          endMultiplier: 15
+
+      - type: zombies.upgrade.effect.apply_attribute
+        selector:
+          type: zombies.upgrade.selector.self
+        attribute: phantazm.reload_delay
+        amount: -0.02
+        operation: MULTIPLY_BASE
+        shareKey: 'qf_ew_share_2'
+        scaling:
+          type: zombies.upgrade.effect.scaling.ammo
+          end: 0.05
+          startMultiplier: 0
+          endMultiplier: 15

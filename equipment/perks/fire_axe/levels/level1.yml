@@ -1,0 +1,30 @@
+type: zombies.perk.level.non_upgradeable
+key: level1
+equipment:
+  type: zombies.perk.equipment.basic
+  interactor:
+    type: zombies.perk.interactor.cooldown
+    cooldown: 20
+    types: [ ATTACK ]
+    delegate:
+      type: zombies.perk.interactor.melee
+      damage: 15
+      knockback: 3.0
+      coins: 25
+      bypassArmor: true
+  visual:
+    type: zombies.perk.visual.static
+    stack:
+      material: 'minecraft:iron_axe'
+      displayName: '<!i><green><b>Fire Axe Ultimate</b></green></!i>'
+      lore:
+        - '<!i><#9096ad>You apply the world''s most expensive</#9096ad></!i>'
+        - '<!i><#9096ad>coat of oil to your beloved axe.</#9096ad></!i>'
+        - '<!i><#9096ad>Keeping good care of your equipment</#9096ad></!i>'
+        - '<!i><#9096ad>makes you more confident in using it.</#9096ad></!i>'
+        - ''
+        - '<!i><#616575>»</#616575> <#9096ad>Damage</#9096ad><#b8bfde>:</#b8bfde> <#6b6f80>10.0 HP ➠<#6b6f80> <green>15.0 HP</green></!i>'
+        - '<!i><#616575>»</#616575> <#9096ad>Cooldown</#9096ad><#b8bfde>:</#b8bfde> <#6b6f80>2s ➠<#6b6f80> <#6b6f80> <green>1s</green></!i>'
+        - '<!i><#616575>»</#616575> <#9096ad>Knockback</#9096ad><#b8bfde>:</#b8bfde> <#6b6f80>2.0 ➠<#6b6f80> <#6b6f80> <green>3.0</green></!i>'
+      tag: '{HideFlags:2,"Enchantments":[{id:"minecraft:unbreaking",lvl:1s}]}'
+effects: [ ]

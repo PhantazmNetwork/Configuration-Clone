@@ -1,0 +1,18 @@
+ordinal: 10
+key: phantazm:coin_gain_decrease
+displayName: '<red>Coin Gain Decrease</red>'
+exclusiveModifiers: [ 'phantazm:coin_gain_increase' ]
+webhookEmoji: '<:coin_gain_decrease:1165203600046309490>'
+abbreviatedDisplayName: '<red>CGD'
+displayItem:
+  material: minecraft:charcoal
+  displayName: '<!i><b><yellow>Coin Gain Decrease</yellow></b></!i>'
+  lore:
+    - ''
+    - '<!i><#616575>»</#616575> <#f062c1>Decrease all coin gain by <red><b>50%</b></red></#f062c1></!i>'
+modifier:
+  type: zombies.modifier.coins
+  group: coin_gain
+  modifierName: '<red>Coin Modifier'
+  modifierAction: MULTIPLY
+  amount: -0.5

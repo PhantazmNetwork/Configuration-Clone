@@ -1,0 +1,6 @@
+type: role.basic
+identifier: game_designer
+chatFormat: '<#733df0>[Game Designer] <name>'
+displayNameFormat: '<#733df0><name>'
+priority: 996
+permissions: [ ]

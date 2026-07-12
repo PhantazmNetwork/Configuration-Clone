@@ -1,0 +1,83 @@
+key: runner
+type: minecraft:zombified_piglin
+pathfinding:
+  type: proxima.path_settings.ground
+  jumpHeight: 2
+  fallTolerance: 5
+  stepHeight: 0.5
+
+meta:
+  customName: <gold>Runner</gold>
+
+equipment:
+  BOOTS: '{id:"iron_boots",Count:1}'
+  LEGGINGS: '{id:"golden_leggings",Count:1}'
+
+attributes:
+  generic.max_health: 20
+  generic.movement_speed: 0.22
+  generic.attack_damage: 4
+  generic.armor: 5
+  generic.attack_knockback: 0.2
+
+skills:
+  - type: mob.skill.play_sound
+    trigger: DAMAGED
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.zombified_piglin.hurt', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+  - type: mob.skill.play_sound
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.zombified_piglin.death', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+  - type: mob.skill.random_timer
+    minInterval: 100
+    maxInterval: 160
+    delegate:
+      type: mob.skill.random
+      chance: 0.5
+      delegate:
+        type: mob.skill.play_sound
+        selector:
+          type: mob.selector.self
+        sound: { name: 'minecraft:entity.zombified_piglin.angry', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+goals:
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: zombies.mob.goal.break_window
+        breakTicks: 15
+        breakCount: 1
+        breakRadius: 0.5
+
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: mob.goal.melee_attack
+        cooldown: 15
+        range: 0.25
+
+      - type: mob.goal.follow_entity
+        selector:
+          type: mob.selector.entities_in_area
+          originSelector:
+            type: mob.selector.self
+          validator:
+            type: mob.validator.or
+            validators: [ /alivePlayers, /targetableMobs ]
+          target: LIVING_ENTITIES
+          limit: 1
+        retargetInterval: 20
+        followRange: 1024
+
+alivePlayers:
+  type: zombies.mob.validator.zombies_player
+  states: [ zombies.player.state.alive ]
+  blacklist: false
+
+targetableMobs:
+  type: mob.validator.mob_type
+  tags: [ ally_targetable ]
+  blacklist: false

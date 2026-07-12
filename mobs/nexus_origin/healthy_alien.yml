@@ -1,0 +1,100 @@
+# these currently kill each other
+key: healthy_alien
+type: minecraft:squid
+pathfinding:
+  type: proxima.path_settings.ground
+  jumpHeight: 1.25
+  fallTolerance: 4
+  stepHeight: 0.5
+
+meta:
+  customName: <#183682>Healthy Alien</#183682>
+
+attributes:
+  generic.max_health: 60
+  generic.movement_speed: 0.24
+  generic.attack_damage: 7
+  generic.armor: 8
+  generic.attack_knockback: 0.35
+
+skills:
+  - type: mob.skill.play_sound
+    trigger: DAMAGED
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.squid.hurt', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+  - type: mob.skill.spawn_particle
+    trigger: DAMAGED
+    selector:
+      type: mob.selector.self
+    particle:
+      type: particle.wrapper
+      particle: squid_ink
+      variantData:
+        type: particle.variant_data.none
+      distance: true
+      offsetX: 0.2
+      offsetY: 0.5
+      offsetZ: 0.2
+      data: 0.0
+      particleCount: 5
+    bounds:
+      origin:
+        x: 0.0
+        y: 0.25
+        z: 0.0
+      lengths:
+        x: 0.0
+        y: 0.0
+        z: 0.0
+
+  - type: mob.skill.play_sound
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.squid.death', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+  - type: mob.skill.random_timer
+    minInterval: 100
+    maxInterval: 160
+    delegate:
+      type: mob.skill.random
+      chance: 0.5
+      delegate:
+        type: mob.skill.play_sound
+        selector:
+          type: mob.selector.self
+        sound: { name: 'minecraft:entity.squid.squirt', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+goals:
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: zombies.mob.goal.break_window
+        breakTicks: 20
+        breakCount: 1
+        breakRadius: 0.5
+
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: mob.goal.melee_attack
+        cooldown: 20
+        range: 0.25
+
+      - type: mob.goal.follow_entity
+        selector:
+          type: mob.selector.entities_in_area
+          originSelector:
+            type: mob.selector.self
+          validator:
+            type: mob.validator.mob
+          range: 35
+          target: LIVING_ENTITIES
+          limit: 1
+        retargetInterval: 20
+        followRange: 35
+
+alivePlayers:
+  type: zombies.mob.validator.zombies_player
+  states: [ zombies.player.state.alive ]
+  blacklist: false

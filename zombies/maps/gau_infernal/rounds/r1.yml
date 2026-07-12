@@ -1,0 +1,74 @@
+round: 1
+startActions:
+  - type: zombies.map.round.action.announce
+    format: <red>Round <round>
+    destination: TITLE
+    tickFormatter:
+      type: core.tick_formatter.analog
+      ceil: false
+
+  - type: zombies.map.round.action.announce
+    format: ""
+    destination: SUBTITLE
+    tickFormatter:
+      type: core.tick_formatter.analog
+      ceil: false
+
+  - type: zombies.map.round.action.revive_players
+
+  - type: zombies.map.round.action.play_sound
+    sound: { name: 'minecraft:entity.wither.spawn', source: MASTER, volume: 24.0,
+             pitch: 0.5 }
+
+  - type: zombies.map.round.action.play_sound
+    sound: { name: 'minecraft:ambient.basalt_deltas.loop', source: MASTER, volume: 24.0, pitch: 1.0 }
+
+  - type: zombies.map.round.action.play_sound
+    sound: { name: 'minecraft:ambient.basalt_deltas.loop', source: MASTER, volume: 24.0, pitch: 0.8 }
+
+  - type: zombies.map.round.action.announce
+    format: '<gradient:#616575:#4a4c59><st>⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯</st></gradient><br><#fffa9e>»</#fffa9e> <red><b>Zombies</b></red><br><br><yellow>  Team up with your friends to defeat massive hordes of<br>  zombies! Gain coins by damaging enemies, which can be<br>  spent on opening new rooms, armor, weapons, or perks<br>  to buff your character. Be careful, however, as the <br>  undead will also become stronger the longer you survive!</yellow><br><br><gradient:#616575:#4a4c59><st>⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯</st></gradient>'
+    destination: CHAT
+    tickFormatter:
+      type: core.tick_formatter.analog
+      ceil: false
+
+  - type: zombies.map.round.action.announce
+    format: '<red><#ff2655>[⚠]</#ff2655> <#fffa9e>»</#fffa9e> <#9096ad>The intense radiological contamination produced by the<br>malfunctioning reactor has impeded your body''s ability<br>to heal itself.<br><#fffa9e>»</#fffa9e> <i><yellow>Natural regeneration is disabled! You must find <green><b>Health Kit</b></green><br>powerups to recover missing health.'
+    destination: CHAT
+    tickFormatter:
+      type: core.tick_formatter.analog
+      ceil: false
+
+  - type: zombies.map.round.action.announce
+    format: '<#fffa9e>»</#fffa9e> <red><b>This mode is still in Early Access!'
+    destination: CHAT
+    tickFormatter:
+      type: core.tick_formatter.analog
+      ceil: false
+
+endActions: [ ]
+# 18
+waves:
+  - delayTicks: 140
+    spawns:
+      - id: turned_worker_infernal
+        spawnType: window
+        amount: 6
+    spawnActions:
+      - type: zombies.map.wave.action.select_powerup
+        powerups: [ "health_kit" ]
+  - delayTicks: 240
+    spawns:
+      - id: turned_worker_infernal
+        spawnType: window
+        amount: 6
+    spawnActions: [ ]
+  - delayTicks: 260
+    spawns:
+      - id: turned_worker_infernal
+        spawnType: window
+        amount: 6
+    spawnActions:
+      - type: zombies.map.wave.action.select_powerup
+        powerups: [ "health_kit" ]

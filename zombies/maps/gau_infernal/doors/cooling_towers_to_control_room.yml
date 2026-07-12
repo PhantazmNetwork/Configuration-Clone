@@ -1,0 +1,29 @@
+id: cooling_towers_to_control_room
+opensTo: [ cooling_towers, control_room ]
+costs: [ 3200, 2750 ]
+holograms:
+  - text: [ "<green>Control Room", "<gold>2750 Coins" ]
+    position:
+      x: -0.7
+      y: 0
+      z: 0
+regions:
+  - origin: { x: 165, y: 0, z: 10 }
+    lengths: { x: 1, y: 3, z: 3 }
+openSound: { name: 'minecraft:block.wooden_door.open', source: BLOCK, volume: 10.0,
+             pitch: 0.0 }
+openActions:
+  - type: zombies.map.door.action.send_opened_rooms
+    nameFormat: "<opener>"
+    openedRoomsFormat: "<#9096ad>opened</#9096ad> <green><b><rooms:, ></b></green>"
+    nameTitlePart: TITLE
+    openedRoomsTitlePart: SUBTITLE
+closeActions: [ ]
+failOpenActions:
+  - type: zombies.map.door.action.play_sound
+    atInteractor: true
+    sound: { name: 'minecraft:entity.enderman.teleport', source: BLOCK, volume: 10.0,
+             pitch: 0.0 }
+  - type: zombies.map.door.action.send_message
+    messages: [ "<red>You don't have enough coins to open that door!" ]
+    broadcast: false

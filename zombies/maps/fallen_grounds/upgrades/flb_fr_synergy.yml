@@ -1,0 +1,42 @@
+id: flb_fr_synergy
+data:
+  type: zombies.upgrade.standard
+  triggers:
+    - type: zombies.upgrade.trigger.event
+      event: ZOMBIES_PLAYER_REVIVE
+      eventFilter:
+        type: zombies.upgrade.filter.type
+        conditions:
+          - type: zombies.upgrade.filter.condition.zombies_player
+  effect:
+    type: zombies.upgrade.effect.composite
+    delegates:
+      - type: zombies.upgrade.effect.sound
+        sound: { name: 'minecraft:entity.generic.extinguish_fire', source: PLAYER, volume: 2.0, pitch: 0.6 }
+        broadcast: true
+
+      - type: zombies.upgrade.effect.sound
+        sound: { name: 'minecraft:entity.generic.extinguish_fire', source: PLAYER, volume: 2.0, pitch: 0.5 }
+        broadcast: true
+
+      - type: zombies.upgrade.effect.sound
+        sound: { name: 'minecraft:entity.generic.explode', source: PLAYER, volume: 2.0, pitch: 1.7 }
+        broadcast: true
+
+      - type: zombies.upgrade.effect.cooldown
+        timer:
+          type: zombies.upgrade.timer.constant
+          duration: 300
+        delegate:
+          type: zombies.upgrade.effect.apply_shot_effect
+          selector:
+            type: zombies.upgrade.selector.entities_in_area
+            validator:
+              type: zombies.upgrade.validator.mob_in_round
+            originSelector:
+              type: zombies.upgrade.selector.event
+              useTarget: true
+            target: LIVING_ENTITIES
+            range: 3.5
+          scale: 2.0
+          shotEffectType: APPLY_FIRE

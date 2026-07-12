@@ -1,0 +1,15 @@
+ordinal: 0
+key: phantazm:endless
+displayName: '<yellow>Endless</yellow>'
+webhookEmoji: '<:endless:1164882159014772786>'
+abbreviatedDisplayName: '<yellow>E'
+displayItem:
+  material: minecraft:dragon_egg
+  displayName: '<!i><b><yellow>Endless</yellow></b></!i>'
+  lore:
+    - ''
+    - '<!i><#616575>»</#616575> <#f062c1>The zombies will keep coming forever!</#f062c1></!i>'
+    - '<!i>   <#f062c1>The game will keep getting harder as the</#f062c1></!i>'
+    - '<!i>   <#f062c1>rounds get higher, until you give up or die.</#f062c1></!i>'
+modifier:
+  type: zombies.modifier.endless

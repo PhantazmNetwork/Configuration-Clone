@@ -1,0 +1,200 @@
+key: kamikaze_piglet_fge
+type: minecraft:zombified_piglin
+tags: [ endless, explosion ]
+pathfinding:
+  type: proxima.path_settings.ground
+  jumpHeight: 1.25
+  fallTolerance: 6
+  stepHeight: 0.5
+
+meta:
+  customName: <#ee8989>Kamikaze Piglet</#ee8989>
+  isBaby: true
+
+extra:
+  endlessHealthScaling:
+    kind: LINEAR
+    ceiling: 10000
+    a: 0.05
+  endlessSpeedScaling:
+    kind: LINEAR
+    ceiling: 10
+    a: 0
+
+equipment:
+  MAIN_HAND: '{id:"nether_wart",Count:1}'
+  OFF_HAND: '{id:"nether_wart",Count:1}'
+
+attributes:
+  generic.max_health: 10
+  generic.movement_speed: 0.3
+  generic.attack_damage: 10
+  generic.armor: 0
+  generic.attack_knockback: 0.3
+
+skills:
+  - type: mob.skill.conditional
+    trigger: ATTACK
+    condition:
+      type: mob.skill.condition.boolean_tag
+      selector:
+        type: mob.selector.self
+      tag: skill_cancel
+      blacklist: true
+    delegate:
+      type: mob.skill.damage
+      selector:
+        type: mob.selector.self
+      amount: 10000
+      damageType: damage.explosion
+      bypassArmor: true
+
+  - type: mob.skill.play_sound
+    trigger: DAMAGED
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.zombified_piglin.hurt', source: HOSTILE, volume: 1.5, pitch: 1.8 }
+
+  - type: mob.skill.conditional
+    trigger: DEATH
+    condition:
+      type: mob.skill.condition.boolean_tag
+      selector:
+        type: mob.selector.self
+      tag: skill_cancel
+      blacklist: true
+    delegate:
+      type: mob.skill.radial_damage
+      selector:
+        type: mob.selector.entities_in_area
+        originSelector:
+          type: mob.selector.self
+        range: 3.5
+        target: PLAYERS
+        validator: /alivePlayers
+      damage: 5
+      damageType: damage.explosion
+      bypassArmor: true
+      range: 3.5
+
+  - type: mob.skill.conditional
+    trigger: DEATH
+    condition:
+      type: mob.skill.condition.boolean_tag
+      selector:
+        type: mob.selector.self
+      tag: skill_cancel
+      blacklist: true
+    delegate:
+      type: mob.skill.play_sound
+      selector:
+        type: mob.selector.self
+      sound: { name: 'minecraft:entity.generic.explode', source: HOSTILE, volume: 2.0, pitch: 1.0 }
+
+  - type: mob.skill.spawn_particle
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    particle:
+      type: particle.wrapper
+      particle: block
+      variantData:
+        type: particle.variant_data.block
+        block: minecraft:redstone_block
+      distance: true
+      offsetX: 0.5
+      offsetY: 0.5
+      offsetZ: 0.5
+      data: 0.0
+      particleCount: 60
+    bounds:
+      origin:
+        x: 0.0
+        y: 1.0
+        z: 0.0
+      lengths:
+        x: 0.0
+        y: 0.0
+        z: 0.0
+
+  - type: mob.skill.conditional
+    trigger: DEATH
+    condition:
+      type: mob.skill.condition.boolean_tag
+      selector:
+        type: mob.selector.self
+      tag: skill_cancel
+      blacklist: true
+    delegate:
+      type: mob.skill.spawn_particle
+      selector:
+        type: mob.selector.self
+      particle:
+        type: particle.wrapper
+        particle: explosion
+        variantData:
+          type: particle.variant_data.none
+        distance: true
+        offsetX: 0
+        offsetY: 0
+        offsetZ: 0
+        data: 0.0
+        particleCount: 1
+      bounds:
+        origin:
+          x: 0.0
+          y: 1.0
+          z: 0.0
+        lengths:
+          x: 0.0
+          y: 0.0
+          z: 0.0
+
+  - type: mob.skill.random_timer
+    minInterval: 100
+    maxInterval: 160
+    delegate:
+      type: mob.skill.random
+      chance: 0.5
+      delegate:
+        type: mob.skill.play_sound
+        selector:
+          type: mob.selector.self
+        sound: { name: 'minecraft:entity.zombified_piglin.angry', source: HOSTILE, volume: 1.5, pitch: 1.8 }
+
+goals:
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: zombies.mob.goal.break_window
+        breakTicks: 20
+        breakCount: 1
+        breakRadius: 0.5
+
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: mob.goal.melee_attack
+        cooldown: 20
+        range: 0.25
+
+      - type: mob.goal.follow_entity
+        selector:
+          type: mob.selector.entities_in_area
+          originSelector:
+            type: mob.selector.self
+          validator:
+            type: mob.validator.or
+            validators: [ /alivePlayers, /targetableMobs ]
+          target: LIVING_ENTITIES
+          limit: 1
+        retargetInterval: 20
+        followRange: 1024
+
+alivePlayers:
+  type: zombies.mob.validator.zombies_player
+  states: [ zombies.player.state.alive ]
+  blacklist: false
+
+targetableMobs:
+  type: mob.validator.mob_type
+  tags: [ ally_targetable ]
+  blacklist: false

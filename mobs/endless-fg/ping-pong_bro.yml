@@ -1,0 +1,154 @@
+key: ping-pong_bro_fge
+type: minecraft:zombie
+tags: [ endless, boss ]
+pathfinding:
+  type: proxima.path_settings.ground
+  jumpHeight: 1.25
+  fallTolerance: 6
+  stepHeight: 0.5
+
+showNameTag: true
+
+meta:
+  customName: <#58e348><b>Ping-Pong Bro</b></#58e348>
+  customNameVisible: true
+
+extra:
+  resistInstakill: true
+  announceKill: true
+  resistSlowDown: true
+  endlessHealthScaling:
+    kind: LINEAR
+    ceiling: 2147483647
+    a: 5
+
+equipment:
+  MAIN_HAND: '{id:"warped_sign",Count:1}'
+  BOOTS: '{id:"leather_boots",Count:1,tag:{display:{color:6177318}}}'
+  LEGGINGS: '{id:"leather_leggings",Count:1,tag:{display:{color:2302755}}}'
+  CHESTPLATE: '{id:"leather_chestplate",Count:1,tag:{display:{color:5885281}}}'
+  HELMET: '{id:"player_head",Count:1,tag:{display:{Name:"{\"text\":\"Zombie\"}"},SkullOwner:{Id:[I;944335791,-2010102253,-2004422137,855108338],Properties:{textures:[{Value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWJlNjlhNDY5YTNjMDVjYWI2MDk3ZTFkNzgxM2FhYjMyN2ZkYTFhNmQxNTg5OWFkYjAzMDk4NjZiOWJiZGI0YiJ9fX0="}]}}}}'
+
+attributes:
+  generic.max_health: 500
+  generic.movement_speed: 0.23
+  generic.attack_damage: 2
+  generic.armor: 7
+  generic.attack_knockback: 1.2
+  generic.knockback_resistance: 0.75
+
+skills:
+  - type: mob.skill.send_message
+    trigger: SPAWN
+    message: <yellow><#58e348><b>Ping-Pong Bro</b></#58e348> has spawned!</yellow>
+    selector:
+      type: mob.selector.entities_in_area
+      originSelector:
+        type: mob.selector.self
+      validator:
+        type: mob.validator.always
+      target: PLAYERS
+
+  - type: mob.skill.play_sound
+    trigger: SPAWN
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.lightning_bolt.thunder', source: PLAYER, volume: 100.0, pitch: 1.0 }
+
+  - type: mob.skill.play_sound
+    trigger: DAMAGED
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.zombie.hurt', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+  - type: mob.skill.play_sound
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.zombie.death', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+
+  - type: mob.skill.show_healthbar
+    bar: '<#6b6f80>[<healthbar:bar_component:|:color_start:#dd3e28:color_end:#34bf25:missing_color:gray>]</#6b6f80>'
+    barWidth: 20
+
+  - type: mob.skill.random_timer
+    minInterval: 100
+    maxInterval: 160
+    delegate:
+      type: mob.skill.random
+      chance: 0.5
+      delegate:
+        type: mob.skill.play_sound
+        selector:
+          type: mob.selector.self
+        sound: { name: 'minecraft:entity.zombie.ambient', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+  - type: mob.skill.timer
+    interval: 180
+    delegate:
+      type: mob.skill.group
+      delegates:
+        - type: mob.skill.play_sound
+          selector:
+            type: mob.selector.self
+          sound: { name: 'minecraft:ui.stonecutter.take_result', source: HOSTILE, volume: 2.0, pitch: 1.0 }
+
+        - type: mob.skill.timer
+          repeat: 1
+          interval: 10
+          requiresActivation: true
+          delegate:
+            type: mob.skill.group
+            delegates:
+              - type: mob.skill.push
+                power: -32
+                vertical: 8
+                selector:
+                  type: mob.selector.entities_in_area
+                  originSelector:
+                    type: mob.selector.self
+                  range: 5
+                  target: LIVING_ENTITIES
+                  validator: /alivePlayers
+
+goals:
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: zombies.mob.goal.break_window
+        breakTicks: 20
+        breakCount: 1
+        breakRadius: 0.5
+
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: mob.goal.melee_attack
+        cooldown: 20
+        range: 0.25
+
+      - type: mob.goal.follow_entity
+        selector:
+          type: mob.selector.entities_in_area
+          originSelector:
+            type: mob.selector.self
+          validator:
+            type: mob.validator.or
+            validators: [ /alivePlayers, /targetableMobs ]
+          target: LIVING_ENTITIES
+          limit: 1
+        retargetInterval: 20
+        followRange: 1024
+
+alivePlayers:
+  type: zombies.mob.validator.zombies_player
+  states: [ zombies.player.state.alive ]
+  blacklist: false
+
+targetableMobs:
+  type: mob.validator.mob_type
+  tags: [ ally_targetable ]
+  blacklist: false
+
+distanceCheck:
+  type: mob.validator.distance
+  distance: 15

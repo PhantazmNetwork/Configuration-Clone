@@ -1,0 +1,118 @@
+# mechanically unfinished
+key: infested_captain
+type: minecraft:drowned
+pathfinding:
+  type: proxima.path_settings.ground
+  jumpHeight: 1.75
+  fallTolerance: 8
+  stepHeight: 1.25
+
+showNameTag: true
+
+meta:
+  customName: <#00fff7><b>Infested Captain</b></#00fff7>
+  customNameVisible: true
+
+extra:
+  resistInstakill: true
+  announceKill: true
+
+equipment:
+  BOOTS: '{id:"netherite_boots",Count:1}'
+  LEGGINGS: '{id:"iron_leggings",Count:1}'
+  CHESTPLATE: '{id:"iron_chestplate",Count:1}'
+  HELMET: '{id:"player_head",Count:1,tag:{display:{Name:"{\"text\":\"Drowned\"}"},SkullOwner:{Id:[I;-1114407398,458246507,-1943010407,-674038903],Properties:{textures:[{Value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzQzNzZiMGQzOWJkZDVlNzlhMTBhYWVmYmVkZDkyNGUyNDc3YThjNDA1ZTlkOWNkMmIwMWQxODdkOGJhYzFmNiJ9fX0="}]}}}}'
+
+attributes:
+  generic.max_health: 500
+  generic.movement_speed: 0.12
+  generic.attack_damage: 4.5
+  generic.armor: 15
+  generic.attack_knockback: 0.3
+  generic.knockback_resistance: 1.0
+
+skills:
+  - type: mob.skill.send_message
+    trigger: SPAWN
+    message: <yellow><#00fff7><b>Infested Captain</b></#00fff7> has spawned!</yellow>
+    selector:
+      type: mob.selector.entities_in_area
+      originSelector:
+        type: mob.selector.self
+      validator:
+        type: mob.validator.always
+      target: PLAYERS
+
+  - type: mob.skill.play_sound
+    trigger: SPAWN
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.lightning_bolt.thunder', source: PLAYER, volume: 100.0, pitch: 1.0 }
+
+  - type: mob.skill.play_sound
+    trigger: DAMAGED
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.drowned.hurt', source: HOSTILE, volume: 1.5, pitch: 0.5 }
+
+  - type: mob.skill.play_sound
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.drowned.death', source: HOSTILE, volume: 1.5, pitch: 0.5 }
+
+  - type: mob.skill.spawn_mob
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    callback:
+      type: zombies.mob.skill.spawn_mob.callback.add_to_round
+    identifier: phantazm:starving_alien_parasite
+    spawnAmount: 3
+    maxSpawn: 3
+
+  - type: mob.skill.show_healthbar
+    bar: '<#6b6f80>[<healthbar:bar_component:|:color_start:#dd3e28:color_end:#34bf25:missing_color:gray>]</#6b6f80>'
+    barWidth: 20
+
+  - type: mob.skill.random_timer
+    minInterval: 100
+    maxInterval: 160
+    delegate:
+      type: mob.skill.random
+      chance: 0.5
+      delegate:
+        type: mob.skill.play_sound
+        selector:
+          type: mob.selector.self
+        sound: { name: 'minecraft:entity.drowned.ambient', source: HOSTILE, volume: 1.5, pitch: 0.5 }
+
+goals:
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: zombies.mob.goal.break_window
+        breakTicks: 20
+        breakCount: 1
+        breakRadius: 0.5
+
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: mob.goal.melee_attack
+        cooldown: 20
+        range: 0.25
+
+      - type: mob.goal.follow_entity
+        selector:
+          type: mob.selector.entities_in_area
+          originSelector:
+            type: mob.selector.self
+          validator: /alivePlayers
+          target: PLAYERS
+          limit: 1
+        retargetInterval: 20
+        followRange: 1024
+
+alivePlayers:
+  type: zombies.mob.validator.zombies_player
+  states: [ zombies.player.state.alive ]
+  blacklist: false

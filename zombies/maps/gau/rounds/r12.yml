@@ -1,0 +1,54 @@
+round: 12
+startActions:
+  - type: zombies.map.round.action.announce
+    format: <red>Round <round>
+    destination: TITLE
+    tickFormatter:
+      type: core.tick_formatter.analog
+      ceil: false
+
+  - type: zombies.map.round.action.announce
+    format: ""
+    destination: SUBTITLE
+    tickFormatter:
+      type: core.tick_formatter.analog
+      ceil: false
+
+  - type: zombies.map.round.action.revive_players
+
+  - type: zombies.map.round.action.play_sound
+    sound: { name: 'minecraft:entity.wither.spawn', source: MASTER, volume: 24.0,
+             pitch: 0.5 }
+endActions: [ ]
+# 40
+waves:
+  - delayTicks: 130
+    spawns:
+      - id: turned_worker
+        spawnType: window
+        amount: 3
+      - id: crazed_zombie
+        spawnType: window
+        amount: 5
+      - id: spitter
+        spawnType: window
+        amount: 6
+    spawnActions: [ ]
+  - delayTicks: 240
+    spawns:
+      - id: turned_worker
+        spawnType: window
+        amount: 5
+      - id: hazmat_zombie
+        spawnType: window
+        amount: 8
+    spawnActions: [ ]
+  - delayTicks: 250
+    spawns:
+      - id: hazmat_zombie
+        spawnType: window
+        amount: 6
+      - id: crazed_zombie
+        spawnType: window
+        amount: 7
+    spawnActions: [ ]

@@ -1,0 +1,66 @@
+round: 30
+startActions:
+  - type: zombies.map.round.action.announce
+    format: <red>Round <round>
+    destination: TITLE
+    tickFormatter:
+      type: core.tick_formatter.analog
+      ceil: false
+
+  - type: zombies.map.round.action.announce
+    format: ""
+    destination: SUBTITLE
+    tickFormatter:
+      type: core.tick_formatter.analog
+      ceil: false
+
+  - type: zombies.map.round.action.revive_players
+
+  - type: zombies.map.round.action.play_sound
+    sound: { name: 'minecraft:entity.wither.spawn', source: MASTER, volume: 24.0,
+             pitch: 0.5 }
+endActions:
+  - type: zombies.map.round.action.announce
+    format: <gradient:#616575:#4a4c59><st>⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯</st></gradient><br><#fffa9e>»</#fffa9e> <#9096ad>You completed <b><green>Round <round></green></b> in <b><red><time></red></b><#b8bfde>!</#b8bfde></#9096ad><br><gradient:#616575:#4a4c59><st>⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯</st></gradient>
+    destination: CHAT
+    tickFormatter:
+      type: core.tick_formatter.analog
+      ceil: false
+# 100
+waves:
+  - delayTicks: 130
+    spawns:
+      - id: glower
+        spawnType: window
+        amount: 12
+      - id: decaying_wolf
+        spawnType: window
+        amount: 14
+      - id: spitter
+        spawnType: window
+        amount: 14
+    spawnActions: [ ]
+  - delayTicks: 280
+    spawns:
+      - id: glower
+        spawnType: window
+        amount: 15
+      - id: crazed_zombie
+        spawnType: window
+        amount: 14
+    spawnActions: [ ]
+  - delayTicks: 300
+    spawns:
+      - id: nightlight
+        spawnType: window
+        amount: 1
+      - id: mutant
+        spawnType: window
+        amount: 8
+      - id: glower
+        spawnType: window
+        amount: 12
+      - id: dried_undead
+        spawnType: window
+        amount: 10
+    spawnActions: [ ]

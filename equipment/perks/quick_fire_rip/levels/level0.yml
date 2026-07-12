@@ -1,0 +1,30 @@
+type: zombies.perk.level.non_upgradeable
+key: level0
+equipment:
+  type: zombies.perk.equipment.basic
+  interactor:
+    type: zombies.perk.interactor.none
+  visual:
+    type: zombies.perk.visual.static
+    stack:
+      material: 'minecraft:gold_nugget'
+      displayName: '<!i><#b90f0f><b>Modified</b></#b90f0f> <blue><b>Quick Fire</b></blue></!i>'
+      lore:
+        - '<!i><#9096ad>By adding unprecedented amounts</#9096ad></!i>'
+        - '<!i><#9096ad>of bling to your weapons, you</#9096ad></!i>'
+        - '<!i><#9096ad>massively increase their fire rate.</#9096ad></!i>'
+        - '<!i><#9096ad>Unfortunately, gold is heavy, and</#9096ad></!i>'
+        - '<!i><#9096ad>it weighs you down...</#9096ad></!i>'
+        - ''
+        - '<!i><#616575>»</#616575> <#9096ad>Fire rate delay</#9096ad><#b8bfde>:</#b8bfde> <green>-50%</green></!i>'
+        - '<!i><#616575>»</#616575> <#9096ad>Movement speed</#9096ad><#b8bfde>:</#b8bfde> <red>-50%</red></!i>'
+effects:
+  - type: zombies.perk.effect.attribute_modifier
+    attribute: phantazm.gun_fire_delay
+    amount: -0.5
+    attributeOperation: MULTIPLY_BASE
+
+  - type: zombies.perk.effect.attribute_modifier
+    attribute: generic.movement_speed
+    amount: -0.5
+    attributeOperation: MULTIPLY_BASE

@@ -1,0 +1,29 @@
+type: zombies.perk.level.non_upgradeable
+key: level1
+equipment:
+  type: zombies.perk.equipment.basic
+  interactor:
+    type: zombies.perk.interactor.cooldown
+    cooldown: 8
+    types: [ ATTACK ]
+    delegate:
+      type: zombies.perk.interactor.melee
+      damage: 7
+      knockback: 0.5
+      coins: 15
+      bypassArmor: false
+  visual:
+    type: zombies.perk.visual.static
+    stack:
+      material: 'minecraft:iron_sword'
+      displayName: '<!i><green><b>Knife Ultimate</b></green></!i>'
+      lore:
+        - '<!i><#9096ad>Why would you ultimate this?</#9096ad></!i>'
+        - '<!i><#9096ad>Seriously, that''s a complete</#9096ad></!i>'
+        - '<!i><#9096ad>waste of money.</#9096ad></!i>'
+        - ''
+        - '<!i><#616575>»</#616575> <#9096ad>Damage</#9096ad><#b8bfde>:</#b8bfde> <#6b6f80>6.0 HP ➠<#6b6f80> <green>7.0 HP</green></!i>'
+        - '<!i><#616575>»</#616575> <#9096ad>Cooldown</#9096ad><#b8bfde>:</#b8bfde> <#6b6f80>0.5s ➠<#6b6f80> <green>0.4s</green></!i>'
+        - '<!i><#616575>»</#616575> <#9096ad>Knockback</#9096ad><#b8bfde>:</#b8bfde> <#6b6f80>0.4 ➠<#6b6f80> <green>0.5</green></!i>'
+      tag: '{HideFlags:2,"Enchantments":[{id:"minecraft:unbreaking",lvl:1s}]}'
+effects: [ ]

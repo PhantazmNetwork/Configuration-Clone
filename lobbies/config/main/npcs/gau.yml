@@ -1,0 +1,71 @@
+type: npc.entity
+location: { x: -63.5, y: 20, z: 136.5, yaw: -90.0, pitch: 0.0 }
+entity:
+  type: npc.entity.supplier.player
+  playerSkin:
+    textures: "ewogICJ0aW1lc3RhbXAiIDogMTY1ODczNTY0MzIzMiwKICAicHJvZmlsZUlkIiA6ICI0NDA3OTk4M2Q0ZTU0MTZiYmY4NzAzNDU2YzczYTc5MSIsCiAgInByb2ZpbGVOYW1lIiA6ICJBeWFhbjEzMCIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS84MGE3YWRhOGJkNjExYzAxYTNhOTg5OTY3MmNkYzQ3NGExNTI2Y2RjNjU0OWM2ZmY1NDFiNDZkY2M4MTdlZTcwIgogICAgfQogIH0KfQ=="
+    signature: "kr9xC478isUk884pk2NprY53zuUNd6YHQ2BLeFzN7HX4zslIfWB92plvojRPU4xMnn/CpKlMAlBDvO9rTaccnnCUwUoMKSoiijcCeuIczlVtcetriWWtm7dzIKrirQdpFnfBYFQCrbYcoWtio9h2Zw8mPeHn49mdudRSGkWAoKCYtuXhe9KjkM7EPKw/VcAf//J/luJNNtImMfgWD2/8uy9p2gLG/Zg/HXTzDiGc2EPywF4kEWkD/+HlEs7Zp3xCjCKTr6oznfzLbhfMAEi/x1wl057gsA+zXAOZB9osQPW3/+RILCx4BS9L3E5pTU8LtOmJKRdOkHYsldhRURxvDb/257yyFsdNY197yY5w7Y4zaYG1NTkRP8iM595K/ixxCzyalxiONJ39uZ8Qdk17AHDMp0Q+lFIDtuFlezmUp6INVpVCxAazkWKw7yspDawqAcPz9ESnwcS8ZGeDV/kimCjsTyh0nZZF0KhLOw8P+POvlRA/HYVCVqDIy3GwLjC2nSLsdrDdLfEiMplCNk2YnhwKQzd5FrbXY4ZsymlSZm/D0WkOVq+yfD5/nWYI2H4Pd0ESkdYD/fS5ymADk0ZaX5sgRhcEee4BtU6fQVIhZ+4Malls6I+sCKlLgVuZ087lnkllNkOrE8L/D66DoGcNICdQUjRUCy/QzVnaapTvyZ0="
+settings:
+  type: npc.entity.settings
+ticker:
+  type: npc.entity.ticker.none
+interactor:
+  type: npc.interactor.show_gui
+  guiItems:
+    - type: npc.interactor.gui.item
+      itemStack:
+        material: minecraft:player_head
+        displayName: '<!i><b><yellow>GAU</yellow></b></!i>'
+        lore:
+          - '<!i><#f062c1>Explore a sprawling nuclear power facility!</#f062c1></!i>'
+          - '<!i><#f062c1>Be wary of the undead, as the radiation</#f062c1></!i>'
+          - '<!i><#f062c1>has mutated them into dangerous enemies!</#f062c1></!i>'
+          - '<!i><#f062c1><b>Wallshooting enabled</b></#f062c1></!i>'
+          - ''
+          - '<!i><#9096ad><b>Difficulty</b></#9096ad><#b8bfde>:</#b8bfde> <#fffa9e>✦✦</#fffa9e><#4a4c59>✦✦✦</#4a4c59> <#b8bfde>(<b><color:#57ff4d>Normal</color>, <#fffa9e>2✦</#fffa9e></b>)</#b8bfde></!i>'
+        tag: '{SkullOwner:{Id:[I;711570099,-2142879218,-1946697492,1572033954],Properties:{textures:[{Value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWI4ZjBmMjA2N2NiNTJjY2QxZjRjZDM3YzE0YmU4YzFiYWJlNjQxMDU1OGQ5MmMwOTc3NGNjNmM0NTI5Yzc4MyJ9fX0="}]}}}'
+      interactor:
+        type: npc.interactor.command
+        command: 'zombies join phantazm:gau'
+
+    - type: npc.interactor.gui.item
+      itemStack:
+        material: minecraft:player_head
+        displayName: '<!i><b><yellow>GAU - EARLY ACCESS</yellow></b></!i>'
+        lore:
+          - '<!i><#f062c1>An alternate reality GAU, suffering a more</#f062c1></!i>'
+          - '<!i><#f062c1>catastrophic meltdown. Is whatever loot you</#f062c1></!i>'
+          - '<!i><#f062c1>get really worth lifelong issues from</#f062c1></!i>'
+          - '<!i><#f062c1>radiation bombardment?</#f062c1></!i>'
+          - '<!i><#f062c1><b>This mode is still in development.</b></#f062c1></!i>'
+          - '<!i><#f062c1><b>Wallshooting enabled</b></#f062c1></!i>'
+          - ''
+          - '<!i><#9096ad><b>Difficulty</b></#9096ad><#b8bfde>:</#b8bfde> <#b90f0f>✦✦✦</#b90f0f><#fffa9e>✦✦</#fffa9e> <#b90f0f>(<b><#3410ad>Infernal</#3410ad>, <#fffa9e>8✦</#fffa9e></b>)</#b90f0f></!i>'
+        tag: '{SkullOwner:{Id:[I;-597930290,682970607,-1710615327,2083400144],Properties:{textures:[{Value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWYxMWIyZjBjY2Q3YjQxNmZkNjA3ZTQ3NmQ1OGEyMjRmODRhODAyN2I5MmU2NzM3OTZjYWQ4MDY1ZTIzZTkxZSJ9fX0="}]}}}'
+      closeOnClick: false
+      interactor:
+        type: npc.interactor.show_gui
+        guiItems:
+          - type: npc.interactor.gui.item
+            itemStack:
+              material: minecraft:green_wool
+              displayName: '<!i><b><green>CONFIRM</green></b></!i>'
+              lore:
+                - ''
+                - '<!i><red><b>By clicking this button, you indicate</b></red></!i>'
+                - '<!i><red><b>that you understand this map is</b></red></!i>'
+                - '<!i><red><b>balanced for 4 players only!</b></red></!i>'
+                - '<!i><red><b>This mode is still in development.</b></red></!i>'
+            interactor:
+              type: npc.interactor.command
+              command: 'zombies join phantazm:gau_infernal'
+
+          - type: npc.interactor.gui.item
+            itemStack:
+              material: minecraft:red_wool
+              displayName: '<!i><b><red>DENY</red></b></!i>'
+              lore:
+                - ''
+                - '<!i><red><b>No, take me back...</b></red></!i>'
+            interactor:
+              type: npc.interactor.none

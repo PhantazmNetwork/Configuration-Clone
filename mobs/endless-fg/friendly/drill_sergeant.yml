@@ -1,0 +1,340 @@
+key: drill_sergeant_fge
+type: minecraft:piglin
+tags: [ endless, tank, fire_res, ally, ally_targetable, buff ]
+pathfinding:
+  type: proxima.path_settings.ground
+  jumpHeight: 1.25
+  fallTolerance: 5
+  stepHeight: 0.5
+
+showNameTag: true
+
+meta:
+  customName: <#216030>Drill Sergeant</#216030>
+  customNameVisible: true
+
+extra:
+  forceDeselect: true
+  resistInstakill: true
+  resistFire: true
+  partOfRound: false
+  killAfterRound: false
+  ticksUntilDeath: -1
+  endlessHealthScaling:
+    kind: LINEAR
+    ceiling: 2147483647
+    a: 5
+
+equipment:
+  MAIN_HAND: '{id:"stick",Count:1}'
+  OFF_HAND: '{id:"stick",Count:1}'
+  BOOTS: '{id:"netherite_boots",Count:1}'
+  LEGGINGS: '{id:"diamond_leggings",Count:1}'
+  CHESTPLATE: '{id:"diamond_chestplate",Count:1}'
+  HELMET: '{id:"turtle_helmet",Count:1}'
+
+attributes:
+  generic.max_health: 1000
+  generic.movement_speed: 0.22
+  generic.attack_damage: 6
+  generic.armor: 19
+  generic.attack_knockback: 0.3
+
+skills:
+  - type: mob.skill.attribute_modifying
+    trigger: SPAWN
+    selector:
+      type: mob.selector.self
+    attribute: damage.fire
+    amount: -1.0
+    attributeOperation: MULTIPLY_TOTAL
+
+  - type: mob.skill.dialogue
+    trigger: KILL
+    selector:
+      type: mob.selector.entities_in_area
+      originSelector:
+        type: mob.selector.self
+      validator:
+        type: mob.validator.always
+      target: PLAYERS
+    baseChance: 0.01
+    uniqueMessages: 1
+    dialogue:
+      - message: <yellow><#216030>Drill Sergeant:</#216030> WRONG MOVE, MAGGOT!</yellow>
+        weight: 1
+      - message: <yellow><#216030>Drill Sergeant:</#216030> I SAY JUMP, YOU SAY "HOW HIGH?"</yellow>
+        weight: 1
+      - message: <yellow><#216030>Drill Sergeant:</#216030> TEN-HUT!</yellow>
+        weight: 1
+      - message: <yellow><#216030>Drill Sergeant:</#216030> KNOW YOUR PLACE, WORM!</yellow>
+        weight: 1
+      - message: <yellow><#216030>Drill Sergeant:</#216030> DROP AND GIVE ME 20!</yellow>
+        weight: 1
+
+  - type: mob.skill.play_sound
+    trigger: DAMAGED
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.piglin.retreat', source: HOSTILE, volume: 1.5, pitch: 0.8 }
+
+  - type: mob.skill.play_sound
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.piglin.death', source: HOSTILE, volume: 1.5, pitch: 0.8 }
+
+  - type: mob.skill.dialogue
+    trigger: DEATH
+    selector:
+      type: mob.selector.entities_in_area
+      originSelector:
+        type: mob.selector.self
+      validator:
+        type: mob.validator.always
+      target: PLAYERS
+    baseChance: 1.0
+    uniqueMessages: 0
+    dialogue:
+      - message: <#ff806d><#216030>Drill Sergeant:</#216030> Hngh... urk- I'll see you in Nether...</#ff806d>
+        weight: 1
+      - message: <#ff806d><#216030>Drill Sergeant:</#216030> Why are we still here? Just to... suffer..?</#ff806d>
+        weight: 1
+      - message: <#ff806d><#216030>Drill Sergeant:</#216030> The flag flies at half-mast today. Godspeed, soldiers.</#ff806d>
+        weight: 1
+      - message: <#ff806d><#216030>Drill Sergeant:</#216030> Tell my piglets that I... love them.</#ff806d>
+        weight: 1
+
+  - type: mob.skill.show_healthbar
+    bar: '<#6b6f80>[<healthbar:bar_component:I:color_start:#00a8b7:color_end:#a900b7:missing_color:gray>]</#6b6f80>'
+    barWidth: 10
+
+  - type: mob.skill.random_timer
+    minInterval: 100
+    maxInterval: 160
+    delegate:
+      type: mob.skill.random
+      chance: 0.5
+      delegate:
+        type: mob.skill.play_sound
+        selector:
+          type: mob.selector.self
+        sound: { name: 'minecraft:entity.piglin.angry', source: HOSTILE, volume: 1.5, pitch: 0.75 }
+
+  - type: mob.skill.random_timer
+    minInterval: 90
+    maxInterval: 100
+    delegate:
+      type: mob.skill.group
+      delegates:
+        - type: mob.skill.spawn_particle
+          selector:
+            type: mob.selector.self
+          particle:
+            type: particle.wrapper
+            particle: dust
+            variantData:
+              type: particle.variant_data.dust
+              color:
+                r: 255
+                g: 210
+                b: 0
+              size: 2
+            distance: true
+            offsetX: 0.3
+            offsetY: 0.5
+            offsetZ: 0.3
+            data: 0.0
+            particleCount: 12
+          bounds:
+            origin:
+              x: 0.0
+              y: 2.3
+              z: 0.0
+            lengths:
+              x: 0.0
+              y: 0.0
+              z: 0.0
+
+        - type: mob.skill.play_sound
+          selector:
+            type: mob.selector.self
+          sound: { name: 'minecraft:entity.piglin_brute.angry', source: HOSTILE, volume: 1.5, pitch: 0.75 }
+
+        - type: mob.skill.temporal
+          minDuration: 180
+          maxDuration: 180
+          delegate:
+            type: mob.skill.attribute_modifying
+            selector:
+              type: mob.selector.entities_in_area
+              originSelector:
+                type: mob.selector.self
+              range: 17
+              target: LIVING_ENTITIES
+              validator:
+                type: mob.validator.and
+                validators: [ /alivePlayers ]
+            attribute: phantazm.gun_damage
+            shareKey: sergeant_damage
+            amount: 0.4
+            attributeOperation: MULTIPLY_TOTAL
+            stage: zombies_game
+
+        - type: mob.skill.potion
+          selector:
+            type: mob.selector.entities_in_area
+            originSelector:
+              type: mob.selector.self
+            range: 17
+            target: LIVING_ENTITIES
+            validator:
+              type: mob.validator.and
+              validators: [ /alivePlayers ]
+          potion:
+            effect: minecraft:haste
+            amplifier: 0
+            duration: 180
+            flags: 4
+
+        - type: mob.skill.potion
+          selector:
+            type: mob.selector.entities_in_area
+            originSelector:
+              type: mob.selector.self
+            range: 17
+            target: LIVING_ENTITIES
+            validator:
+              type: mob.validator.and
+              validators: [ /alivePlayers ]
+          potion:
+            effect: minecraft:strength
+            amplifier: 0
+            duration: 180
+            flags: 4
+
+        - type: mob.skill.temporal
+          minDuration: 180
+          maxDuration: 180
+          delegate:
+            type: mob.skill.attribute_modifying
+            selector:
+              type: mob.selector.entities_in_area
+              originSelector:
+                type: mob.selector.self
+              range: 17
+              target: LIVING_ENTITIES
+              validator:
+                type: mob.validator.and
+                validators: [ /alivePlayers ]
+            attribute: phantazm.gun_fire_delay
+            shareKey: sergeant_delay
+            amount: -0.4
+            attributeOperation: MULTIPLY_TOTAL
+            stage: zombies_game
+
+        - type: mob.skill.temporal
+          minDuration: 180
+          maxDuration: 180
+          delegate:
+            type: mob.skill.attribute_modifying
+            selector:
+              type: mob.selector.entities_in_area
+              originSelector:
+                type: mob.selector.self
+              range: 17
+              target: LIVING_ENTITIES
+              validator:
+                type: mob.validator.and
+                validators: [ /alivePlayers ]
+            attribute: generic.movement_speed
+            shareKey: sergeant_speed
+            amount: 0.25
+            attributeOperation: MULTIPLY_TOTAL
+            stage: zombies_game
+
+        - type: mob.skill.temporal
+          minDuration: 180
+          maxDuration: 180
+          delegate:
+            type: mob.skill.attribute_modifying
+            selector:
+              type: mob.selector.entities_in_area
+              originSelector:
+                type: mob.selector.self
+              range: 17
+              target: LIVING_ENTITIES
+              validator: /alivePlayers
+            attribute: generic.armor
+            shareKey: sergeant_armor
+            amount: 0.5
+            attributeOperation: MULTIPLY_TOTAL
+            stage: zombies_game
+
+        - type: mob.skill.potion
+          selector:
+            type: mob.selector.entities_in_area
+            originSelector:
+              type: mob.selector.self
+            range: 17
+            target: LIVING_ENTITIES
+            validator:
+              type: mob.validator.and
+              validators: [ /alivePlayers ]
+          potion:
+            effect: minecraft:resistance
+            amplifier: 0
+            duration: 180
+            flags: 4
+
+goals:
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: zombies.mob.goal.break_window
+        breakTicks: 20
+        breakCount: 1
+        breakRadius: 0.5
+
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: mob.goal.melee_attack
+        cooldown: 20
+        range: 0.25
+
+      - type: mob.goal.follow_entity
+        selector:
+          type: mob.selector.entities_in_area
+          originSelector:
+            type: mob.selector.self
+          validator: /allyExcludedMobs
+          target: LIVING_ENTITIES
+          limit: 1
+        retargetInterval: 20
+        followRange: 1024
+
+alivePlayers:
+  type: zombies.mob.validator.zombies_player
+  states: [ zombies.player.state.alive ]
+  blacklist: false
+
+targetableMobs:
+  type: mob.validator.mob_type
+  tags: [ ally_targetable ]
+  blacklist: false
+
+allyExcludedMobs:
+  type: mob.validator.mob_type
+  tags: [ ally_targetable, trap_invincible ]
+  blacklist: true
+
+combinedValidator:
+  type: mob.validator.and
+  validators:
+    - type: mob.validator.mob
+
+    - type: mob.validator.not
+      validators: [ /targetableMobs ]
+
+distanceCheck:
+  type: mob.validator.distance
+  distance: 12

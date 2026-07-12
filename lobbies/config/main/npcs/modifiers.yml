@@ -1,0 +1,56 @@
+type: npc.entity
+location: { x: -62.5, y: 19.75, z: 147.5, yaw: -135.0, pitch: 0.0 }
+entity:
+  type: npc.entity.supplier.mob
+  entityType: 'minecraft:armor_stand'
+settings:
+  type: npc.entity.settings
+  invisible: true
+  equipment:
+    - key: HELMET
+      value: '{id:"player_head",Count:1,tag:{display:{Name:"{\"text\":\"Dice\"}"},SkullOwner:{Id:[I;-1627863456,1297696558,-1465596199,1781149266],Properties:{textures:[{Value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjczN2JlMjIyYWM0N2Y5ZTY3MDYzNmQ3NTFjZTVkNmFjMzBkZGZiNDFiMWRkNTM2MGEwZWUyY2NjYTAxMDBjYiJ9fX0="}]}}}}'
+  displayName: <#8c2f41><b>Modifiers
+ticker:
+  type: npc.entity.ticker.none
+interactor:
+  type: zombies.npc.interactor.modifier_gui
+  titleFormat: '<modifier_count> modifier(s) enabled'
+  inactiveItem:
+    material: minecraft:gray_dye
+    displayName: '<!i><#616575>» <red><b>Disabled'
+    lore:
+      - '<!i><yellow>Click to enable'
+  activeItem:
+    material: minecraft:lime_dye
+    displayName: '<!i><#616575>» <green><b>Enabled'
+    lore:
+      - '<!i><yellow>Click to disable'
+  aboutItem:
+    material: minecraft:paper
+    displayName: '<!i><yellow><b>About Modifiers'
+    lore:
+      - '<!i><#f062c1>Toggle modifiers to switch up your gameplay.'
+      - '<!i><#f062c1>Modifiers can make the game easier or harder!'
+      - '<!i><#f062c1>You can mix and match modifiers to create'
+      - '<!i><#f062c1>custom challenges.'
+      - '<!i><#f062c1>Some modifiers are incompatible with others.'
+  previousItem:
+    material: minecraft:tipped_arrow
+    displayName: '<!i><#616575>» <red><b><!i>Previous Page'
+    tag: '{CustomPotionColor:16725075,HideFlags:127}'
+  nextItem:
+    material: minecraft:tipped_arrow
+    displayName: '<!i><#616575>» <green><b>Next Page'
+    tag: '{CustomPotionColor:4587348,HideFlags:127}'
+  clearItem:
+    material: minecraft:player_head
+    displayName: '<!i><#616575>» <red><b>Disable All Modifiers'
+    tag: '{SkullOwner:{Id:[I;2102808406,-168342918,-2057389100,-59010130],Properties:{textures:[{Value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWQwYTE0MjA4NDRjZTIzN2E0NWQyZTdlNTQ0ZDEzNTg0MWU5ZjgyZDA5ZTIwMzI2N2NmODg5NmM4NTE1ZTM2MCJ9fX0="}]}}}'
+  enabledMessage: '<green>Enabled modifier!'
+  disabledMessage: '<green>Disabled modifier!'
+  disabledAllMessage: '<green>Cleared modifiers!'
+  conflictingModifiersFormat: '<red>That modifier conflicts with the following: <conflicts>'
+  invalidModifierMessage: '<red>That modifier is not valid!'
+  noPermissionMessage: '<red>You do not have permission to enable that modifier!'
+  successSound: { name: 'minecraft:block.note_block.pling', source: PLAYER, volume: 10.0, pitch: 2.0 }
+  failureSound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0, pitch: 0.0 }

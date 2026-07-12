@@ -1,0 +1,97 @@
+id: generator
+trigger:
+  origin: { x: 95, y: 1, z: 65 }
+  lengths: { x: 1, y: 1, z: 1 }
+predicateEvaluation: ALL_TRUE
+data:
+  predicates:
+    - type: zombies.map.shop.predicate.player_state
+      states: [ zombies.player.state.alive ]
+      blacklist: false
+
+    - type: zombies.map.shop.predicate.in_game
+
+    - type: zombies.map.shop.predicate.type
+      types: [ zombies.map.shop.interaction.right_click_block ]
+      blacklist: false
+
+  successInteractors:
+    - type: zombies.map.shop.interactor.conditional
+      evaluation: ALL_TRUE
+      predicates:
+        - type: zombies.map.shop.predicate.map_flag
+          flag: zombies.map.flag.power
+          requireAbsent: true
+      successInteractors:
+        - type: zombies.map.shop.interactor.conditional
+          evaluation: ALL_TRUE
+          predicates:
+            - type: zombies.map.shop.predicate.static_cost
+              cost: 1000
+              modifierType: coin_spend.shop
+          successInteractors:
+            - type: zombies.map.shop.interactor.map_flagging
+              flag: zombies.map.flag.power
+              action: SET
+
+            - type: zombies.map.shop.interactor.deduct_coins
+              cost: 1000
+              modifierType: coin_spend.shop
+
+            - type: zombies.map.shop.interactor.play_sound
+              sound: { name: 'minecraft:entity.blaze.death', source: PLAYER, volume: 512.0,
+                       pitch: 0.5 }
+              broadcast: true
+
+            - type: zombies.map.shop.interactor.show_substituted_title
+              format: "<player>"
+              broadcast: true
+              titlePart: TITLE
+
+            - type: zombies.map.shop.interactor.show_title
+              message: "<#9096ad>activated the <dark_purple>Generator</dark_purple>!</#9096ad>"
+              broadcast: true
+              titlePart: SUBTITLE
+
+          failureInteractors:
+            - type: zombies.map.shop.interactor.messaging
+              messages: [ "<red>You do not have enough coins to activate the Generator!" ]
+              broadcast: false
+
+            - type: zombies.map.shop.interactor.play_sound
+              sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                       pitch: 0.0 }
+              broadcast: false
+
+      failureInteractors:
+        - type: zombies.map.shop.interactor.messaging
+          messages: [ "<red>The Generator has already been turned on!" ]
+          broadcast: false
+
+        - type: zombies.map.shop.interactor.play_sound
+          sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                   pitch: 0.0 }
+          broadcast: false
+
+  failureInteractors: [ ]
+  displays:
+    - type: zombies.map.shop.display.flag_conditional
+      flag: zombies.map.flag.power
+      success:
+        - type: zombies.map.shop.display.static_hologram
+          info:
+            text: [ "<dark_purple><b>Generator", "<green>ACTIVE" ]
+            position:
+              x: 0
+              y: 0
+              z: 0
+
+      failure:
+        - type: zombies.map.shop.display.static_hologram
+          info:
+            text: [ "<dark_purple><b>Generator", "<gold>1000 Coins" ]
+            position:
+              x: 0
+              y: 0
+              z: 0
+

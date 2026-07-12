@@ -1,0 +1,82 @@
+key: hazmat_zombie_infernal
+type: minecraft:zombie
+pathfinding:
+  type: proxima.path_settings.ground
+  jumpHeight: 1.25
+  fallTolerance: 4
+  stepHeight: 0.5
+
+meta:
+  customName: <yellow>Hazmat Zombie</yellow>
+
+extra:
+  resistFire: true
+
+equipment:
+  MAIN_HAND: '{id:"blaze_rod",Count:1}'
+  BOOTS: '{id:"netherite_boots",Count:1}'
+  LEGGINGS: '{id:"leather_leggings",Count:1,tag:{display:{color:15975209}}}'
+  CHESTPLATE: '{id:"leather_chestplate",Count:1,tag:{display:{color:15975209}}}'
+  HELMET: '{id:"player_head",Count:1,tag:{display:{Name:"{\"text\":\"Broken Hazmat Suit\"}"},SkullOwner:{Id:[I;-597930290,682970607,-1710615327,2083400144],Properties:{textures:[{Value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWYxMWIyZjBjY2Q3YjQxNmZkNjA3ZTQ3NmQ1OGEyMjRmODRhODAyN2I5MmU2NzM3OTZjYWQ4MDY1ZTIzZTkxZSJ9fX0="}]}}}}'
+
+attributes:
+  generic.max_health: 35
+  generic.movement_speed: 0.32
+  generic.attack_damage: 7
+  generic.armor: 13
+  generic.attack_knockback: 0.2
+
+skills:
+  - type: mob.skill.play_sound
+    trigger: DAMAGED
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.zombie.hurt', source: HOSTILE, volume: 1.5, pitch: 0.75 }
+
+  - type: mob.skill.play_sound
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.zombie.death', source: HOSTILE, volume: 1.5, pitch: 0.75 }
+
+  - type: mob.skill.random_timer
+    minInterval: 100
+    maxInterval: 160
+    delegate:
+      type: mob.skill.random
+      chance: 0.5
+      delegate:
+        type: mob.skill.play_sound
+        selector:
+          type: mob.selector.self
+        sound: { name: 'minecraft:entity.zombie.ambient', source: HOSTILE, volume: 1.5, pitch: 0.75 }
+
+goals:
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: zombies.mob.goal.break_window
+        breakTicks: 15
+        breakCount: 2
+        breakRadius: 0.5
+
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: mob.goal.melee_attack
+        cooldown: 20
+        range: 0.25
+
+      - type: mob.goal.follow_entity
+        selector:
+          type: mob.selector.entities_in_area
+          originSelector:
+            type: mob.selector.self
+          validator: /alivePlayers
+          target: PLAYERS
+          limit: 1
+        retargetInterval: 20
+        followRange: 1024
+
+alivePlayers:
+  type: zombies.mob.validator.zombies_player
+  states: [ zombies.player.state.alive ]
+  blacklist: false

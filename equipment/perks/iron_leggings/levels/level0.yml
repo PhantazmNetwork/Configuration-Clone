@@ -1,0 +1,14 @@
+type: zombies.perk.level.non_upgradeable
+key: level0
+equipment:
+  type: zombies.perk.equipment.basic
+  interactor:
+    type: zombies.perk.interactor.none
+  visual:
+    type: zombies.perk.visual.static
+    stack: '{id:"iron_leggings",Count:1,tag:{armor_tier:3}}'
+effects:
+  - type: zombies.perk.effect.attribute_modifier
+    attribute: generic.armor
+    amount: 5
+    attributeOperation: ADDITION

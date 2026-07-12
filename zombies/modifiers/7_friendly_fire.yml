@@ -1,0 +1,15 @@
+ordinal: 7
+key: phantazm:friendly_fire
+displayName: '<red>Friendly Fire</red>'
+webhookEmoji: '<:friendly_fire:1160905063783485462>'
+abbreviatedDisplayName: '<red>FF'
+displayItem:
+  material: minecraft:player_head
+  displayName: '<!i><b><yellow>Friendly Fire</yellow></b></!i>'
+  lore:
+    - ''
+    - '<!i><#616575>»</#616575> <#f062c1>You can shoot and damage your "teammates"!</#f062c1></!i>'
+    - '<!i>   <#f062c1>Players take half damage from gun shots.</#f062c1></!i>'
+  tag: '{SkullOwner:{Id:[I;1509330675,93342401,-1383232881,143468263],Properties:{textures:[{Value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWU1ZmM3Mzg3NTg5NWI1MmQ1MDZjZTllMzE5YzhiNzJjMjg5OWI4NjNkYjUzOGY1NmM2YjI4YzM1NDJhNjUwZCJ9fX0="}]}}}'
+modifier:
+  type: zombies.modifier.friendly_fire

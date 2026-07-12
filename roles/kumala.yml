@@ -1,0 +1,6 @@
+type: role.basic
+identifier: kumala
+chatFormat: '<gradient:#5555ff:#f0d0ff>[Speedrunner]</gradient> <#f0d0ff><name>'
+displayNameFormat: '<#f0d0ff><name>'
+priority: 996
+permissions: [ ]

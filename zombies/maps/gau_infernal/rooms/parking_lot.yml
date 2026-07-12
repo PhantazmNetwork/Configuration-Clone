@@ -1,0 +1,21 @@
+id: parking_lot
+isSpawn: true
+displayName: <green><b>Parking Lot
+regions:
+  - origin: { x: -1, y: 0, z: -35 }
+    lengths: { x: 23, y: 6, z: 42 }
+  - origin: { x: 22, y: 0, z: -9 }
+    lengths: { x: 1, y: 6, z: 17 }
+  - origin: { x: 16, y: 0, z: 7 }
+    lengths: { x: 6, y: 3, z: 1 }
+  - origin: { x: -1, y: 0, z: 7 }
+    lengths: { x: 12, y: 3, z: 1 }
+  - origin: { x: -2, y: 1, z: 4 }
+    lengths: { x: 1, y: 3, z: 3 }
+  - origin: { x: -2, y: 0, z: -19 }
+    lengths: { x: 1, y: 4, z: 23 }
+  - origin: { x: -2, y: 0, z: -34 }
+    lengths: { x: 1, y: 4, z: 12 }
+  - origin: { x: 22, y: 0, z: -26 }
+    lengths: { x: 2, y: 6, z: 3 }
+openActions: [ ]

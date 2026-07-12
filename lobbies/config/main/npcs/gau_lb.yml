@@ -1,0 +1,54 @@
+type: npc.leaderboard
+leaderboard:
+  type: zombies.leaderboard.best_time
+  location: { x: -83, y: 20, z: 154 }
+  tickFormatter:
+    type: core.tick_formatter.analog
+    ceil: false
+    showTicks: true
+  map: phantazm:gau
+  teamSizes: [ 4, 3, 2, 1 ]
+  modifiers:
+    - modifiers: [ ]
+      name: "<#6b6f80>None"
+  teamSizeToNameMappings:
+    - key: 4
+      value: 'Quad'
+    - key: 3
+      value: 'Trio'
+    - key: 2
+      value: 'Duo'
+    - key: 1
+      value: 'Solo'
+  teamSizeToEntryCountMappings:
+    - key: 1
+      value: 12
+    - key: 2
+      value: 10
+    - key: 3
+      value: 8
+    - key: 4
+      value: 6
+  headerFormats:
+    - '<yellow><b>GAU (2✦)'
+    - '<#9096ad>Fastest Win</#9096ad>'
+    - '<gradient:#616575:#4a4c59><st>⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯</st></gradient:#616575:#4a4c59>'
+  footerFormats:
+    - '<gradient:#616575:#4a4c59><st>⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯</st></gradient:#616575:#4a4c59>'
+  viewingPlayerFormat: '<b><yellow><rank></yellow><#b8bfde>. <name> -</#b8bfde> <yellow><time></yellow></b>'
+  loading: '<#9096ad>Loading...'
+  singleLineFormat: '<#b8bfde><yellow><rank></yellow>. <names> - <yellow><time></yellow></#b8bfde>'
+  firstLineFormat: '<#b8bfde><yellow><rank></yellow>. <names></#b8bfde>'
+  middleLineFormat: '<#b8bfde><names></#b8bfde>'
+  lastLineFormat: '<#b8bfde><names> <#b8bfde>-</#b8bfde> <yellow><time></yellow></#b8bfde>'
+  unknownRank: '<#9096ad>N<#b8bfde>/</#b8bfde>A<#9096ad>'
+  unknownTime: '<#9096ad>N<#b8bfde>/</#b8bfde>A<#9096ad>'
+  clickSound: { name: 'minecraft:block.lever.click', source: MASTER, volume: 1.0, pitch: 2.0 }
+  inactiveTeamSizeNameFormat: '<#6b6f80><team_size_name>'
+  activeTeamSizeNameFormat: '<green><b><team_size_name>'
+  inactiveModifierNameFormat: '<#6b6f80><modifier_name>'
+  activeModifierNameFormat: '<green><b><modifier_name>'
+  widthBeforeLineBreak: 24
+  lineBreakGap: 0.01
+  leaderboardEntryGap: 0.13
+  gap: 0.1

@@ -1,0 +1,157 @@
+key: arsonist_fge
+type: minecraft:zombie
+tags: [ endless, fire_res, fire, ranged]
+pathfinding:
+  type: proxima.path_settings.ground
+  jumpHeight: 1.25
+  fallTolerance: 6
+  stepHeight: 0.5
+  targetDeviation: 3.5
+
+meta:
+  customName: <#ff6918>Arsonist</#ff6918>
+
+extra:
+  resistFire: true
+  endlessHealthScaling:
+    kind: LINEAR
+    ceiling: 2147483647
+    a: 0.25
+
+equipment:
+  MAIN_HAND: '{id:"stick",Count:1}'
+  BOOTS: '{id:"iron_boots",Count:1}'
+  LEGGINGS: '{id:"iron_leggings",Count:1}'
+  CHESTPLATE: '{id:"iron_chestplate",Count:1}'
+  HELMET: '{id:"player_head",Count:1,tag:{display:{Name:"{\"text\":\"Arsonist\"}"},SkullOwner:{Id:[I;1770337190,-738768542,-1742429740,1130002673],Properties:{textures:[{Value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTM0MjVjZjU3MTk1ZmJmMjJmNDBhMGE2OTM2NzQwMmJmZjQ0MTVkMjNlZDkzODIxNTMwOTIwODM1MDhjYzRhMSJ9fX0="}]}}}}'
+
+attributes:
+  generic.max_health: 35
+  generic.movement_speed: 0.18
+  generic.attack_damage: 0
+  generic.armor: 11
+  generic.attack_knockback: 0.2
+
+skills:
+  - type: mob.skill.play_sound
+    trigger: DAMAGED
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.zombie.hurt', source: HOSTILE, volume: 1.5, pitch: 0.5 }
+
+  - type: mob.skill.play_sound
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.zombie.death', source: HOSTILE, volume: 1.5, pitch: 0.5 }
+
+  - type: mob.skill.random_timer
+    minInterval: 100
+    maxInterval: 160
+    delegate:
+      type: mob.skill.random
+      chance: 0.5
+      delegate:
+        type: mob.skill.play_sound
+        selector:
+          type: mob.selector.self
+        sound: { name: 'minecraft:entity.zombie.ambient', source: HOSTILE, volume: 1.5, pitch: 0.5 }
+
+  - type: mob.skill.random_timer
+    minInterval: 60
+    maxInterval: 90
+    delegate:
+      type: mob.skill.group
+      delegates:
+        - type: mob.skill.shoot_projectile
+          selector:
+            type: mob.selector.pathfinding_target
+          hitValidator:
+            type: mob.validator.and
+            validators: [ /targetValidator, /distanceCheck ]
+          callback:
+            type: mob.skill.spawn_mob.callback.none
+          entity: flamethrower_spray
+          power: 0.7
+          spread: 0
+          gravity: false
+
+        - type: mob.skill.timer
+          interval: 5
+          requiresActivation: true
+          repeat: 1
+          delegate:
+            type: mob.skill.group
+            delegates:
+              - type: mob.skill.shoot_projectile
+                selector:
+                  type: mob.selector.pathfinding_target
+                hitValidator:
+                  type: mob.validator.and
+                  validators: [ /targetValidator, /distanceCheck ]
+                callback:
+                  type: mob.skill.spawn_mob.callback.none
+                entity: flamethrower_spray
+                power: 0.7
+                spread: 0
+                gravity: false
+
+        - type: mob.skill.timer
+          interval: 10
+          requiresActivation: true
+          repeat: 1
+          delegate:
+            type: mob.skill.group
+            delegates:
+              - type: mob.skill.shoot_projectile
+                selector:
+                  type: mob.selector.pathfinding_target
+                hitValidator:
+                  type: mob.validator.and
+                  validators: [ /targetValidator, /distanceCheck ]
+                callback:
+                  type: mob.skill.spawn_mob.callback.none
+                entity: flamethrower_spray
+                power: 0.7
+                spread: 0
+                gravity: false
+
+
+goals:
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: zombies.mob.goal.break_window
+        breakTicks: 20
+        breakCount: 1
+        breakRadius: 0.5
+
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: mob.goal.follow_entity
+        selector:
+          type: mob.selector.entities_in_area
+          originSelector:
+            type: mob.selector.self
+          validator: /targetValidator
+          target: LIVING_ENTITIES
+          limit: 1
+        retargetInterval: 20
+        followRange: 1024
+
+alivePlayers:
+  type: zombies.mob.validator.zombies_player
+  states: [ zombies.player.state.alive ]
+  blacklist: false
+
+targetableMobs:
+  type: mob.validator.mob_type
+  tags: [ ally_targetable ]
+  blacklist: false
+
+targetValidator:
+  type: mob.validator.or
+  validators: [ /alivePlayers, /targetableMobs ]
+
+distanceCheck:
+  type: mob.validator.distance
+  distance: 8

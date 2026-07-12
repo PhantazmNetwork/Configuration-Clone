@@ -1,0 +1,23 @@
+type: zombies.perk.level.non_upgradeable
+key: level0
+equipment:
+  type: zombies.perk.equipment.basic
+  interactor:
+    type: zombies.perk.interactor.none
+  visual:
+    type: zombies.perk.visual.static
+    stack:
+      material: 'minecraft:recovery_compass'
+      displayName: '<!i><blue><b>Fast Revive</b></blue></!i>'
+      lore:
+        - '<!i><#9096ad>You now have a completely</#9096ad></!i>'
+        - '<!i><#9096ad>legitimate degree in medicine,</#9096ad></!i>'
+        - '<!i><#9096ad>and can heal wounded comrades in</#9096ad></!i>'
+        - '<!i><#9096ad>record time.</#9096ad></!i>'
+        - ''
+        - '<!i><#616575>»</#616575> <#9096ad>Revive time modifier</#9096ad><#b8bfde>:</#b8bfde> <green>-50%</green></!i>'
+effects:
+  - type: zombies.perk.effect.attribute_modifier
+    attribute: phantazm.revive_ticks
+    amount: -0.5
+    attributeOperation: MULTIPLY_BASE

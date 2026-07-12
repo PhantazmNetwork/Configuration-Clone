@@ -1,0 +1,18 @@
+id: reactor
+displayName: <green><b>Reactor
+regions:
+  - origin: { x: 52, y: 0, z: 1 }
+    lengths: { x: 7, y: 5, z: 11 }
+  - origin: { x: 39, y: 0, z: 12 }
+    lengths: { x: 34, y: 7, z: 4 }
+  - origin: { x: 39, y: 0, z: 16 }
+    lengths: { x: 18, y: 7, z: 9 }
+  - origin: { x: 48, y: 0, z: 25 }
+    lengths: { x: 25, y: 6, z: 13 }
+  - origin: { x: 42, y: 0, z: 25 }
+    lengths: { x: 2, y: 3, z: 1 }
+  - origin: { x: 47, y: 0, z: 38 }
+    lengths: { x: 16, y: 5, z: 22 }
+  - origin: { x: 45, y: 0, z: 31 }
+    lengths: { x: 3, y: 7, z: 6 }
+openActions: [ ]

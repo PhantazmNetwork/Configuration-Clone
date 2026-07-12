@@ -1,0 +1,47 @@
+id: qf_fr_synergy
+data:
+  type: zombies.upgrade.standard
+  triggers:
+    - type: zombies.upgrade.trigger.event
+      event: ZOMBIES_PLAYER_REVIVE
+      eventFilter:
+        type: zombies.upgrade.filter.type
+        conditions:
+          - type: zombies.upgrade.filter.condition.zombies_player
+  effect:
+    type: zombies.upgrade.effect.cooldown
+    timer:
+      type: zombies.upgrade.timer.constant
+      duration: 300
+    delegate:
+      type: zombies.upgrade.effect.composite
+      delegates:
+        - type: zombies.upgrade.effect.apply_attribute
+          selector:
+            type: zombies.upgrade.selector.self
+          attribute: phantazm.heal_rate
+          amount: -0.3
+          operation: MULTIPLY_BASE
+
+        - type: zombies.upgrade.effect.apply_attribute
+          selector:
+            type: zombies.upgrade.selector.event
+            useTarget: true
+          attribute: phantazm.heal_rate
+          amount: -0.3
+          operation: MULTIPLY_BASE
+
+        - type: zombies.upgrade.effect.apply_attribute
+          selector:
+            type: zombies.upgrade.selector.self
+          attribute: phantazm.gun_fire_delay
+          amount: -0.2
+          operation: MULTIPLY_BASE
+
+        - type: zombies.upgrade.effect.apply_attribute
+          selector:
+            type: zombies.upgrade.selector.event
+            useTarget: true
+          attribute: phantazm.gun_fire_delay
+          amount: -0.2
+          operation: MULTIPLY_BASE

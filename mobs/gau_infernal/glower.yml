@@ -1,0 +1,119 @@
+# CIA glows in the dark
+key: glower_infernal
+type: minecraft:drowned
+pathfinding:
+  type: proxima.path_settings.ground
+  jumpHeight: 1.25
+  fallTolerance: 4
+  stepHeight: 0.5
+
+meta:
+  customName: <aqua>Glower</aqua>
+
+equipment:
+  BOOTS: '{id:"netherite_boots",Count:1}'
+  LEGGINGS: '{id:"netherite_leggings",Count:1}'
+  CHESTPLATE: '{id:"diamond_chestplate",Count:1}'
+  HELMET: '{id:"end_rod",Count:1}'
+
+attributes:
+  generic.max_health: 65
+  generic.movement_speed: 0.39
+  generic.attack_damage: 8
+  generic.armor: 12
+  generic.attack_knockback: 0.2
+
+skills:
+  - type: mob.skill.random
+    trigger: ATTACK
+    chance: 0.75
+    delegate:
+      type: mob.skill.group
+      delegates:
+        - type: mob.skill.temporal
+          minDuration: 80
+          maxDuration: 80
+          delegate:
+            type: mob.skill.attribute_modifying
+            attribute: phantazm.gun_fire_delay
+            amount: 0.2
+            attributeOperation: MULTIPLY_TOTAL
+            stage: zombies_game
+            selector:
+              type: mob.selector.last_hit
+        - type: mob.skill.potion
+          selector:
+            type: mob.selector.last_hit
+          potion:
+            effect: minecraft:weakness
+            amplifier: 1
+            duration: 80
+            flags: 4
+
+  - type: mob.skill.play_sound
+    trigger: DAMAGED
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.drowned.hurt', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+  - type: mob.skill.play_sound
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.drowned.death', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+  - type: mob.skill.random
+    trigger: DEATH
+    chance: 0.75
+    delegate:
+      type: mob.skill.spawn_mob
+      selector:
+        type: mob.selector.self
+      callback:
+        type: zombies.mob.skill.spawn_mob.callback.add_to_round
+      identifier: phantazm:tumor_infernal
+      spawnAmount: 1
+      maxSpawn: 1
+      instanceCountKey: 'tumor_gaui_spawn'
+
+  - type: mob.skill.random_timer
+    minInterval: 100
+    maxInterval: 160
+    delegate:
+      type: mob.skill.random
+      chance: 0.5
+      delegate:
+        type: mob.skill.play_sound
+        selector:
+          type: mob.selector.self
+        sound: { name: 'minecraft:entity.drowned.say', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+goals:
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: zombies.mob.goal.break_window
+        breakTicks: 15
+        breakCount: 1
+        breakRadius: 0.5
+
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: mob.goal.melee_attack
+        cooldown: 20
+        range: 0.25
+
+      - type: mob.goal.follow_entity
+        selector:
+          type: mob.selector.entities_in_area
+          originSelector:
+            type: mob.selector.self
+          validator: /alivePlayers
+          target: PLAYERS
+          limit: 1
+        retargetInterval: 20
+        followRange: 1024
+
+alivePlayers:
+  type: zombies.mob.validator.zombies_player
+  states: [ zombies.player.state.alive ]
+  blacklist: false

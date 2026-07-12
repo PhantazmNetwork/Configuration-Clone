@@ -1,0 +1,81 @@
+id: frb_fr_synergy
+data:
+  type: zombies.upgrade.composite
+  upgrades:
+    - type: zombies.upgrade.standard
+      triggers:
+        - type: zombies.upgrade.trigger.event
+          event: ZOMBIES_PLAYER_START_REVIVE
+          eventFilter:
+            type: zombies.upgrade.filter.type
+            conditions:
+              - type: zombies.upgrade.filter.condition.zombies_player
+      effect:
+        type: zombies.upgrade.effect.composite
+        delegates:
+          - type: zombies.upgrade.effect.adjust_integer_tag
+            tag: 'frb_fr'
+            increment: 1
+            limit: 1
+            ephemeral: true
+
+          - type: zombies.upgrade.effect.apply_attribute
+            selector:
+              type: zombies.upgrade.selector.entities_in_area
+              validator:
+                type: zombies.upgrade.validator.mob_in_round
+              originSelector:
+                type: zombies.upgrade.selector.event
+                useTarget: true
+              target: LIVING_ENTITIES
+              range: 5.0
+            attribute: generic.movement_speed
+            amount: -0.75
+            operation: MULTIPLY_TOTAL
+            shareKey: 'frb_fr_share'
+            scaling:
+              type: zombies.upgrade.effect.scaling.tag
+              selector:
+                type: zombies.upgrade.selector.self
+              tag: 'frb_fr'
+
+    - type: zombies.upgrade.standard
+      triggers:
+        - type: zombies.upgrade.trigger.event
+          event: ZOMBIES_PLAYER_END_REVIVE
+          eventFilter:
+            type: zombies.upgrade.filter.type
+            conditions:
+              - type: zombies.upgrade.filter.condition.zombies_player
+      effect:
+        type: zombies.upgrade.effect.composite
+        delegates:
+          - type: zombies.upgrade.effect.adjust_integer_tag
+            tag: 'frb_fr'
+            increment: -1
+            limit: 0
+            ephemeral: true
+
+          - type: zombies.upgrade.effect.sound
+            sound: { name: 'minecraft:block.glass.break', source: HOSTILE, volume: 2.0, pitch: 1.4 }
+            broadcast: true
+
+          - type: zombies.upgrade.effect.apply_attribute
+            selector:
+              type: zombies.upgrade.selector.entities_in_area
+              validator:
+                type: zombies.upgrade.validator.mob_in_round
+              originSelector:
+                type: zombies.upgrade.selector.event
+                useTarget: true
+              target: LIVING_ENTITIES
+              range: 5.0
+            attribute: generic.movement_speed
+            amount: -0.75
+            operation: MULTIPLY_TOTAL
+            shareKey: 'frb_fr_share'
+            scaling:
+              type: zombies.upgrade.effect.scaling.tag
+              selector:
+                type: zombies.upgrade.selector.self
+              tag: 'frb_fr'

@@ -1,0 +1,324 @@
+key: medic_fge
+type: minecraft:zombie
+tags: [ endless, boss ]
+pathfinding:
+  type: proxima.path_settings.ground
+  jumpHeight: 1.25
+  fallTolerance: 4
+  stepHeight: 0.5
+
+showNameTag: true
+
+meta:
+  customName: <dark_red><b>Army Medic</b></dark_red>
+  customNameVisible: true
+
+extra:
+  resistInstakill: true
+  announceKill: true
+  endlessHealthScaling:
+    kind: LINEAR
+    ceiling: 2147483647
+    a: 5
+
+equipment:
+  MAIN_HAND: '{id:"player_head",Count:1,tag:{display:{Name:"{\"text\":\"Health Kit\"}"},SkullOwner:{Id:[I;-77257264,-1923593218,-1340379741,-1380803999],Properties:{textures:[{Value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTZhMTA2YmQ3YzViZDNmZDA2ZDkwOGRmZjFjNzczMjVjNTIxZGM4NzM1YzAxYWFkZTc3N2YwNTY0MjFhZDkyOSJ9fX0="}]}}}}'
+  BOOTS: '{id:"netherite_boots",Count:1}'
+  LEGGINGS: '{id:"leather_leggings",Count:1,tag:{display:{color:13684141}}}'
+  CHESTPLATE: '{id:"leather_chestplate",Count:1,tag:{display:{color:13684141}}}'
+  HELMET: '{id:"player_head",Count:1,tag:{display:{Name:"{\"text\":\"Soldier\"}"},SkullOwner:{Id:[I;-372769772,-529446980,-1475476884,2067856507],Properties:{textures:[{Value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTlmMDk1YzkwZWY1M2Q5ZWEyZjk2MDAyOTEzNTQ4NTAzYzk5NjM3Yjg3NTE2YjIyNjhkMDViZDUxOTllMjE2NiJ9fX0="}]}}}}'
+
+attributes:
+  generic.max_health: 1500
+  generic.movement_speed: 0.25
+  generic.attack_damage: 8
+  generic.armor: 8
+  generic.armor_toughness: 3
+  generic.attack_knockback: 0.3
+  generic.knockback_resistance: 0.95
+
+skills:
+  - type: mob.skill.send_message
+    trigger: SPAWN
+    message: <yellow><dark_red><b>Army Medic</b></dark_red> has spawned!</yellow>
+    selector:
+      type: mob.selector.entities_in_area
+      originSelector:
+        type: mob.selector.self
+      validator:
+        type: mob.validator.always
+      target: PLAYERS
+
+  - type: mob.skill.play_sound
+    trigger: SPAWN
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.lightning_bolt.thunder', source: PLAYER, volume: 100.0, pitch: 1.0 }
+
+  - type: mob.skill.play_sound
+    trigger: DAMAGED
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.zombie.hurt', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+  - type: mob.skill.play_sound
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.zombie.death', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+  - type: mob.skill.spawn_mob
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    callback:
+      type: zombies.mob.skill.spawn_mob.callback.add_to_round
+    identifier: phantazm:little_medic_fge
+    spawnAmount: 1
+    maxSpawn: 3
+    instanceCountKey: 'little_medic_fge_spawn'
+
+  - type: mob.skill.show_healthbar
+    bar: '<#6b6f80>[<healthbar:bar_component:|:color_start:#dd3e28:color_end:#34bf25:missing_color:gray>]</#6b6f80>'
+    barWidth: 20
+
+  - type: mob.skill.random_timer
+    minInterval: 100
+    maxInterval: 160
+    delegate:
+      type: mob.skill.random
+      chance: 0.5
+      delegate:
+        type: mob.skill.play_sound
+        selector:
+          type: mob.selector.self
+        sound: { name: 'minecraft:entity.zombie.ambient', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+  - type: mob.skill.timer
+    interval: 50
+    delegate:
+      type: mob.skill.weighted_random
+      delegates:
+        - type: mob.skill.group
+          delegates:
+            - type: mob.skill.temporal
+              minDuration: 50
+              maxDuration: 50
+              delegate:
+                type: mob.skill.attribute_modifying
+                selector:
+                  type: mob.selector.entities_in_area
+                  originSelector:
+                    type: mob.selector.self
+                  range: 8
+                  target: LIVING_ENTITIES
+                  validator:
+                    type: mob.validator.mob
+                attribute: phantazm.attack_speed_multiplier
+                amount: 3
+                attributeOperation: ADDITION
+
+            - type: mob.skill.spawn_particle
+              selector:
+                type: mob.selector.self
+              particle:
+                type: particle.wrapper
+                particle: dust
+                variantData:
+                  type: particle.variant_data.dust
+                  color:
+                    r: 63
+                    g: 87
+                    b: 69
+                  size: 2
+                distance: true
+                offsetX: 0.0
+                offsetY: 0.0
+                offsetZ: 0.0
+                data: 0.0
+                particleCount: 5
+              bounds:
+                origin:
+                  x: 0.0
+                  y: 2.0
+                  z: 0.0
+                lengths:
+                  x: 0.0
+                  y: 0.0
+                  z: 0.0
+
+        - type: mob.skill.group
+          delegates:
+            - type: mob.skill.heal
+              selector:
+                type: mob.selector.entities_in_area
+                originSelector:
+                  type: mob.selector.self
+                range: 8
+                target: LIVING_ENTITIES
+                validator:
+                  type: mob.validator.mob
+              amount: 10
+
+            - type: mob.skill.spawn_particle
+              selector:
+                type: mob.selector.self
+              particle:
+                type: particle.wrapper
+                particle: dust
+                variantData:
+                  type: particle.variant_data.dust
+                  color:
+                    r: 96
+                    g: 55
+                    b: 59
+                  size: 2
+                distance: true
+                offsetX: 0.0
+                offsetY: 0.0
+                offsetZ: 0.0
+                data: 0.0
+                particleCount: 5
+              bounds:
+                origin:
+                  x: 0.0
+                  y: 2.0
+                  z: 0.0
+                lengths:
+                  x: 0.0
+                  y: 0.0
+                  z: 0.0
+
+        - type: mob.skill.group
+          delegates:
+            - type: mob.skill.temporal
+              minDuration: 50
+              maxDuration: 50
+              delegate:
+                type: mob.skill.attribute_modifying
+                selector:
+                  type: mob.selector.entities_in_area
+                  originSelector:
+                    type: mob.selector.self
+                  range: 8
+                  target: LIVING_ENTITIES
+                  validator:
+                    type: mob.validator.mob
+                attribute: generic.attack_damage
+                amount: 2
+                attributeOperation: MULTIPLY_TOTAL
+
+            - type: mob.skill.spawn_particle
+              selector:
+                type: mob.selector.self
+              particle:
+                type: particle.wrapper
+                particle: dust
+                variantData:
+                  type: particle.variant_data.dust
+                  color:
+                    r: 159
+                    g: 109
+                    b: 55
+                  size: 2
+                distance: true
+                offsetX: 0.0
+                offsetY: 0.0
+                offsetZ: 0.0
+                data: 0.0
+                particleCount: 5
+              bounds:
+                origin:
+                  x: 0.0
+                  y: 2.0
+                  z: 0.0
+                lengths:
+                  x: 0.0
+                  y: 0.0
+                  z: 0.0
+
+        - type: mob.skill.group
+          delegates:
+            - type: mob.skill.temporal
+              minDuration: 50
+              maxDuration: 50
+              delegate:
+                type: mob.skill.attribute_modifying
+                selector:
+                  type: mob.selector.entities_in_area
+                  originSelector:
+                    type: mob.selector.self
+                  range: 8
+                  target: LIVING_ENTITIES
+                  validator:
+                    type: mob.validator.mob
+                attribute: generic.movement_speed
+                amount: 0.4
+                attributeOperation: MULTIPLY_TOTAL
+
+            - type: mob.skill.spawn_particle
+              selector:
+                type: mob.selector.self
+              particle:
+                type: particle.wrapper
+                particle: dust
+                variantData:
+                  type: particle.variant_data.dust
+                  color:
+                    r: 91
+                    g: 150
+                    b: 140
+                  size: 2
+                distance: true
+                offsetX: 0.0
+                offsetY: 0.0
+                offsetZ: 0.0
+                data: 0.0
+                particleCount: 5
+              bounds:
+                origin:
+                  x: 0.0
+                  y: 2.0
+                  z: 0.0
+                lengths:
+                  x: 0.0
+                  y: 0.0
+                  z: 0.0
+      weights: [ 1, 1, 1, 1 ]
+
+goals:
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: zombies.mob.goal.break_window
+        breakTicks: 20
+        breakCount: 1
+        breakRadius: 0.5
+
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: mob.goal.melee_attack
+        cooldown: 20
+        range: 0.25
+
+      - type: mob.goal.follow_entity
+        selector:
+          type: mob.selector.entities_in_area
+          originSelector:
+            type: mob.selector.self
+          validator:
+            type: mob.validator.or
+            validators: [ /alivePlayers, /targetableMobs ]
+          target: LIVING_ENTITIES
+          limit: 1
+        retargetInterval: 20
+        followRange: 1024
+
+alivePlayers:
+  type: zombies.mob.validator.zombies_player
+  states: [ zombies.player.state.alive ]
+  blacklist: false
+
+targetableMobs:
+  type: mob.validator.mob_type
+  tags: [ ally_targetable ]
+  blacklist: false

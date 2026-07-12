@@ -1,0 +1,23 @@
+type: zombies.perk.level.non_upgradeable
+key: level1
+equipment:
+  type: zombies.perk.equipment.basic
+  interactor:
+    type: zombies.perk.interactor.none
+  visual:
+    type: zombies.perk.visual.static
+    stack:
+      material: 'minecraft:sugar'
+      displayName: '<!i><blue><b>Speed Ultimate</b></blue></!i>'
+      lore:
+        - '<!i><#9096ad>The problem with going faster than</#9096ad></!i>'
+        - '<!i><#9096ad>light is that you will always live</#9096ad></!i>'
+        - '<!i><#9096ad>in darkness...</#9096ad></!i>'
+        - ''
+        - '<!i><#616575>»</#616575> <#9096ad>Speed modifier</#9096ad><#b8bfde>:</#b8bfde> <green>+40%</green></!i>'
+      tag: '{HideFlags:2,"Enchantments":[{id:"minecraft:unbreaking",lvl:1s}]}'
+effects:
+  - type: zombies.perk.effect.attribute_modifier
+    attribute: generic.movement_speed
+    amount: 0.4
+    attributeOperation: MULTIPLY_BASE

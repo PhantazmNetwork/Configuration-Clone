@@ -1,0 +1,35 @@
+id: flb_ew_synergy
+data:
+  type: zombies.upgrade.standard
+  triggers:
+    - type: zombies.upgrade.trigger.single
+  effect:
+    type: zombies.upgrade.effect.composite
+    delegates:
+      - type: zombies.upgrade.effect.apply_attribute
+        selector:
+          type: zombies.upgrade.selector.self
+        attribute: phantazm.powerup.duration.overclock
+        amount: 1.0
+        operation: MULTIPLY_BASE
+
+      - type: zombies.upgrade.effect.apply_attribute
+        selector:
+          type: zombies.upgrade.selector.self
+        attribute: phantazm.powerup.kill_all_in_radius.instakill_distance_scaling
+        amount: 2
+        operation: ADDITION
+
+      - type: zombies.upgrade.effect.apply_attribute
+        selector:
+          type: zombies.upgrade.selector.self
+        attribute: phantazm.powerup.kill_all_in_radius.damage_distance_start_scaling
+        amount: 7.5
+        operation: ADDITION
+
+      - type: zombies.upgrade.effect.apply_attribute
+        selector:
+          type: zombies.upgrade.selector.self
+        attribute: phantazm.powerup.kill_all_in_radius.damage_distance_end_scaling
+        amount: 11
+        operation: ADDITION

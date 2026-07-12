@@ -1,0 +1,62 @@
+key: rotten_apple
+type: minecraft:item
+pathfinding:
+  type: proxima.path_settings.ground
+  jumpHeight: 0
+  fallTolerance: 0
+  stepHeight: 0
+
+meta:
+  customName: <#251f1c>Mutated Organic Matter</#251f1c>
+  itemStack:
+    material: minecraft:apple
+
+extra:
+  bypassEndlessScaling: true
+  ticksUntilDeath: 200
+
+skills:
+  - type: mob.skill.damage
+    trigger: ATTACK
+    selector:
+      type: mob.selector.last_hit
+    amount: 4
+    bypassArmor: false
+    knockback: 0.7
+
+  - type: mob.skill.spawn_particle
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    particle:
+      type: particle.wrapper
+      particle: block
+      variantData:
+        type: particle.variant_data.block
+        block: minecraft:terracotta
+      distance: true
+      offsetX: 1.0
+      offsetY: 1.0
+      offsetZ: 1.0
+      data: 0.0
+      particleCount: 10
+    bounds:
+      origin:
+        x: 0.0
+        y: 1.5
+        z: 0.0
+      lengths:
+        x: 0.0
+        y: 0.0
+        z: 0.0
+
+  - type: mob.skill.play_sound
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.slime.hurt_small', source: HOSTILE, volume: 1.5, pitch: 0.5}
+
+alivePlayers:
+  type: zombies.mob.validator.zombies_player
+  states: [ zombies.player.state.alive ]
+  blacklist: false

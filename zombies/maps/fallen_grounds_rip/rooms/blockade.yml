@@ -1,0 +1,8 @@
+id: blockade
+displayName: <green><b>Blockade
+regions:
+  - origin: { x: 9, y: 0, z: -25 }
+    lengths: { x: 10, y: 6, z: 11 }
+  - origin: { x: 11, y: 0, z: -14 }
+    lengths: { x: 2, y: 3, z: 1 }
+openActions: [ ]

@@ -1,0 +1,28 @@
+type: zombies.perk.level.non_upgradeable
+key: level0
+equipment:
+  type: zombies.perk.equipment.basic
+  interactor:
+    type: zombies.perk.interactor.none
+  visual:
+    type: zombies.perk.visual.static
+    stack:
+      material: 'minecraft:apple'
+      displayName: '<!i><#b90f0f><b>Modified</b></#b90f0f> <blue><b>Extra Health</b></blue></!i>'
+      lore:
+        - '<!i><#9096ad>This apple is really good. <i>Really</i></#9096ad></!i>'
+        - '<!i><#9096ad>good. You''re so full, you can''t</#9096ad></!i>'
+        - '<!i><#9096ad>move around as easily.</#9096ad></!i>'
+        - ''
+        - '<!i><#616575>»</#616575> <#9096ad>Bonus health</#9096ad><#b8bfde>:</#b8bfde> <green>20.0 HP</green></!i>'
+        - '<!i><#616575>»</#616575> <#9096ad>Movement speed</#9096ad><#b8bfde>:</#b8bfde> <red>-50%</red></!i>'
+effects:
+  - type: zombies.perk.effect.attribute_modifier
+    attribute: generic.max_health
+    amount: 20
+    attributeOperation: ADDITION
+
+  - type: zombies.perk.effect.attribute_modifier
+    attribute: generic.movement_speed
+    amount: -0.5
+    attributeOperation: MULTIPLY_BASE

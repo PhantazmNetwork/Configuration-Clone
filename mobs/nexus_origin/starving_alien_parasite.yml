@@ -1,0 +1,131 @@
+# mechanically unfinished
+key: starving_alien_parasite
+type: minecraft:vex
+pathfinding:
+  type: proxima.path_settings.ground
+  jumpHeight: 2.5
+  fallTolerance: 10
+  stepHeight: 2.0
+
+showNameTag: true
+
+meta:
+  customName: <#d7ffff><b>Starving Alien Parasite</b></#d7ffff>
+  customNameVisible: true
+
+extra:
+  resistInstakill: true
+  announceKill: true
+
+attributes:
+  generic.max_health: 250
+  generic.movement_speed: 0.13
+  generic.attack_damage: 5
+  generic.armor: 10
+  generic.attack_knockback: 0.2
+
+skills:
+  - type: mob.skill.send_message
+    trigger: SPAWN
+    message: <yellow><#d7ffff><b>Starving Alien Parasite</b></#d7ffff> crawled out!</yellow>
+    selector:
+      type: mob.selector.entities_in_area
+      originSelector:
+        type: mob.selector.self
+      validator:
+        type: mob.validator.always
+      target: PLAYERS
+
+  - type: mob.skill.play_sound
+    trigger: SPAWN
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.lightning_bolt.thunder', source: PLAYER, volume: 100.0, pitch: 1.0 }
+
+  - type: mob.skill.play_sound
+    trigger: DAMAGED
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.allay.item_thrown', source: HOSTILE, volume: 1.5, pitch: 1.3 }
+
+  - type: mob.skill.play_sound
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.allay.death', source: HOSTILE, volume: 1.5, pitch: 1.7 }
+
+  - type: mob.skill.random_timer
+    minInterval: 100
+    maxInterval: 160
+    delegate:
+      type: mob.skill.random
+      chance: 0.5
+      delegate:
+        type: mob.skill.play_sound
+        selector:
+          type: mob.selector.self
+        sound: { name: 'minecraft:entity.vex.death', source: HOSTILE, volume: 1.5, pitch: 1.4 }
+
+  - type: mob.skill.show_healthbar
+    bar: '<#6b6f80>[<healthbar:bar_component:|:color_start:#dd3e28:color_end:#34bf25:missing_color:gray>]</#6b6f80>'
+    barWidth: 20
+
+  - type: mob.skill.random_timer
+    minInterval: 25
+    maxInterval: 35
+    delegate:
+      type: mob.skill.group
+      delegates:
+        - type: mob.skill.temporal
+          minDuration: 20
+          maxDuration: 20
+          delegate:
+            type: mob.skill.attribute_modifying
+            attribute: generic.movement_speed
+            amount: 1.0
+            attributeOperation: ADDITION
+            selector:
+              type: mob.selector.self
+
+        - type: mob.skill.leap
+          strength: 38
+          angle: 15
+          selector:
+            type: mob.selector.pathfinding_target
+
+        - type: mob.skill.random
+          chance: 0.25
+          delegate:
+            type: mob.skill.play_sound
+            selector:
+              type: mob.selector.self
+            sound: { name: 'minecraft:entity.silverfish.death', source: HOSTILE, volume: 1.5, pitch: 0.5 }
+goals:
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: zombies.mob.goal.break_window
+        breakTicks: 20
+        breakCount: 1
+        breakRadius: 0.5
+
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: mob.goal.melee_attack
+        cooldown: 20
+        range: 0.25
+
+      - type: mob.goal.follow_entity
+        selector:
+          type: mob.selector.entities_in_area
+          originSelector:
+            type: mob.selector.self
+          validator: /alivePlayers
+          target: PLAYERS
+          limit: 1
+        retargetInterval: 20
+        followRange: 1024
+
+alivePlayers:
+  type: zombies.mob.validator.zombies_player
+  states: [ zombies.player.state.alive ]
+  blacklist: false

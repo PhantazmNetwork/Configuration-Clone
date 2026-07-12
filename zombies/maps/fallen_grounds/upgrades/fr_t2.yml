@@ -1,0 +1,63 @@
+id: fr_t2
+data:
+  type: zombies.upgrade.composite
+  upgrades:
+    - type: zombies.upgrade.standard
+      triggers:
+        - type: zombies.upgrade.trigger.event
+          event: ZOMBIES_PLAYER_START_REVIVE
+          eventFilter:
+            type: zombies.upgrade.filter.type
+            conditions:
+              - type: zombies.upgrade.filter.condition.zombies_player
+      effect:
+        type: zombies.upgrade.effect.composite
+        delegates:
+          - type: zombies.upgrade.effect.adjust_integer_tag
+            tag: 'fr_t2'
+            increment: 1
+            limit: 1
+            ephemeral: true
+
+          - type: zombies.upgrade.effect.apply_attribute
+            selector:
+              type: zombies.upgrade.selector.self
+            attribute: generic.knockback_resistance
+            amount: 1.0
+            operation: ADDITION
+            shareKey: 'fr_t2_share'
+            scaling:
+              type: zombies.upgrade.effect.scaling.tag
+              selector:
+                type: zombies.upgrade.selector.self
+              tag: 'fr_t2'
+
+    - type: zombies.upgrade.standard
+      triggers:
+        - type: zombies.upgrade.trigger.event
+          event: ZOMBIES_PLAYER_END_REVIVE
+          eventFilter:
+            type: zombies.upgrade.filter.type
+            conditions:
+              - type: zombies.upgrade.filter.condition.zombies_player
+      effect:
+        type: zombies.upgrade.effect.composite
+        delegates:
+          - type: zombies.upgrade.effect.adjust_integer_tag
+            tag: 'fr_t2'
+            increment: -1
+            limit: 0
+            ephemeral: true
+
+          - type: zombies.upgrade.effect.apply_attribute
+            selector:
+              type: zombies.upgrade.selector.self
+            attribute: generic.knockback_resistance
+            amount: 1.0
+            operation: ADDITION
+            shareKey: 'fr_t2_share'
+            scaling:
+              type: zombies.upgrade.effect.scaling.tag
+              selector:
+                type: zombies.upgrade.selector.self
+              tag: 'fr_t2'

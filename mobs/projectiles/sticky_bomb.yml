@@ -1,0 +1,101 @@
+key: sticky_bomb
+type: minecraft:item
+pathfinding:
+  type: proxima.path_settings.ground
+  jumpHeight: 0
+  fallTolerance: 0
+  stepHeight: 0
+
+meta:
+  customName: <black>Sticky Bomb</black>
+  itemStack:
+    material: minecraft:coal_block
+
+extra:
+  ticksUntilDeath: 200
+
+skills:
+  - type: mob.skill.play_sound
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.slime.squish', source: HOSTILE, volume: 1.5, pitch: 0.5 }
+
+  - type: mob.skill.temporal
+    trigger: DEATH
+    minDuration: 80
+    maxDuration: 80
+    delegate:
+      type: mob.skill.attribute_modifying
+      attribute: generic.movement_speed
+      amount: -0.8
+      attributeOperation: MULTIPLY_TOTAL
+      stage: zombies_game
+      selector:
+        type: mob.selector.entities_in_area
+        originSelector:
+          type: mob.selector.self
+        range: 4
+        target: LIVING_ENTITIES
+        validator: /alivePlayers
+
+  - type: mob.skill.temporal
+    trigger: DEATH
+    minDuration: 60
+    maxDuration: 60
+    delegate:
+      type: mob.skill.attribute_modifying
+      attribute: phantazm.gun_fire_delay
+      amount: 0.8
+      attributeOperation: MULTIPLY_TOTAL
+      stage: zombies_game
+      selector:
+        type: mob.selector.entities_in_area
+        originSelector:
+          type: mob.selector.self
+        range: 4
+        target: LIVING_ENTITIES
+        validator: /alivePlayers
+
+  - type: mob.skill.radial_damage
+    trigger: DEATH
+    selector:
+      type: mob.selector.entities_in_area
+      originSelector:
+        type: mob.selector.self
+      range: 4
+      target: LIVING_ENTITIES
+      validator: /alivePlayers
+    damage: 3
+    bypassArmor: true
+    range: 4
+
+  - type: mob.skill.spawn_particle
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    particle:
+      type: particle.wrapper
+      particle: smoke
+      variantData:
+        type: particle.variant_data.none
+      distance: false
+      offsetX: 2.5
+      offsetY: 0
+      offsetZ: 2.5
+      data: 0.0
+      particleCount: 30
+    bounds:
+      origin:
+        x: 0.0
+        y: 0.5
+        z: 0.0
+      lengths:
+        x: 0.0
+        y: 0.0
+        z: 0.0
+
+alivePlayers:
+  type: zombies.mob.validator.zombies_player
+  states: [ zombies.player.state.alive ]
+  blacklist: false

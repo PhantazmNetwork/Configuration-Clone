@@ -1,0 +1,80 @@
+key: police_officer_rip
+type: minecraft:zombie
+tags: [ cop ]
+pathfinding:
+  type: proxima.path_settings.ground
+  jumpHeight: 1.25
+  fallTolerance: 4
+  stepHeight: 0.5
+
+meta:
+  customName: <blue>Police Officer</blue>
+
+equipment:
+  MAIN_HAND: '{id:"stick",Count:1}'
+  BOOTS: '{id:"leather_boots",Count:1,tag:{display:{color:21197}}}'
+  LEGGINGS: '{id:"leather_leggings",Count:1,tag:{display:{color:21197}}}'
+  CHESTPLATE: '{id:"leather_chestplate",Count:1,tag:{display:{color:21197}}}'
+  HELMET: '{id:"player_head",Count:1,tag:{display:{Name:"{\"text\":\"Police Officer\"}"},SkullOwner:{Id:[I;306904007,92555490,-1087339866,2045212547],Properties:{textures:[{Value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOWI2MWMyYzAyZTUzZWY5NjczMTA1MjhmODhkOTU5NDNjYjhhYjkyZTQxMDAxODkzMDVkNzM0NzQ1ODFjY2IzMCJ9fX0="}]}}}}'
+
+attributes:
+  generic.max_health: 31
+  generic.movement_speed: 0.2
+  generic.attack_damage: 3
+  generic.armor: 7
+  generic.attack_knockback: 1
+
+skills:
+  - type: mob.skill.play_sound
+    trigger: DAMAGED
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.zombie.hurt', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+  - type: mob.skill.play_sound
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.zombie.death', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+  - type: mob.skill.random_timer
+    minInterval: 100
+    maxInterval: 160
+    delegate:
+      type: mob.skill.random
+      chance: 0.5
+      delegate:
+        type: mob.skill.play_sound
+        selector:
+          type: mob.selector.self
+        sound: { name: 'minecraft:entity.zombie.ambient', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+goals:
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: zombies.mob.goal.break_window
+        breakTicks: 30
+        breakCount: 2
+        breakRadius: 0.5
+
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: mob.goal.melee_attack
+        cooldown: 20
+        range: 0.25
+
+      - type: mob.goal.follow_entity
+        selector:
+          type: mob.selector.entities_in_area
+          originSelector:
+            type: mob.selector.self
+          validator: /alivePlayers
+          target: PLAYERS
+          limit: 1
+        retargetInterval: 20
+        followRange: 1024
+
+alivePlayers:
+  type: zombies.mob.validator.zombies_player
+  states: [ zombies.player.state.alive ]
+  blacklist: false

@@ -1,0 +1,6 @@
+type: role.basic
+identifier: moderator
+chatFormat: '<#f03da3>[Moderator] <name>'
+displayNameFormat: '<#f03da3><name>'
+priority: 998
+permissions: [ ]

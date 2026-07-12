@@ -1,0 +1,6 @@
+type: role.basic
+identifier: default
+chatFormat: '<green><name></green>'
+displayNameFormat: '<green><name></green>'
+priority: 0
+permissions: [ ]

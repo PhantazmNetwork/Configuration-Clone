@@ -1,0 +1,37 @@
+id: health_kit
+visuals:
+  - type: zombies.powerup.visual.hologram
+    lines: [ "<green><b>Health Kit</b></green>" ]
+    timeUntilBlink: 1000
+    blinkFrames:
+      - components: [ "<white><b>Health Kit</b></white>" ]
+        delay: 20
+      - components: [ "<green><b>Health Kit</b></green>" ]
+        delay: 20
+    heightOffset: 1.25
+
+  - type: zombies.powerup.visual.item
+    stack: '{id:"player_head",Count:1,tag:{display:{Name:"{\"text\":\"Health Kit\"}"},SkullOwner:{Id:[I;-77257264,-1923593218,-1340379741,-1380803999],Properties:{textures:[{Value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTZhMTA2YmQ3YzViZDNmZDA2ZDkwOGRmZjFjNzczMjVjNTIxZGM4NzM1YzAxYWFkZTc3N2YwNTY0MjFhZDkyOSJ9fX0="}]}}}}'
+    interval: 1
+    period: 40
+    periodOffset: 0
+    amplitude: 0.1
+    heightOffset: 1
+
+actions:
+  - type: zombies.powerup.action.send_message
+    format: <yellow>You picked up a <green><b>Health Kit</b></green>!</yellow>
+    broadcast: false
+
+  - type: zombies.powerup.action.play_sound
+    sound: { name: 'minecraft:block.brewing_stand.brew', source: MASTER, volume: 1.0, pitch: 1.0 }
+
+  - type: zombies.powerup.action.heal
+    amount: 5
+
+
+deactivationPredicate:
+  type: zombies.powerup.deactivation_predicate.timed
+  time: 1200
+pickupPredicate:
+  type: zombies.powerup.pickup_predicate.missing_health

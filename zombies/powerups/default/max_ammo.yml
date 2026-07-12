@@ -1,0 +1,53 @@
+# GAU: 5, 11, 15, 21, 26
+id: max_ammo
+visuals:
+  - type: zombies.powerup.visual.hologram
+    lines: [ "<blue><b>Max Ammo</b></blue>" ]
+    timeUntilBlink: 1000
+    blinkFrames:
+      - components: [ "<white><b>Max Ammo</b></white>" ]
+        delay: 20
+      - components: [ "<blue><b>Max Ammo</b></blue>" ]
+        delay: 20
+    heightOffset: 1.25
+
+  - type: zombies.powerup.visual.item
+    stack: '{id:"arrow",Count:1}'
+    interval: 1
+    period: 40
+    periodOffset: 0
+    amplitude: 0.1
+    heightOffset: 1
+
+actions:
+  - type: zombies.powerup.action.send_message
+    format: <yellow><player> activated <blue><b>Max Ammo</b></blue>!</yellow>
+    broadcast: true
+
+  - type: zombies.powerup.action.play_sound
+    sound: { name: 'minecraft:entity.horse.armor', source: PLAYER, volume: 10.0, pitch: 0.8 }
+
+  - type: zombies.powerup.action.play_sound
+    sound: { name: 'minecraft:entity.horse.armor', source: PLAYER, volume: 10.0, pitch: 0.7 }
+
+  - type: zombies.powerup.action.play_sound
+    sound: { name: 'minecraft:entity.horse.armor', source: PLAYER, volume: 10.0, pitch: 0.6 }
+
+  - type: zombies.powerup.action.refill_ammo
+
+  - type: zombies.powerup.action.send_title
+    message: ""
+    titlePart: TITLE
+    broadcast: true
+
+  - type: zombies.powerup.action.send_title
+    message: <blue><b>Max Ammo
+    titlePart: SUBTITLE
+    broadcast: true
+
+deactivationPredicate:
+  type: zombies.powerup.deactivation_predicate.timed
+  time: 1200
+powerupEffect:
+  type: zombies.powerup.entity_effect.glow
+  glowColor: DARK_BLUE

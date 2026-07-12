@@ -1,0 +1,1422 @@
+type: zombies.endless.basic
+healthScaling:
+  kind: LINEAR_SINUSOIDAL
+  ceiling: 450
+  a: 4.2
+  b: 8.2
+
+damageScaling:
+  kind: LINEAR_SINUSOIDAL
+  ceiling: 5
+  a: 3.7
+  b: 0.22
+
+speedScaling:
+  kind: LINEAR
+  ceiling: 0.25
+  a: 0.002
+
+spawnAmountScaling:
+  kind: LINEAR_SINUSOIDAL
+  ceiling: 250
+  a: 8.9
+  b: 10
+spawnAmountBase: 101
+
+waveScaling:
+  kind: LINEAR
+  ceiling: 3
+  a: 0.025
+waveBase: 3
+waveDelayBase: 200
+waveWeightBase: 1
+
+introductions:
+
+  - spawns:
+      - key: phantazm:police_chief_endless-fgr
+        spawnType: window
+        weight: 4
+    startRound: 25
+    period: 10
+    count: -1
+
+  - spawns:
+      - key: phantazm:ping-pong_bro_endless-fgr
+        spawnType: window
+        weight: 3
+    startRound: 45
+    period: 3
+    count: -1
+
+  - spawns:
+      - key: phantazm:broodmother_endless-fgr
+        spawnType: window
+        weight: 3
+      - key: phantazm:bloated_piglet_endless-fgr
+        spawnType: window
+        weight: 50
+    startRound: 50
+    period: 10
+    count: -1
+
+  - spawns:
+      - key: phantazm:dumpster_diver_endless-fgr
+        spawnType: window
+        weight: 3
+    startRound: 69
+    period: 9
+    count: -1
+
+themes:
+  # 1
+  - type: zombies.endless.basic.theme
+    mobs:
+      - key: phantazm:civilian_rip
+        spawnType: window
+        weight: 115
+      - key: phantazm:bloated_rip
+        spawnType: window
+        weight: 80
+      - key: phantazm:runner_rip
+        spawnType: window
+        weight: 80
+    waveWeight:
+      kind: LINEAR
+      ceiling: 5
+      a: 0.2
+    baseWaveDelayTicks:
+      kind: LINEAR_SINUSOIDAL
+      ceiling: 0
+      floor: -200
+      a: 9.2
+      b: -13.5
+    offsetWaveDelayTicks:
+      kind: LINEAR
+      ceiling: 200
+      floor: 20
+      a: 50
+    waveActions:
+      - type: zombies.endless.basic.wave_actions
+        wave: 1
+        spawnActions:
+          - type: zombies.map.wave.action.select_powerup
+            powerups: [ 'phantazm:insta_kill' ]
+    startActions:
+      - type: zombies.map.round.action.announce
+        format: <red>Round <round>
+        destination: TITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.announce
+        format: ""
+        destination: SUBTITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.revive_players
+
+      - type: zombies.map.round.action.play_sound
+        sound: { name: 'minecraft:entity.wither.spawn', source: MASTER, volume: 24.0,
+                 pitch: 0.5 }
+    endActions: [ ]
+  # 2
+  - type: zombies.endless.basic.theme
+    mobs:
+      - key: phantazm:runner_rip
+        spawnType: window
+        weight: 75
+      - key: phantazm:banshee_rip
+        spawnType: window
+        weight: 25
+      - key: phantazm:bloated_rip
+        spawnType: window
+        weight: 75
+    waveWeight:
+      kind: LINEAR
+      ceiling: 5
+      a: 0.2
+    baseWaveDelayTicks:
+      kind: LINEAR_SINUSOIDAL
+      ceiling: 0
+      floor: -200
+      a: 9.2
+      b: -13.5
+    offsetWaveDelayTicks:
+      kind: LINEAR
+      ceiling: 200
+      floor: 20
+      a: 50
+    waveActions:
+      - type: zombies.endless.basic.wave_actions
+        wave: 2
+        spawnActions:
+          - type: zombies.map.wave.action.select_powerup
+            powerups: [ 'phantazm:landmine' ]
+    startActions:
+      - type: zombies.map.round.action.announce
+        format: <red>Round <round>
+        destination: TITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.announce
+        format: ""
+        destination: SUBTITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.revive_players
+
+      - type: zombies.map.round.action.play_sound
+        sound: { name: 'minecraft:entity.wither.spawn', source: MASTER, volume: 24.0,
+                 pitch: 0.5 }
+    endActions: [ ]
+  # 3
+  - type: zombies.endless.basic.theme
+    mobs:
+      - key: phantazm:police_officer_rip
+        spawnType: window
+        weight: 110
+      - key: phantazm:riot_police_rip
+        spawnType: window
+        weight: 90
+    waveWeight:
+      kind: LINEAR
+      ceiling: 5
+      a: 0.2
+    baseWaveDelayTicks:
+      kind: LINEAR_SINUSOIDAL
+      ceiling: 0
+      floor: -200
+      a: 9.2
+      b: -13.5
+    offsetWaveDelayTicks:
+      kind: LINEAR
+      ceiling: 200
+      floor: 20
+      a: 50
+    waveActions: [ ]
+    startActions:
+      - type: zombies.map.round.action.announce
+        format: <red>Round <round>
+        destination: TITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.announce
+        format: ""
+        destination: SUBTITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.revive_players
+
+      - type: zombies.map.round.action.play_sound
+        sound: { name: 'minecraft:entity.wither.spawn', source: MASTER, volume: 24.0,
+                 pitch: 0.5 }
+
+      - type: zombies.map.round.action.play_sound
+        sound: { name: 'minecraft:block.bell.resonate', source: MASTER, volume: 24.0,
+                 pitch: 0.0 }
+
+      - type: zombies.map.round.action.select_bombed
+        warningFormatMessage: '<red><#ff2655>[⚠]</#ff2655> <#fffa9e>»</#fffa9e> <red>Room <green><room></green> will be <dark_red><b>Bombed</b></dark_red> in <b>10 seconds!</red>'
+        bombingCompleteFormat: '<#fffa9e>»</#fffa9e> <green>The lingering effects of the <dark_red><b>Bombing</b></dark_red> in <room> have worn off!</green>'
+        inAreaMessage: '<red>You are in the bombed region, escape to stop taking damage!'
+        damage: 2
+        gracePeriod: 200
+        duration: 2
+        exemptRooms: [ 'garage' ]
+        modifiers:
+          - attribute: generic.movement_speed
+            amount: -0.5
+            attributeOperation: MULTIPLY_BASE
+
+          - attribute: phantazm.gun_fire_delay
+            amount: -0.5
+            attributeOperation: MULTIPLY_BASE
+        disablingModifiers: [ 'phantazm:no_doors' ]
+        particle:
+          type: particle.wrapper
+          particle: campfire_cosy_smoke
+          variantData:
+            type: particle.variant_data.none
+          distance: true
+          offsetX: 0.1
+          offsetY: 0.5
+          offsetZ: 0.1
+          data: 0
+          particleCount: 4
+    endActions: [ ]
+  # 4
+  - type: zombies.endless.basic.theme
+    mobs:
+      - key: phantazm:bloated_rip
+        spawnType: window
+        weight: 25
+      - key: phantazm:riot_police_rip
+        spawnType: window
+        weight: 125
+      - key: phantazm:runner_rip
+        spawnType: window
+        weight: 25
+    waveWeight:
+      kind: LINEAR
+      ceiling: 5
+      a: 0.2
+    baseWaveDelayTicks:
+      kind: LINEAR_SINUSOIDAL
+      ceiling: 0
+      floor: -200
+      a: 9.2
+      b: -13.5
+    offsetWaveDelayTicks:
+      kind: LINEAR
+      ceiling: 200
+      floor: 20
+      a: 50
+    waveActions:
+      - type: zombies.endless.basic.wave_actions
+        wave: 2
+        spawnActions:
+          - type: zombies.map.wave.action.select_powerup
+            powerups: [ 'phantazm:overclock' ]
+    startActions:
+      - type: zombies.map.round.action.announce
+        format: <red>Round <round>
+        destination: TITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.announce
+        format: ""
+        destination: SUBTITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.revive_players
+
+      - type: zombies.map.round.action.play_sound
+        sound: { name: 'minecraft:entity.wither.spawn', source: MASTER, volume: 24.0,
+                 pitch: 0.5 }
+    endActions: [ ]
+  # 5
+  - type: zombies.endless.basic.theme
+    mobs:
+      - key: phantazm:bloated_rip
+        spawnType: window
+        weight: 75
+      - key: phantazm:runner_rip
+        spawnType: window
+        weight: 75
+      - key: phantazm:paramedic_rip
+        spawnType: window
+        weight: 3
+      - key: phantazm:ram_rip
+        spawnType: window
+        weight: 2
+    waveWeight:
+      kind: LINEAR
+      ceiling: 5
+      a: 0.2
+    baseWaveDelayTicks:
+      kind: LINEAR_SINUSOIDAL
+      ceiling: 0
+      floor: -200
+      a: 9.2
+      b: -13.5
+    offsetWaveDelayTicks:
+      kind: LINEAR
+      ceiling: 200
+      floor: 20
+      a: 50
+    waveActions:
+      - type: zombies.endless.basic.wave_actions
+        wave: 2
+        spawnActions:
+          - type: zombies.map.wave.action.select_powerup
+            powerups: [ 'phantazm:landmine' ]
+    startActions:
+      - type: zombies.map.round.action.announce
+        format: <red>Round <round>
+        destination: TITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.announce
+        format: ""
+        destination: SUBTITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.revive_players
+
+      - type: zombies.map.round.action.play_sound
+        sound: { name: 'minecraft:entity.wither.spawn', source: MASTER, volume: 24.0,
+                 pitch: 0.5 }
+    endActions: [ ]
+  # 6
+  - type: zombies.endless.basic.theme
+    mobs:
+      - key: phantazm:civilian_rip
+        spawnType: window
+        weight: 100
+      - key: phantazm:runner_rip
+        spawnType: window
+        weight: 50
+      - key: phantazm:police_officer_rip
+        spawnType: window
+        weight: 50
+    waveWeight:
+      kind: LINEAR
+      ceiling: 5
+      a: 0.2
+    baseWaveDelayTicks:
+      kind: LINEAR_SINUSOIDAL
+      ceiling: 0
+      floor: -200
+      a: 9.2
+      b: -13.5
+    offsetWaveDelayTicks:
+      kind: LINEAR
+      ceiling: 200
+      floor: 20
+      a: 50
+    waveActions: [ ]
+    startActions:
+      - type: zombies.map.round.action.announce
+        format: <red>Round <round>
+        destination: TITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.announce
+        format: ""
+        destination: SUBTITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.revive_players
+
+      - type: zombies.map.round.action.play_sound
+        sound: { name: 'minecraft:entity.wither.spawn', source: MASTER, volume: 24.0,
+                 pitch: 0.5 }
+
+      - type: zombies.map.round.action.play_sound
+        sound: { name: 'minecraft:block.bell.resonate', source: MASTER, volume: 24.0,
+                 pitch: 0.0 }
+
+      - type: zombies.map.round.action.select_bombed
+        warningFormatMessage: '<red><#ff2655>[⚠]</#ff2655> <#fffa9e>»</#fffa9e> <red>Room <green><room></green> will be <dark_red><b>Bombed</b></dark_red> in <b>10 seconds!</red>'
+        bombingCompleteFormat: '<#fffa9e>»</#fffa9e> <green>The lingering effects of the <dark_red><b>Bombing</b></dark_red> in <room> have worn off!</green>'
+        inAreaMessage: '<red>You are in the bombed region, escape to stop taking damage!'
+        damage: 2
+        gracePeriod: 200
+        duration: 2
+        exemptRooms: [ 'garage' ]
+        modifiers:
+          - attribute: generic.movement_speed
+            amount: -0.5
+            attributeOperation: MULTIPLY_BASE
+
+          - attribute: phantazm.gun_fire_delay
+            amount: -0.5
+            attributeOperation: MULTIPLY_BASE
+        disablingModifiers: [ 'phantazm:no_doors' ]
+        particle:
+          type: particle.wrapper
+          particle: campfire_cosy_smoke
+          variantData:
+            type: particle.variant_data.none
+          distance: true
+          offsetX: 0.1
+          offsetY: 0.5
+          offsetZ: 0.1
+          data: 0
+          particleCount: 4
+    endActions: [ ]
+  # 7
+  - type: zombies.endless.basic.theme
+    mobs:
+      - key: phantazm:banshee_rip
+        spawnType: window
+        weight: 40
+      - key: phantazm:riot_police_rip
+        spawnType: window
+        weight: 85
+      - key: phantazm:police_officer_rip
+        spawnType: window
+        weight: 75
+    waveWeight:
+      kind: LINEAR
+      ceiling: 5
+      a: 0.2
+    baseWaveDelayTicks:
+      kind: LINEAR_SINUSOIDAL
+      ceiling: 0
+      floor: -200
+      a: 9.2
+      b: -13.5
+    offsetWaveDelayTicks:
+      kind: LINEAR
+      ceiling: 200
+      floor: 20
+      a: 50
+    waveActions:
+      - type: zombies.endless.basic.wave_actions
+        wave: 1
+        spawnActions:
+          - type: zombies.map.wave.action.select_powerup
+            powerups: [ 'phantazm:insta_kill' ]
+    startActions:
+      - type: zombies.map.round.action.announce
+        format: <red>Round <round>
+        destination: TITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.announce
+        format: ""
+        destination: SUBTITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.revive_players
+
+      - type: zombies.map.round.action.play_sound
+        sound: { name: 'minecraft:entity.wither.spawn', source: MASTER, volume: 24.0,
+                 pitch: 0.5 }
+    endActions: [ ]
+  # 8
+  - type: zombies.endless.basic.theme
+    mobs:
+      - key: phantazm:riot_police_rip
+        spawnType: window
+        weight: 50
+      - key: phantazm:runner_rip
+        spawnType: window
+        weight: 150
+    waveWeight:
+      kind: LINEAR
+      ceiling: 5
+      a: 0.2
+    baseWaveDelayTicks:
+      kind: LINEAR_SINUSOIDAL
+      ceiling: 0
+      floor: -200
+      a: 9.2
+      b: -13.5
+    offsetWaveDelayTicks:
+      kind: LINEAR
+      ceiling: 200
+      floor: 20
+      a: 50
+    waveActions:
+      - type: zombies.endless.basic.wave_actions
+        wave: 1
+        spawnActions:
+          - type: zombies.map.wave.action.select_powerup
+            powerups: [ 'phantazm:landmine' ]
+    startActions:
+      - type: zombies.map.round.action.announce
+        format: <red>Round <round>
+        destination: TITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.announce
+        format: ""
+        destination: SUBTITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.revive_players
+
+      - type: zombies.map.round.action.play_sound
+        sound: { name: 'minecraft:entity.wither.spawn', source: MASTER, volume: 24.0,
+                 pitch: 0.5 }
+    endActions: [ ]
+  # 9
+  - type: zombies.endless.basic.theme
+    mobs:
+      - key: phantazm:civilian_rip
+        spawnType: window
+        weight: 25
+      - key: phantazm:runner_rip
+        spawnType: window
+        weight: 75
+      - key: phantazm:police_officer_rip
+        spawnType: window
+        weight: 25
+      - key: phantazm:riot_police_rip
+        spawnType: window
+        weight: 25
+      - key: phantazm:banshee_rip
+        spawnType: window
+        weight: 50
+    waveWeight:
+      kind: LINEAR
+      ceiling: 5
+      a: 0.2
+    baseWaveDelayTicks:
+      kind: LINEAR_SINUSOIDAL
+      ceiling: 0
+      floor: -200
+      a: 9.2
+      b: -13.5
+    offsetWaveDelayTicks:
+      kind: LINEAR
+      ceiling: 200
+      floor: 20
+      a: 50
+    waveActions: [ ]
+    startActions:
+      - type: zombies.map.round.action.announce
+        format: <red>Round <round>
+        destination: TITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.announce
+        format: ""
+        destination: SUBTITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.revive_players
+
+      - type: zombies.map.round.action.play_sound
+        sound: { name: 'minecraft:entity.wither.spawn', source: MASTER, volume: 24.0,
+                 pitch: 0.5 }
+
+      - type: zombies.map.round.action.play_sound
+        sound: { name: 'minecraft:block.bell.resonate', source: MASTER, volume: 24.0,
+                 pitch: 0.0 }
+
+      - type: zombies.map.round.action.select_bombed
+        warningFormatMessage: '<red><#ff2655>[⚠]</#ff2655> <#fffa9e>»</#fffa9e> <red>Room <green><room></green> will be <dark_red><b>Bombed</b></dark_red> in <b>10 seconds!</red>'
+        bombingCompleteFormat: '<#fffa9e>»</#fffa9e> <green>The lingering effects of the <dark_red><b>Bombing</b></dark_red> in <room> have worn off!</green>'
+        inAreaMessage: '<red>You are in the bombed region, escape to stop taking damage!'
+        damage: 2
+        gracePeriod: 200
+        duration: 2
+        exemptRooms: [ 'garage' ]
+        modifiers:
+          - attribute: generic.movement_speed
+            amount: -0.5
+            attributeOperation: MULTIPLY_BASE
+
+          - attribute: phantazm.gun_fire_delay
+            amount: -0.5
+            attributeOperation: MULTIPLY_BASE
+        disablingModifiers: [ 'phantazm:no_doors' ]
+        particle:
+          type: particle.wrapper
+          particle: campfire_cosy_smoke
+          variantData:
+            type: particle.variant_data.none
+          distance: true
+          offsetX: 0.1
+          offsetY: 0.5
+          offsetZ: 0.1
+          data: 0
+          particleCount: 4
+    endActions: [ ]
+  # 10
+  - type: zombies.endless.basic.theme
+    mobs:
+      - key: phantazm:ram_rip
+        spawnType: window
+        weight: 3
+      - key: phantazm:riot_police_rip
+        spawnType: window
+        weight: 50
+      - key: phantazm:runner_rip
+        spawnType: window
+        weight: 50
+    waveWeight:
+      kind: LINEAR
+      ceiling: 5
+      a: 0.2
+    baseWaveDelayTicks:
+      kind: LINEAR_SINUSOIDAL
+      ceiling: 0
+      floor: -200
+      a: 9.2
+      b: -13.5
+    offsetWaveDelayTicks:
+      kind: LINEAR
+      ceiling: 200
+      floor: 20
+      a: 50
+    waveActions:
+      - type: zombies.endless.basic.wave_actions
+        wave: 3
+        spawnActions:
+          - type: zombies.map.wave.action.select_powerup
+            powerups: [ 'phantazm:overclock' ]
+    startActions:
+      - type: zombies.map.round.action.announce
+        format: <red>Round <round>
+        destination: TITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.announce
+        format: ""
+        destination: SUBTITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.revive_players
+
+      - type: zombies.map.round.action.play_sound
+        sound: { name: 'minecraft:entity.wither.spawn', source: MASTER, volume: 24.0,
+                 pitch: 0.5 }
+    endActions:
+      - type: zombies.map.round.action.announce
+        format: <gradient:#616575:#4a4c59><st>⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯</st></gradient><br><#fffa9e>»</#fffa9e> <#9096ad>You completed <b><green>Round <round></green></b> in <b><red><time></red></b><#b8bfde>!</#b8bfde></#9096ad><br><gradient:#616575:#4a4c59><st>⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯</st></gradient>
+        destination: CHAT
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+  # 11
+  - type: zombies.endless.basic.theme
+    mobs:
+      - key: phantazm:civilian_rip
+        spawnType: window
+        weight: 40
+      - key: phantazm:banshee_rip
+        spawnType: window
+        weight: 160
+      - key: phantazm:bloated_rip
+        spawnType: window
+        weight: 50
+    waveWeight:
+      kind: LINEAR
+      ceiling: 5
+      a: 0.2
+    baseWaveDelayTicks:
+      kind: LINEAR_SINUSOIDAL
+      ceiling: 0
+      floor: -200
+      a: 9.2
+      b: -13.5
+    offsetWaveDelayTicks:
+      kind: LINEAR
+      ceiling: 200
+      floor: 20
+      a: 50
+    waveActions:
+      - type: zombies.endless.basic.wave_actions
+        wave: 1
+        spawnActions:
+          - type: zombies.map.wave.action.select_powerup
+            powerups: [ 'phantazm:insta_kill' ]
+    startActions:
+      - type: zombies.map.round.action.announce
+        format: <red>Round <round>
+        destination: TITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.announce
+        format: ""
+        destination: SUBTITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.revive_players
+
+      - type: zombies.map.round.action.play_sound
+        sound: { name: 'minecraft:entity.wither.spawn', source: MASTER, volume: 24.0,
+                 pitch: 0.5 }
+    endActions: [ ]
+  # 12
+  - type: zombies.endless.basic.theme
+    mobs:
+      - key: phantazm:civilian_rip
+        spawnType: window
+        weight: 25
+      - key: phantazm:runner_rip
+        spawnType: window
+        weight: 25
+      - key: phantazm:police_officer_rip
+        spawnType: window
+        weight: 25
+      - key: phantazm:riot_police_rip
+        spawnType: window
+        weight: 25
+      - key: phantazm:banshee_rip
+        spawnType: window
+        weight: 25
+      - key: phantazm:bloated_rip
+        spawnType: window
+        weight: 100
+    waveWeight:
+      kind: LINEAR
+      ceiling: 5
+      a: 0.2
+    baseWaveDelayTicks:
+      kind: LINEAR_SINUSOIDAL
+      ceiling: 0
+      floor: -200
+      a: 9.2
+      b: -13.5
+    offsetWaveDelayTicks:
+      kind: LINEAR
+      ceiling: 200
+      floor: 20
+      a: 50
+    waveActions:
+      - type: zombies.endless.basic.wave_actions
+        wave: 1
+        spawnActions:
+          - type: zombies.map.wave.action.select_powerup
+            powerups: [ 'phantazm:landmine' ]
+
+      - type: zombies.endless.basic.wave_actions
+        wave: 2
+        spawnActions:
+          - type: zombies.map.wave.action.select_powerup
+            powerups: [ 'phantazm:landmine' ]
+    startActions:
+      - type: zombies.map.round.action.announce
+        format: <red>Round <round>
+        destination: TITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.announce
+        format: ""
+        destination: SUBTITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.revive_players
+
+      - type: zombies.map.round.action.play_sound
+        sound: { name: 'minecraft:entity.wither.spawn', source: MASTER, volume: 24.0,
+                 pitch: 0.5 }
+
+      - type: zombies.map.round.action.play_sound
+        sound: { name: 'minecraft:block.bell.resonate', source: MASTER, volume: 24.0,
+                 pitch: 0.0 }
+
+      - type: zombies.map.round.action.select_bombed
+        warningFormatMessage: '<red><#ff2655>[⚠]</#ff2655> <#fffa9e>»</#fffa9e> <red>Room <green><room></green> will be <dark_red><b>Bombed</b></dark_red> in <b>10 seconds!</red>'
+        bombingCompleteFormat: '<#fffa9e>»</#fffa9e> <green>The lingering effects of the <dark_red><b>Bombing</b></dark_red> in <room> have worn off!</green>'
+        inAreaMessage: '<red>You are in the bombed region, escape to stop taking damage!'
+        damage: 2
+        gracePeriod: 200
+        duration: 2
+        exemptRooms: [ 'garage' ]
+        modifiers:
+          - attribute: generic.movement_speed
+            amount: -0.5
+            attributeOperation: MULTIPLY_BASE
+
+          - attribute: phantazm.gun_fire_delay
+            amount: -0.5
+            attributeOperation: MULTIPLY_BASE
+        disablingModifiers: [ 'phantazm:no_doors' ]
+        particle:
+          type: particle.wrapper
+          particle: campfire_cosy_smoke
+          variantData:
+            type: particle.variant_data.none
+          distance: true
+          offsetX: 0.1
+          offsetY: 0.5
+          offsetZ: 0.1
+          data: 0
+          particleCount: 4
+    endActions: [ ]
+  # 13
+  - type: zombies.endless.basic.theme
+    mobs:
+      - key: phantazm:runner_rip
+        spawnType: window
+        weight: 85
+      - key: phantazm:bloated_rip
+        spawnType: window
+        weight: 40
+      - key: phantazm:bloated_piglet_endless-fgr
+        spawnType: window
+        weight: 35
+    waveWeight:
+      kind: LINEAR
+      ceiling: 5
+      a: 0.2
+    baseWaveDelayTicks:
+      kind: LINEAR_SINUSOIDAL
+      ceiling: 0
+      floor: -200
+      a: 9.2
+      b: -13.5
+    offsetWaveDelayTicks:
+      kind: LINEAR
+      ceiling: 200
+      floor: 20
+      a: 50
+    waveActions:
+      - type: zombies.endless.basic.wave_actions
+        wave: 3
+        spawnActions:
+          - type: zombies.map.wave.action.select_powerup
+            powerups: [ 'phantazm:overclock' ]
+    startActions:
+      - type: zombies.map.round.action.announce
+        format: <red>Round <round>
+        destination: TITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.announce
+        format: ""
+        destination: SUBTITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.revive_players
+
+      - type: zombies.map.round.action.play_sound
+        sound: { name: 'minecraft:entity.wither.spawn', source: MASTER, volume: 24.0,
+                 pitch: 0.5 }
+    endActions: [ ]
+  # 14
+  - type: zombies.endless.basic.theme
+    mobs:
+      - key: phantazm:banshee_rip
+        spawnType: window
+        weight: 175
+    waveWeight:
+      kind: LINEAR
+      ceiling: 5
+      a: 0.2
+    baseWaveDelayTicks:
+      kind: LINEAR_SINUSOIDAL
+      ceiling: 0
+      floor: -200
+      a: 9.2
+      b: -13.5
+    offsetWaveDelayTicks:
+      kind: LINEAR
+      ceiling: 200
+      floor: 20
+      a: 50
+    waveActions:
+      - type: zombies.endless.basic.wave_actions
+        wave: 3
+        spawnActions:
+          - type: zombies.map.wave.action.select_powerup
+            powerups: [ 'phantazm:landmine' ]
+    startActions:
+      - type: zombies.map.round.action.announce
+        format: <red>Round <round>
+        destination: TITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.announce
+        format: ""
+        destination: SUBTITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.revive_players
+
+      - type: zombies.map.round.action.play_sound
+        sound: { name: 'minecraft:entity.wither.spawn', source: MASTER, volume: 24.0,
+                 pitch: 0.5 }
+    endActions: [ ]
+  # 15
+  - type: zombies.endless.basic.theme
+    mobs:
+      - key: phantazm:bloated_rip
+        spawnType: window
+        weight: 175
+      - key: phantazm:paramedic_rip
+        spawnType: window
+        weight: 4
+    waveWeight:
+      kind: LINEAR
+      ceiling: 5
+      a: 0.2
+    baseWaveDelayTicks:
+      kind: LINEAR_SINUSOIDAL
+      ceiling: 0
+      floor: -200
+      a: 9.2
+      b: -13.5
+    offsetWaveDelayTicks:
+      kind: LINEAR
+      ceiling: 200
+      floor: 20
+      a: 50
+    waveActions: [ ]
+    startActions:
+      - type: zombies.map.round.action.announce
+        format: <red>Round <round>
+        destination: TITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.announce
+        format: ""
+        destination: SUBTITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.revive_players
+
+      - type: zombies.map.round.action.play_sound
+        sound: { name: 'minecraft:entity.wither.spawn', source: MASTER, volume: 24.0,
+                 pitch: 0.5 }
+
+      - type: zombies.map.round.action.play_sound
+        sound: { name: 'minecraft:block.bell.resonate', source: MASTER, volume: 24.0,
+                 pitch: 0.0 }
+
+      - type: zombies.map.round.action.select_bombed
+        warningFormatMessage: '<red><#ff2655>[⚠]</#ff2655> <#fffa9e>»</#fffa9e> <red>Room <green><room></green> will be <dark_red><b>Bombed</b></dark_red> in <b>10 seconds!</red>'
+        bombingCompleteFormat: '<#fffa9e>»</#fffa9e> <green>The lingering effects of the <dark_red><b>Bombing</b></dark_red> in <room> have worn off!</green>'
+        inAreaMessage: '<red>You are in the bombed region, escape to stop taking damage!'
+        damage: 2
+        gracePeriod: 200
+        duration: 2
+        exemptRooms: [ 'garage' ]
+        modifiers:
+          - attribute: generic.movement_speed
+            amount: -0.5
+            attributeOperation: MULTIPLY_BASE
+
+          - attribute: phantazm.gun_fire_delay
+            amount: -0.5
+            attributeOperation: MULTIPLY_BASE
+        disablingModifiers: [ 'phantazm:no_doors' ]
+        particle:
+          type: particle.wrapper
+          particle: campfire_cosy_smoke
+          variantData:
+            type: particle.variant_data.none
+          distance: true
+          offsetX: 0.1
+          offsetY: 0.5
+          offsetZ: 0.1
+          data: 0
+          particleCount: 4
+    endActions: [ ]
+  # 16
+  - type: zombies.endless.basic.theme
+    mobs:
+      - key: phantazm:civilian_rip
+        spawnType: window
+        weight: 25
+      - key: phantazm:police_officer_rip
+        spawnType: window
+        weight: 105
+      - key: phantazm:runner_rip
+        spawnType: window
+        weight: 100
+      - key: phantazm:bloated_piglet_endless-fgr
+        spawnType: window
+        weight: 45
+    waveWeight:
+      kind: LINEAR
+      ceiling: 5
+      a: 0.2
+    baseWaveDelayTicks:
+      kind: LINEAR_SINUSOIDAL
+      ceiling: 0
+      floor: -200
+      a: 9.2
+      b: -13.5
+    offsetWaveDelayTicks:
+      kind: LINEAR
+      ceiling: 200
+      floor: 20
+      a: 50
+    waveActions:
+      - type: zombies.endless.basic.wave_actions
+        wave: 3
+        spawnActions:
+          - type: zombies.map.wave.action.select_powerup
+            powerups: [ 'phantazm:landmine' ]
+    startActions:
+      - type: zombies.map.round.action.announce
+        format: <red>Round <round>
+        destination: TITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.announce
+        format: ""
+        destination: SUBTITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.revive_players
+
+      - type: zombies.map.round.action.play_sound
+        sound: { name: 'minecraft:entity.wither.spawn', source: MASTER, volume: 24.0,
+                 pitch: 0.5 }
+    endActions: [ ]
+  # 17
+  - type: zombies.endless.basic.theme
+    mobs:
+      - key: phantazm:bloated_rip
+        spawnType: window
+        weight: 50
+      - key: phantazm:banshee_rip
+        spawnType: window
+        weight: 30
+      - key: phantazm:civilian_rip
+        spawnType: window
+        weight: 90
+      - key: phantazm:bloated_piglet_endless-fgr
+        spawnType: window
+        weight: 30
+    waveWeight:
+      kind: LINEAR
+      ceiling: 5
+      a: 0.2
+    baseWaveDelayTicks:
+      kind: LINEAR_SINUSOIDAL
+      ceiling: 0
+      floor: -200
+      a: 9.2
+      b: -13.5
+    offsetWaveDelayTicks:
+      kind: LINEAR
+      ceiling: 200
+      floor: 20
+      a: 50
+    waveActions:
+      - type: zombies.endless.basic.wave_actions
+        wave: 1
+        spawnActions:
+          - type: zombies.map.wave.action.select_powerup
+            powerups: [ 'phantazm:insta_kill' ]
+    startActions:
+      - type: zombies.map.round.action.announce
+        format: <red>Round <round>
+        destination: TITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.announce
+        format: ""
+        destination: SUBTITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.revive_players
+
+      - type: zombies.map.round.action.play_sound
+        sound: { name: 'minecraft:entity.wither.spawn', source: MASTER, volume: 24.0,
+                 pitch: 0.5 }
+    endActions: [ ]
+  # 18
+  - type: zombies.endless.basic.theme
+    mobs:
+      - key: phantazm:runner_rip
+        spawnType: window
+        weight: 75
+      - key: phantazm:riot_police_rip
+        spawnType: window
+        weight: 150
+    waveWeight:
+      kind: LINEAR
+      ceiling: 5
+      a: 0.2
+    baseWaveDelayTicks:
+      kind: LINEAR_SINUSOIDAL
+      ceiling: 0
+      floor: -200
+      a: 9.2
+      b: -13.5
+    offsetWaveDelayTicks:
+      kind: LINEAR
+      ceiling: 200
+      floor: 20
+      a: 50
+    waveActions: [ ]
+    startActions:
+      - type: zombies.map.round.action.announce
+        format: <red>Round <round>
+        destination: TITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.announce
+        format: ""
+        destination: SUBTITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.revive_players
+
+      - type: zombies.map.round.action.play_sound
+        sound: { name: 'minecraft:entity.wither.spawn', source: MASTER, volume: 24.0,
+                 pitch: 0.5 }
+
+      - type: zombies.map.round.action.play_sound
+        sound: { name: 'minecraft:block.bell.resonate', source: MASTER, volume: 24.0,
+                 pitch: 0.0 }
+
+      - type: zombies.map.round.action.select_bombed
+        warningFormatMessage: '<red><#ff2655>[⚠]</#ff2655> <#fffa9e>»</#fffa9e> <red>Room <green><room></green> will be <dark_red><b>Bombed</b></dark_red> in <b>10 seconds!</red>'
+        bombingCompleteFormat: '<#fffa9e>»</#fffa9e> <green>The lingering effects of the <dark_red><b>Bombing</b></dark_red> in <room> have worn off!</green>'
+        inAreaMessage: '<red>You are in the bombed region, escape to stop taking damage!'
+        damage: 2
+        gracePeriod: 200
+        duration: 2
+        exemptRooms: [ 'garage' ]
+        modifiers:
+          - attribute: generic.movement_speed
+            amount: -0.5
+            attributeOperation: MULTIPLY_BASE
+
+          - attribute: phantazm.gun_fire_delay
+            amount: -0.5
+            attributeOperation: MULTIPLY_BASE
+        disablingModifiers: [ 'phantazm:no_doors' ]
+        particle:
+          type: particle.wrapper
+          particle: campfire_cosy_smoke
+          variantData:
+            type: particle.variant_data.none
+          distance: true
+          offsetX: 0.1
+          offsetY: 0.5
+          offsetZ: 0.1
+          data: 0
+          particleCount: 4
+    endActions: [ ]
+  # 19
+  - type: zombies.endless.basic.theme
+    mobs:
+      - key: phantazm:riot_police_rip
+        spawnType: window
+        weight: 150
+      - key: phantazm:civilian_rip
+        spawnType: window
+        weight: 25
+      - key: phantazm:bloated_piglet_endless-fgr
+        spawnType: window
+        weight: 50
+    waveWeight:
+      kind: LINEAR
+      ceiling: 5
+      a: 0.2
+    baseWaveDelayTicks:
+      kind: LINEAR_SINUSOIDAL
+      ceiling: 0
+      floor: -200
+      a: 9.2
+      b: -13.5
+    offsetWaveDelayTicks:
+      kind: LINEAR
+      ceiling: 200
+      floor: 20
+      a: 50
+    waveActions:
+      - type: zombies.endless.basic.wave_actions
+        wave: 2
+        spawnActions:
+          - type: zombies.map.wave.action.select_powerup
+            powerups: [ 'phantazm:overclock' ]
+      - type: zombies.endless.basic.wave_actions
+        wave: 3
+        spawnActions:
+          - type: zombies.map.wave.action.select_powerup
+            powerups: [ 'phantazm:landmine' ]
+    startActions:
+      - type: zombies.map.round.action.announce
+        format: <red>Round <round>
+        destination: TITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.announce
+        format: ""
+        destination: SUBTITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.revive_players
+
+      - type: zombies.map.round.action.play_sound
+        sound: { name: 'minecraft:entity.wither.spawn', source: MASTER, volume: 24.0,
+                 pitch: 0.5 }
+    endActions: [ ]
+  # 20
+  - type: zombies.endless.basic.theme
+    mobs:
+      - key: phantazm:paramedic_rip
+        spawnType: window
+        weight: 6
+      - key: phantazm:riot_police_rip
+        spawnType: window
+        weight: 25
+      - key: phantazm:police_officer_rip
+        spawnType: window
+        weight: 25
+      - key: phantazm:bloated_rip
+        spawnType: window
+        weight: 25
+      - key: phantazm:banshee_rip
+        spawnType: window
+        weight: 25
+      - key: phantazm:civilian_rip
+        spawnType: window
+        weight: 25
+      - key: phantazm:runner_rip
+        spawnType: window
+        weight: 25
+    waveWeight:
+      kind: LINEAR
+      ceiling: 5
+      a: 0.2
+    baseWaveDelayTicks:
+      kind: LINEAR_SINUSOIDAL
+      ceiling: 0
+      floor: -200
+      a: 9.2
+      b: -13.5
+    offsetWaveDelayTicks:
+      kind: LINEAR
+      ceiling: 200
+      floor: 20
+      a: 50
+    waveActions: [ ]
+    startActions:
+      - type: zombies.map.round.action.announce
+        format: <red>Round <round>
+        destination: TITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.announce
+        format: ""
+        destination: SUBTITLE
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false
+
+      - type: zombies.map.round.action.revive_players
+
+      - type: zombies.map.round.action.play_sound
+        sound: { name: 'minecraft:entity.wither.spawn', source: MASTER, volume: 24.0,
+                 pitch: 0.5 }
+
+      - type: zombies.map.round.action.play_sound
+        sound: { name: 'minecraft:block.bell.resonate', source: MASTER, volume: 24.0,
+                 pitch: 0.0 }
+
+      - type: zombies.map.round.action.select_bombed
+        warningFormatMessage: '<red><#ff2655>[⚠] <b>ONSLAUGHT!</b></#ff2655> <#fffa9e>»</#fffa9e> <red>Room <green><room></green> will be <dark_red><b>Bombed</b></dark_red> in <b>10 seconds!</red>'
+        bombingCompleteFormat: '<#fffa9e>»</#fffa9e> <green>The lingering effects of the <dark_red><b>Bombing</b></dark_red> in <room> have worn off!</green>'
+        inAreaMessage: '<red>You are in the bombed region, escape to stop taking damage!'
+        damage: 2
+        gracePeriod: 200
+        duration: 2
+        exemptRooms: [ 'garage' ]
+        modifiers:
+          - attribute: generic.movement_speed
+            amount: -0.5
+            attributeOperation: MULTIPLY_BASE
+
+          - attribute: phantazm.gun_fire_delay
+            amount: -0.5
+            attributeOperation: MULTIPLY_BASE
+        disablingModifiers: [ 'phantazm:no_doors' ]
+        particle:
+          type: particle.wrapper
+          particle: campfire_cosy_smoke
+          variantData:
+            type: particle.variant_data.none
+          distance: true
+          offsetX: 0.1
+          offsetY: 0.5
+          offsetZ: 0.1
+          data: 0
+          particleCount: 4
+
+      - type: zombies.map.round.action.select_bombed
+        warningFormatMessage: '<red><#ff2655>[⚠] <b>ONSLAUGHT!</b></#ff2655> <#fffa9e>»</#fffa9e> <red>Room <green><room></green> will be <dark_red><b>Bombed</b></dark_red> in <b>10 seconds!</red>'
+        bombingCompleteFormat: '<#fffa9e>»</#fffa9e> <green>The lingering effects of the <dark_red><b>Bombing</b></dark_red> in <room> have worn off!</green>'
+        inAreaMessage: '<red>You are in the bombed region, escape to stop taking damage!'
+        damage: 2
+        gracePeriod: 200
+        duration: 2
+        exemptRooms: [ 'garage' ]
+        modifiers:
+          - attribute: generic.movement_speed
+            amount: -0.5
+            attributeOperation: MULTIPLY_BASE
+
+          - attribute: phantazm.gun_fire_delay
+            amount: -0.5
+            attributeOperation: MULTIPLY_BASE
+        disablingModifiers: [ 'phantazm:no_doors' ]
+        particle:
+          type: particle.wrapper
+          particle: campfire_cosy_smoke
+          variantData:
+            type: particle.variant_data.none
+          distance: true
+          offsetX: 0.1
+          offsetY: 0.5
+          offsetZ: 0.1
+          data: 0
+          particleCount: 4
+    endActions:
+      - type: zombies.map.round.action.announce
+        format: <gradient:#616575:#4a4c59><st>⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯</st></gradient><br><#fffa9e>»</#fffa9e> <#9096ad>You completed <b><green>Round <round></green></b> in <b><red><time></red></b><#b8bfde>!</#b8bfde></#9096ad><br><gradient:#616575:#4a4c59><st>⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯</st></gradient>
+        destination: CHAT
+        tickFormatter:
+          type: core.tick_formatter.analog
+          ceil: false

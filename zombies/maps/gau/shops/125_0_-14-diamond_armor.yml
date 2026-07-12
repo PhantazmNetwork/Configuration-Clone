@@ -1,0 +1,164 @@
+id: diamond_armor
+trigger:
+  origin: { x: 125, y: 0, z: -14 }
+  lengths: { x: 3, y: 3, z: 1 }
+predicateEvaluation: ALL_TRUE
+data:
+  predicates:
+    - type: zombies.map.shop.predicate.player_state
+      states: [ zombies.player.state.alive ]
+      blacklist: false
+
+    - type: zombies.map.shop.predicate.in_game
+
+    - type: zombies.map.shop.predicate.type
+      types: [ zombies.map.shop.interaction.right_click_entity ]
+      blacklist: false
+
+  successInteractors:
+    - type: zombies.map.shop.interactor.conditional
+      evaluation: ALL_TRUE
+      predicates:
+        - type: zombies.map.shop.predicate.equipment_tier
+          slot: 41
+          tier: 3
+      successInteractors:
+        - type: zombies.map.shop.interactor.conditional
+          evaluation: ALL_TRUE
+          predicates:
+            - type: zombies.map.shop.predicate.static_cost
+              cost: 3600
+              modifierType: coin_spend.shop
+          successInteractors:
+            - type: zombies.map.shop.interactor.add_equipment
+              groupKey: zombies.group.armor
+              equipmentKey: diamond_helmet
+              allowReplace: true
+              allowDuplicate: false
+              specificSlot: 41
+              successInteractors:
+                - type: zombies.map.shop.interactor.messaging
+                  messages: [ "<green>You purchased <blue>Diamond Armor</blue>!</green>" ]
+                  broadcast: false
+
+                - type: zombies.map.shop.interactor.deduct_coins
+                  cost: 3600
+                  modifierType: coin_spend.shop
+
+                - type: zombies.map.shop.interactor.play_sound
+                  sound: { name: 'minecraft:block.note_block.pling', source: PLAYER, volume:
+                    10.0,  pitch: 2.0 }
+                  broadcast: false
+              failureInteractors:
+                - type: zombies.map.shop.interactor.messaging
+                  messages: [ "<red>You have already purchased Diamond Armor!" ]
+                  broadcast: false
+
+                - type: zombies.map.shop.interactor.play_sound
+                  sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                           pitch: 0.0 }
+                  broadcast: false
+
+            - type: zombies.map.shop.interactor.add_equipment
+              groupKey: zombies.group.armor
+              equipmentKey: diamond_chestplate
+              allowReplace: true
+              allowDuplicate: false
+              specificSlot: 42
+              successInteractors: [ ]
+              failureInteractors: [ ]
+
+            - type: zombies.map.shop.interactor.add_equipment
+              groupKey: zombies.group.armor
+              equipmentKey: diamond_leggings
+              allowReplace: true
+              allowDuplicate: false
+              specificSlot: 43
+              successInteractors: [ ]
+              failureInteractors: [ ]
+
+            - type: zombies.map.shop.interactor.add_equipment
+              groupKey: zombies.group.armor
+              equipmentKey: diamond_boots
+              allowReplace: true
+              allowDuplicate: false
+              specificSlot: 44
+              successInteractors: [ ]
+              failureInteractors: [ ]
+          failureInteractors:
+            - type: zombies.map.shop.interactor.messaging
+              messages: [ "<red>You don't have enough coins to purchase Diamond Armor!" ]
+              broadcast: false
+
+            - type: zombies.map.shop.interactor.play_sound
+              sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                       pitch: 0.0 }
+              broadcast: false
+      failureInteractors:
+        - type: zombies.map.shop.interactor.messaging
+          messages: [ "<red>You already own this armor!" ]
+          broadcast: false
+
+        - type: zombies.map.shop.interactor.play_sound
+          sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                   pitch: 0.0 }
+          broadcast: false
+  failureInteractors: [ ]
+  displays:
+    - type: zombies.map.shop.display.interaction_point
+      offset:
+        x: 0
+        y: 0
+        z: 0
+
+    - type: zombies.map.shop.display.player
+      displayCreator:
+        type: zombies.map.shop.display.player.conditional
+        predicate:
+          type: zombies.player.condition.has_equipment
+          groupKey: zombies.group.armor
+          equipmentKey: diamond_helmet
+        success:
+          - type: zombies.map.shop.display.player.hologram
+            info:
+              text: [ "<green>Diamond Armor", "<gold>UNLOCKED" ]
+              position:
+                x: 0
+                y: -1.75
+                z: 0
+        failure:
+          - type: zombies.map.shop.display.player.hologram
+            info:
+              text: [ "<green>Diamond Armor", "<gold>3600 Coins" ]
+              position:
+                x: 0
+                y: -1.75
+                z: 0
+
+    - type: zombies.map.shop.display.player
+      displayCreator:
+        type: zombies.map.shop.display.player.combining_armor
+        face: SOUTH
+        small: true
+        offset: { x: 0, y: -0.5, z: 0 }
+        items:
+          - key: HELMET
+            value:
+              stack: '{id:"minecraft:diamond_helmet",Count:1}'
+              tier: 3
+
+          - key: CHESTPLATE
+            value:
+              stack: '{id:"minecraft:diamond_chestplate",Count:1}'
+              tier: 3
+
+          - key: LEGGINGS
+            value:
+              stack: '{id:"minecraft:diamond_leggings",Count:1}'
+              tier: 3
+
+          - key: BOOTS
+            value:
+              stack: '{id:"minecraft:diamond_boots",Count:1}'
+              tier: 3
+

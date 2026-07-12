@@ -1,0 +1,8 @@
+id: control_room
+displayName: <green><b>Control Room
+regions:
+  - origin: { x: 166, y: 0, z: 6 }
+    lengths: { x: 10, y: 7, z: 20 }
+  - origin: { x: 176, y: 0, z: 8 }
+    lengths: { x: 2, y: 3, z: 2 }
+openActions: [ ]

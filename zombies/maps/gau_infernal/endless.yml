@@ -1,0 +1,45 @@
+type: zombies.endless.basic
+healthScaling:
+  kind: LINEAR
+  ceiling: 10
+  a: 1
+damageScaling:
+  kind: LINEAR
+  ceiling: 5
+  a: 0.5
+speedScaling:
+  kind: LINEAR
+  ceiling: 0.05
+  a: 0.001
+spawnAmountScaling:
+  kind: LINEAR
+  ceiling: 250
+  a: 2
+spawnAmountBase: 69
+waveScaling:
+  kind: CONSTANT
+  ceiling: 32
+  a: 0
+waveBase: 3
+introductions: [ ]
+themes:
+  - type: zombies.endless.basic.theme
+    mobs:
+      - key: phantazm:civilian
+        spawnType: window
+        weight: 1
+    waveWeight:
+      kind: CONSTANT
+      ceiling: 10
+      a: 1
+    baseWaveDelayTicks:
+      kind: CONSTANT
+      ceiling: 300
+      a: 300
+    offsetWaveDelayTicks:
+      kind: CONSTANT
+      ceiling: 0
+      a: 0
+    waveActions: [ ]
+    startActions: [ ]
+    endActions: [ ]

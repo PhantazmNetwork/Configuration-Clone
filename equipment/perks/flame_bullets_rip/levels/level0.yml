@@ -1,0 +1,39 @@
+type: zombies.perk.level.non_upgradeable
+key: level0
+equipment:
+  type: zombies.perk.equipment.basic
+  interactor:
+    type: zombies.perk.interactor.none
+  visual:
+    type: zombies.perk.visual.static
+    stack:
+      material: 'minecraft:blaze_rod'
+      displayName: '<!i><#b90f0f><b>Modified</b></#b90f0f> <blue><b>Flame Bullets</b></blue>'
+      lore:
+        - '<!i><#9096ad>Your guns are so hot you can</#9096ad>'
+        - '<!i><#9096ad>barely hold them. Ouch! You gain</#9096ad>'
+        - '<!i><#9096ad>a massive damage buff, at the cost</#9096ad>'
+        - '<!i><#9096ad>of most of your health.</#9096ad>'
+        - ''
+        - '<!i><#616575>»</#616575> <#9096ad>Effect duration</#9096ad><#b8bfde>:</#b8bfde> <green>10s</green></!i>'
+        - '<!i><#616575>»</#616575> <#9096ad>Damage rate</#9096ad><#b8bfde>:</#b8bfde> <green>4/s</green></!i>'
+        - '<!i><#616575>»</#616575> <#9096ad>Damage increase</#9096ad><#b8bfde>:</#b8bfde> <green>+100%</green></!i>'
+        - '<!i><#616575>»</#616575> <#9096ad>Health reduction</#9096ad><#b8bfde>:</#b8bfde> <red>-75%</red></!i>'
+effects:
+  - type: zombies.perk.effect.shot
+    actions:
+      - type: zombies.perk.effect.shot_entity.apply_fire
+        fireTicks: 200
+        damageInterval: 10
+        damage: 2
+        bypassArmor: false
+
+  - type: zombies.perk.effect.attribute_modifier
+    attribute: generic.max_health
+    amount: -0.75
+    attributeOperation: MULTIPLY_BASE
+
+  - type: zombies.perk.effect.attribute_modifier
+    attribute: phantazm.damage_multiplier
+    amount: 1.0
+    attributeOperation: MULTIPLY_BASE

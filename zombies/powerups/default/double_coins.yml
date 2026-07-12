@@ -1,0 +1,72 @@
+# FG: 3, 11
+# FG Endless: 3, 11, 23, 31
+# GAU: 8, 11, 25, 29
+id: double_coins
+visuals:
+  - type: zombies.powerup.visual.hologram
+    lines: [ "<gold><b>Double Coins</b></gold>" ]
+    timeUntilBlink: 1000
+    blinkFrames:
+      - components: [ "<white><b>Double Coins</b></white>" ]
+        delay: 20
+      - components: [ "<gold><b>Double Coins</b></gold>" ]
+        delay: 20
+    heightOffset: 1.25
+
+  - type: zombies.powerup.visual.item
+    stack: '{id:"raw_gold",Count:1}'
+    interval: 1
+    period: 40
+    periodOffset: 0
+    amplitude: 0.1
+    heightOffset: 1
+
+actions:
+  - type: zombies.powerup.action.send_message
+    format: <player> <yellow>activated <gold><b>Double Coins</b></gold> for <red><b>30s</b></red>!</yellow>
+    broadcast: true
+
+  - type: zombies.powerup.action.play_sound
+    sound: { name: 'minecraft:block.amethyst_cluster.step', source: PLAYER, volume: 10.0, pitch: 1.0 }
+
+  - type: zombies.powerup.action.play_sound
+    sound: { name: 'minecraft:block.amethyst_cluster.step', source: PLAYER, volume: 10.0, pitch: 1.5 }
+
+  - type: zombies.powerup.action.play_sound
+    sound: { name: 'minecraft:block.amethyst_cluster.step', source: PLAYER, volume: 10.0, pitch: 1.5 }
+
+  - type: zombies.powerup.action.map_transaction_modifier
+    deactivationPredicate:
+      type: zombies.powerup.deactivation_predicate.timed
+      time: 600
+    modifierGroup: coin_gain
+    displayName: Double Coins
+    modifierAction: MULTIPLY
+    amount: 1
+
+  - type: zombies.powerup.action.boss_bar_timer
+    duration: 600
+    format: <gold><b>Double Coins</b></gold> <#b8bfde>-</#b8bfde> <red><b><time>s</b></red>
+    color: YELLOW
+    overlay: PROGRESS
+    tickFormatter:
+      type: core.tick_formatter.precision_second
+      decimalPlaces: 1
+
+  - type: zombies.powerup.action.send_title
+    message: ""
+    titlePart: TITLE
+    broadcast: true
+
+  - type: zombies.powerup.action.send_title
+    message: <gold><b>Double Coins
+    titlePart: SUBTITLE
+    broadcast: true
+deactivationPredicate:
+  type: zombies.powerup.deactivation_predicate.timed
+  time: 1200
+powerupEffect:
+  type: zombies.powerup.entity_effect.glow
+  glowColor: GOLD
+pickupPredicate:
+  type: zombies.powerup.pickup_predicate.exclusive

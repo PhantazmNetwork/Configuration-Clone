@@ -1,0 +1,9 @@
+id: phantazm:lobby
+displayName: <bold><green>Lobby
+regions:
+- origin: {x: 52, y: 0, z: -15}
+  lengths: {x: 9, y: 7, z: 10}
+- origin: {x: 50, y: 3, z: -9}
+  lengths: {x: 2, y: 4, z: 4}
+- origin: {x: 54, y: 3, z: -5}
+  lengths: {x: 7, y: 4, z: 8}

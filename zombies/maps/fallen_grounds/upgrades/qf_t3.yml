@@ -1,0 +1,43 @@
+id: qf_t3
+data:
+  type: zombies.upgrade.standard
+  triggers:
+    - type: zombies.upgrade.trigger.event
+      event: ZOMBIES_PLAYER_KILL_MOB
+      eventFilter:
+        type: zombies.upgrade.filter.type
+        conditions:
+          - type: zombies.upgrade.filter.condition.zombies_player
+  effect:
+    type: zombies.upgrade.effect.composite
+    delegates:
+      - type: zombies.upgrade.effect.conditional
+        pass:
+          type: zombies.upgrade.effect.adjust_integer_tag
+          tag: 'qf_t3'
+          increment: 2
+          limit: 10
+          ephemeral: true
+        fail:
+          type: zombies.upgrade.effect.adjust_integer_tag
+          tag: 'qf_t3'
+          increment: -1
+          limit: 0
+          ephemeral: true
+        filter:
+          type: zombies.upgrade.filter.type
+          conditions:
+            - type: zombies.upgrade.filter.condition.damage_tag
+              tag: phantazm.zombies.is_headshot
+
+      - type: zombies.upgrade.effect.apply_attribute
+        selector:
+          type: zombies.upgrade.selector.self
+        attribute: phantazm.gun_damage
+        amount: 0.1
+        operation: MULTIPLY_BASE
+        scaling:
+          type: zombies.upgrade.effect.scaling.tag
+          selector:
+            type: zombies.upgrade.selector.self
+          tag: 'qf_t3'

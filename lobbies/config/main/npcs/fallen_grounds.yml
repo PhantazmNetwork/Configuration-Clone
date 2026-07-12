@@ -1,0 +1,66 @@
+type: npc.entity
+location: { x: -63.5, y: 20, z: 142.5, yaw: -90.0, pitch: 0.0 }
+entity:
+  type: npc.entity.supplier.player
+  playerSkin:
+    textures: "ewogICJ0aW1lc3RhbXAiIDogMTY5NDg5Njc0NjAwOCwKICAicHJvZmlsZUlkIiA6ICJiZWNlZGU1YmRkODY0YTkwOTc3MTRmODk0ZWUxNmE3MCIsCiAgInByb2ZpbGVOYW1lIiA6ICJTYW1hQ29tcG9zZXIiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOWJkNjRhMzdmNGRhMTA2ZjYzYTE1MWE3ZGZlNDFiMWRkZTQ5MzBiZjM1NjZjZmVkMGZiOWY0MzA0NzliOTAxYyIKICAgIH0KICB9Cn0="
+    signature: "HARgWuJuGY5MIGGmbi9N/i1a0pu5/bfPjbLFlVJtm4G2bDkdGGANGLoA5DiUDN3//tmw6DxE1fKhQ5L7XuDfpHQh/pwoYLGZJ2W3JTOjwiY5Q7n33w3b8j8GMOvFSIEhNvykoDpNsUasi1c2gB9oMUM7XusW04uSQn5pHJuyrq4C0qeHNvPywTNgX6+ZbOxF9DpMEQmdKCogA5oT1en3aV8u2wsooSXZT9jBSon0ok75M7iVrJCAqAHkY6x7sKjMte1yCF7bsOC0/9JaCGKwCOGspX/Y31ehDY5e289P5kbJih3+SM9CJITTHIPqCMyas5uDEjh52XQ1sZLDk9LkJ5XPE3DwkvvdyKpkcSzDlGOQmM3uCYi/nRJOYLT9oq4BdWVqAWFS+tT+9jWNgoRf1SUTFcGsRqxsww9M7uCk9d1pFRDcMLGIig3hnDw8H0q9CniuZBEYNUywroWb+DvVEhMC1ohXGGanMh+WiuHNv4JcMVd6RN8VXK557Hv1AXRS4nq28zYykzzOrHV0g6KZid0Sw7o0ZEA0fwGr+mWo2ST99zfbA5a4wNOFRfHBv03il/BvnennF/NFws14G3wqGBl/O9RyLprya5LhbGLrQoxprNo21k8gDkSIJKiI+qXqias78QEZwoL9m/XeEN1ryBFh7WVpzkv6C3A6MbpU768="
+settings:
+  type: npc.entity.settings
+ticker:
+  type: npc.entity.ticker.none
+interactor:
+  type: npc.interactor.show_gui
+  guiItems:
+    - type: npc.interactor.gui.item
+      itemStack:
+        material: minecraft:player_head
+        displayName: '<!i><b><yellow>Fallen Grounds</yellow></b></!i>'
+        lore:
+          - '<!i><#f062c1>A small, short, and simple Zombies map.</#f062c1></!i>'
+          - '<!i><#f062c1>Explore a ruined city teeming with hungry undead.</#f062c1></!i>'
+          - '<!i><#f062c1>Watch out for the deadly bombings!</#f062c1></!i>'
+          - ''
+          - '<!i><#9096ad><b>Difficulty</b></#9096ad><#b8bfde>:</#b8bfde> <#fffa9e>✦</#fffa9e><#4a4c59>✦✦✦✦</#4a4c59> <#b8bfde>(<b><color:#4de1ff>Easy</color>, <#fffa9e>1✦</#fffa9e></b>)</#b8bfde></!i>'
+        tag: '{SkullOwner:{Id:[I;1119739194,-1043445553,-1985880197,225638340],Properties:{textures:[{Value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvY2VlMzVkYWQ4ZmQ1ODI4YjExODRiMjQ2ZDJlNWQ2YzM5ZWE2NDA1ZjA5OGJlODFiNjNkYjI1N2JiM2FiMTJmOCJ9fX0="}]}}}'
+      interactor:
+        type: npc.interactor.command
+        command: 'zombies join phantazm:fallen_grounds'
+
+    - type: npc.interactor.gui.item
+      itemStack:
+        material: minecraft:player_head
+        displayName: '<!i><b><yellow>Fallen Grounds</yellow></b></!i>'
+        lore:
+          - '<!i><#f062c1>A significantly harder version of Fallen Grounds.</#f062c1></!i>'
+          - '<!i><#f062c1>Beware, something isn''t quite right here...</#f062c1></!i>'
+          - '<!i><#f062c1><b>Intended for 4 players only!</b></#f062c1></!i>'
+          - ''
+          - '<!i><#9096ad><b>Difficulty</b></#9096ad><#b8bfde>:</#b8bfde> <#fffa9e>✦✦✦✦</#fffa9e><#4a4c59>✦</#4a4c59> <#b8bfde>(<b><color:#ff1f1f>RIP</color>, <#fffa9e>4✦</#fffa9e></b>)</#b8bfde></!i>'
+        tag: '{SkullOwner:{Id:[I;-451485679,458572015,-1425232691,556940949],Properties:{textures:[{Value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGM2NDdhZWY4ZWQyNGZlYTdlOGFkYWM0M2U0Yzg0MGU0YjU0MDdkNTFmMDQzZTU0YWZjZGY4NTg5YjA0OGZjMiJ9fX0="}]}}}'
+      closeOnClick: false
+      interactor:
+        type: npc.interactor.show_gui
+        guiItems:
+          - type: npc.interactor.gui.item
+            itemStack:
+              material: minecraft:green_wool
+              displayName: '<!i><b><green>CONFIRM</green></b></!i>'
+              lore:
+                - ''
+                - '<!i><red><b>By clicking this button, you indicate</b></red></!i>'
+                - '<!i><red><b>that you understand this map is</b></red></!i>'
+                - '<!i><red><b>balanced for 4 players only!</b></red></!i>'
+            interactor:
+              type: npc.interactor.command
+              command: 'zombies join phantazm:fallen_grounds_rip'
+
+          - type: npc.interactor.gui.item
+            itemStack:
+              material: minecraft:red_wool
+              displayName: '<!i><b><red>DENY</red></b></!i>'
+              lore:
+                - ''
+                - '<!i><red><b>No, take me back...</b></red></!i>'
+            interactor:
+              type: npc.interactor.none

@@ -1,0 +1,13 @@
+ordinal: 6
+key: phantazm:no_doors
+displayName: '<red>No Doors</red>'
+webhookEmoji: '<:no_doors:1160905077364621342>'
+abbreviatedDisplayName: '<red>ND'
+displayItem:
+  material: minecraft:iron_door
+  displayName: '<!i><b><yellow>No Doors</yellow></b></!i>'
+  lore:
+    - ''
+    - '<!i><#616575>»</#616575> <#f062c1>You are unable to open any doors!</#f062c1></!i>'
+modifier:
+  type: zombies.modifier.door_restricting

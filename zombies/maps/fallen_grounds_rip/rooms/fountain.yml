@@ -1,0 +1,12 @@
+id: fountain
+displayName: <green><b>Fountain
+regions:
+  - origin: { x: 30, y: 0, z: -15 }
+    lengths: { x: 10, y: 7, z: 24 }
+  - origin: { x: 40, y: 0, z: -2 }
+    lengths: { x: 1, y: 3, z: 2 }
+  - origin: { x: 40, y: 0, z: -15 }
+    lengths: { x: 5, y: 7, z: 12 }
+  - origin: { x: 45, y: 0, z: -15 }
+    lengths: { x: 7, y: 7, z: 5 }
+openActions: [ ]

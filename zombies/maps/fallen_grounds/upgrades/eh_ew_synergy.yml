@@ -1,0 +1,16 @@
+id: eh_ew_synergy
+data:
+  type: zombies.upgrade.standard
+  triggers:
+    - type: zombies.upgrade.trigger.event
+      event: MOB_SETUP
+      eventFilter:
+        type: zombies.upgrade.filter.none
+  effect:
+    type: zombies.upgrade.effect.apply_attribute
+    selector:
+      type: zombies.upgrade.selector.event
+      useTarget: true
+    attribute: generic.max_health
+    amount: -0.03
+    operation: MULTIPLY_BASE

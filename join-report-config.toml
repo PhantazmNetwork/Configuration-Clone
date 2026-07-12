@@ -1,0 +1,6 @@
+emptyPlayers = "<red>There are no players to join!"
+unrecognizedType = "<red>The join type is unrecognized!"
+alreadyJoining = "<red>Some players are already joining a scene!"
+cannotProvision = "<red>Could not find an existing scene, and a new scene could not be created!"
+internalError = "<red>An internal server error occurred while trying to fulfill a join. Please report this issue to server administration!"
+

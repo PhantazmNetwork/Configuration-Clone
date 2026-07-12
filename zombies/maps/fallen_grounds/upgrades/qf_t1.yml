@@ -1,0 +1,12 @@
+id: qf_t1
+data:
+  type: zombies.upgrade.standard
+  triggers:
+    - type: zombies.upgrade.trigger.single
+  effect:
+    type: zombies.upgrade.effect.apply_attribute
+    selector:
+      type: zombies.upgrade.selector.self
+    attribute: phantazm.gun_fire_delay
+    amount: -0.15
+    operation: MULTIPLY_BASE

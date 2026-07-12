@@ -1,0 +1,91 @@
+round: 17
+startActions:
+  - type: zombies.map.round.action.announce
+    format: <red>Round <round>
+    destination: TITLE
+    tickFormatter:
+      type: core.tick_formatter.analog
+      ceil: false
+
+  - type: zombies.map.round.action.announce
+    format: ""
+    destination: SUBTITLE
+    tickFormatter:
+      type: core.tick_formatter.analog
+      ceil: false
+
+  - type: zombies.map.round.action.revive_players
+
+  - type: zombies.map.round.action.play_sound
+    sound: { name: 'minecraft:block.bell.resonate', source: MASTER, volume: 24.0,
+             pitch: 0.0 }
+
+  - type: zombies.map.round.action.select_bombed
+    warningFormatMessage: '<red><#ff2655>[⚠]</#ff2655> <#fffa9e>»</#fffa9e> <red>Room <green><room></green> will be <dark_red><b>Bombed</b></dark_red> in <b>10 seconds!</red>'
+    bombingCompleteFormat: '<#fffa9e>»</#fffa9e> <green>The lingering effects of the <dark_red><b>Bombing</b></dark_red> in <room> have worn off!</green>'
+    inAreaMessage: '<red>You are in the bombed region, escape to stop taking damage!'
+    damage: 2
+    gracePeriod: 200
+    duration: 2
+    exemptRooms: [ garage, lobby, lounge, storeroom, terrace ]
+    modifiers:
+      - attribute: generic.movement_speed
+        amount: -0.5
+        attributeOperation: MULTIPLY_BASE
+
+      - attribute: phantazm.gun_fire_delay
+        amount: 0.5
+        attributeOperation: MULTIPLY_BASE
+    disablingModifiers: [ 'phantazm:no_doors' ]
+    particle:
+      type: particle.wrapper
+      particle: campfire_cosy_smoke
+      variantData:
+        type: particle.variant_data.none
+      distance: true
+      offsetX: 0.1
+      offsetY: 0.5
+      offsetZ: 0.1
+      data: 0
+      particleCount: 4
+endActions: [ ]
+waves:
+  - delayTicks: 140
+    spawns:
+      - id: civilian
+        spawnType: window
+        amount: 4
+      - id: riot_police
+        spawnType: window
+        amount: 3
+      - id: police_officer
+        spawnType: window
+        amount: 3
+    spawnActions: [ ]
+  - delayTicks: 280
+    spawns:
+      - id: civilian
+        spawnType: window
+        amount: 7
+      - id: riot_police
+        spawnType: window
+        amount: 3
+      - id: police_officer
+        spawnType: window
+        amount: 3
+    spawnActions: [ ]
+  - delayTicks: 280
+    spawns:
+      - id: civilian
+        spawnType: window
+        amount: 5
+      - id: riot_police
+        spawnType: window
+        amount: 4
+      - id: police_officer
+        spawnType: window
+        amount: 3
+    spawnActions:
+      - type: zombies.map.wave.action.select_powerup
+        powerups: [ "landmine" ]
+

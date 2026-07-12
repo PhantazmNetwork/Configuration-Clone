@@ -1,0 +1,14 @@
+type: npc.entity
+location: { x: -62.5, y: 21.01, z: 147.5, yaw: -135.0, pitch: 0.0 }
+entity:
+  type: npc.entity.supplier.mob
+  entityType: 'minecraft:armor_stand'
+settings:
+  type: npc.entity.settings
+  invisible: true
+  small: true
+  displayName: '<b><#9096ad>NEW</#9096ad><#b8bfde>:</#b8bfde> <yellow>Endless</yellow></b>'
+ticker:
+  type: npc.entity.ticker.none
+interactor:
+  type: npc.interactor.none

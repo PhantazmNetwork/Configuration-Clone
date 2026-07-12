@@ -1,0 +1,47 @@
+# FG: 5, 8, 11, 16 x3, 17, 20
+# FG Endless: 2, 5, 8, 12 (x2), 14, 16, 19, 25, 34, 36 (x2)
+id: landmine
+visuals:
+  - type: zombies.powerup.visual.hologram
+    lines: [ "<dark_green><b>Landmine</b></dark_green>" ]
+    timeUntilBlink: 1000
+    blinkFrames:
+      - components: [ "<white><b>Landmine</b></white>" ]
+        delay: 20
+      - components: [ "<dark_green><b>Landmine</b></dark_green>" ]
+        delay: 20
+    heightOffset: 1.25
+
+  - type: zombies.powerup.visual.item
+    stack: '{id:"tnt",Count:1}'
+    interval: 1
+    period: 40
+    periodOffset: 0
+    amplitude: 0.1
+    heightOffset: 1
+
+actions:
+  - type: zombies.powerup.action.kill_all_in_radius
+    radius: 5.5
+    modifier: coin_gain.powerup
+    coinsPerKill: 20
+  - type: zombies.powerup.action.send_message
+    format: <player> <yellow>activated <dark_green><b>Landmine</b></dark_green>!</yellow>
+    broadcast: true
+  - type: zombies.powerup.action.play_sound
+    sound: { name: 'minecraft:entity.generic.explode', source: PLAYER, volume: 2.0, pitch: 0.5 }
+  - type: zombies.powerup.action.send_title
+    message: ""
+    titlePart: TITLE
+    broadcast: true
+  - type: zombies.powerup.action.send_title
+    message: <dark_green><b>Landmine
+    titlePart: SUBTITLE
+    broadcast: true
+
+deactivationPredicate:
+  type: zombies.powerup.deactivation_predicate.timed
+  time: 1200
+powerupEffect:
+  type: zombies.powerup.entity_effect.glow
+  glowColor: DARK_GREEN

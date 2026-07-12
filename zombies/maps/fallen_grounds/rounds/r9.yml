@@ -1,0 +1,52 @@
+round: 9
+startActions:
+  - type: zombies.map.round.action.announce
+    format: <red>Round <round>
+    destination: TITLE
+    tickFormatter:
+      type: core.tick_formatter.analog
+      ceil: false
+
+  - type: zombies.map.round.action.announce
+    format: ""
+    destination: SUBTITLE
+    tickFormatter:
+      type: core.tick_formatter.analog
+      ceil: false
+
+  - type: zombies.map.round.action.revive_players
+
+  - type: zombies.map.round.action.play_sound
+    sound: { name: 'minecraft:entity.wither.spawn', source: MASTER, volume: 24.0,
+             pitch: 0.5 }
+endActions: [ ]
+waves:
+  - delayTicks: 150
+    spawns:
+      - id: runner
+        spawnType: window
+        amount: 3
+      - id: police_officer
+        spawnType: window
+        amount: 3
+    spawnActions:
+      - type: zombies.map.wave.action.select_powerup
+        powerups: [ "overclock" ]
+  - delayTicks: 270
+    spawns:
+      - id: civilian
+        spawnType: window
+        amount: 5
+      - id: runner
+        spawnType: window
+        amount: 2
+    spawnActions: [ ]
+  - delayTicks: 260
+    spawns:
+      - id: runner
+        spawnType: window
+        amount: 3
+      - id: police_officer
+        spawnType: window
+        amount: 4
+

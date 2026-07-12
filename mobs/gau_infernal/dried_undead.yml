@@ -1,0 +1,123 @@
+key: dried_undead_infernal
+type: minecraft:husk
+pathfinding:
+  type: proxima.path_settings.ground
+  jumpHeight: 1.25
+  fallTolerance: 4
+  stepHeight: 0.5
+
+meta:
+  customName: <gold>Dried Undead</gold>
+
+attributes:
+  generic.max_health: 120
+  generic.movement_speed: 0.39
+  generic.attack_damage: 9
+  generic.armor: 14
+  generic.attack_knockback: 0.5
+
+skills:
+  - type: mob.skill.play_sound
+    trigger: DAMAGED
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.husk.hurt', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+  - type: mob.skill.play_sound
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.husk.death', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+  - type: mob.skill.random_timer
+    minInterval: 100
+    maxInterval: 160
+    delegate:
+      type: mob.skill.random
+      chance: 0.5
+      delegate:
+        type: mob.skill.play_sound
+        selector:
+          type: mob.selector.self
+        sound: { name: 'minecraft:entity.husk.ambient', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+  - type: mob.skill.timer
+    interval: 5
+    delegate:
+      type: mob.skill.temporal
+      minDuration: 20
+      maxDuration: 20
+      delegate:
+        type: mob.skill.attribute_modifying
+        attribute: generic.armor
+        amount: -0.1
+        attributeOperation: MULTIPLY_TOTAL
+        stage: zombies_game
+        selector:
+          type: mob.selector.entities_in_area
+          originSelector:
+            type: mob.selector.self
+          range: 5
+          target: PLAYERS
+          validator: /alivePlayers
+
+  - type: mob.skill.random_timer
+    minInterval: 60
+    maxInterval: 160
+    delegate:
+      type: mob.skill.random
+      chance: 0.5
+      delegate:
+        type: mob.skill.spawn_particle
+        selector:
+          type: mob.selector.self
+        particle:
+          type: particle.wrapper
+          particle: happy_villager
+          variantData:
+            type: particle.variant_data.none
+          distance: true
+          offsetX: 2.0
+          offsetY: 1.0
+          offsetZ: 2.0
+          data: 0.0
+          particleCount: 10
+        bounds:
+          origin:
+            x: -4.5
+            y: -1.0
+            z: -4.5
+          lengths:
+            x: 9.5
+            y: 4.0
+            z: 9.5
+
+goals:
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: zombies.mob.goal.break_window
+        breakTicks: 15
+        breakCount: 1
+        breakRadius: 0.5
+
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: mob.goal.melee_attack
+        cooldown: 20
+        range: 0.25
+
+      - type: mob.goal.follow_entity
+        selector:
+          type: mob.selector.entities_in_area
+          originSelector:
+            type: mob.selector.self
+          validator: /alivePlayers
+          target: PLAYERS
+          limit: 1
+        retargetInterval: 20
+        followRange: 1024
+
+alivePlayers:
+  type: zombies.mob.validator.zombies_player
+  states: [ zombies.player.state.alive ]
+  blacklist: false

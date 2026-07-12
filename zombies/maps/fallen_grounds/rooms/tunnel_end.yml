@@ -1,0 +1,10 @@
+id: tunnel_end
+displayName: <green><b>Tunnel End
+regions:
+  - origin: { x: 7, y: 0, z: -50 }
+    lengths: { x: 24, y: 7, z: 14 }
+  - origin: { x: 31, y: 0, z: -44 }
+    lengths: { x: 6, y: 6, z: 11 }
+  - origin: { x: 20, y: 1, z: -36 }
+    lengths: { x: 11, y: 5, z: 10 }
+openActions: [ ]

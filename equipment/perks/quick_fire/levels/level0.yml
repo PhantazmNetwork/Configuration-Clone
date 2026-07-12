@@ -1,0 +1,23 @@
+type: zombies.perk.level.non_upgradeable
+key: level0
+equipment:
+  type: zombies.perk.equipment.basic
+  interactor:
+    type: zombies.perk.interactor.none
+  visual:
+    type: zombies.perk.visual.static
+    stack:
+      material: 'minecraft:gold_nugget'
+      displayName: '<!i><blue><b>Quick Fire</b></blue></!i>'
+      lore:
+        - '<!i><#9096ad>By adding additional bling to</#9096ad></!i>'
+        - '<!i><#9096ad>your weapons, you become attuned</#9096ad></!i>'
+        - '<!i><#9096ad>to all their little quirks. You</#9096ad></!i>'
+        - '<!i><#9096ad>can now fire them much faster.</#9096ad></!i>'
+        - ''
+        - '<!i><#616575>»</#616575> <#9096ad>Fire rate delay</#9096ad><#b8bfde>:</#b8bfde> <green>-20%</green></!i>'
+effects:
+  - type: zombies.perk.effect.attribute_modifier
+    attribute: phantazm.gun_fire_delay
+    amount: -0.2
+    attributeOperation: MULTIPLY_BASE

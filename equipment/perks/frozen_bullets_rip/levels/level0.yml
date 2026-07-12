@@ -1,0 +1,33 @@
+type: zombies.perk.level.non_upgradeable
+key: level0
+equipment:
+  type: zombies.perk.equipment.basic
+  interactor:
+    type: zombies.perk.interactor.none
+  visual:
+    type: zombies.perk.visual.static
+    stack:
+      material: 'minecraft:ice'
+      displayName: '<!i><#b90f0f><b>Modified</b></#b90f0f> <blue><b>Frozen Bullets</b></blue></!i>'
+      lore:
+        - '<!i><#9096ad>You put frozen ice cream in the</#9096ad></!i>'
+        - '<!i><#9096ad>barrels of all your guns. Too</#9096ad></!i>'
+        - '<!i><#9096ad>much, maybe, since it seems to</#9096ad></!i>'
+        - '<!i><#9096ad>have gummed up the firing mechanism.</#9096ad></!i>'
+        - '<!i><#9096ad>What were you expecting?</#9096ad></!i>'
+        - ''
+        - '<!i><#616575>»</#616575> <#9096ad>Effect duration</#9096ad><#b8bfde>:</#b8bfde> <green>6s</green></!i>'
+        - '<!i><#616575>»</#616575> <#9096ad>Zombie speed modifier</#9096ad><#b8bfde>:</#b8bfde> <green>-70%</green></!i>'
+        - '<!i><#616575>»</#616575> <#9096ad>Fire rate</#9096ad><#b8bfde>:</#b8bfde> <red>-75%</red></!i>'
+effects:
+  - type: zombies.perk.effect.shot
+    actions:
+      - type: zombies.perk.effect.shot_entity.apply_attribute
+        attribute: generic.movement_speed
+        amount: -0.70
+        attributeOperation: MULTIPLY_BASE
+        duration: 120
+  - type: zombies.perk.effect.attribute_modifier
+    attribute: phantazm.gun_fire_delay
+    amount: 0.75
+    attributeOperation: MULTIPLY_BASE

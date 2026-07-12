@@ -1,0 +1,6 @@
+type: role.basic
+identifier: playtester
+chatFormat: '<#3de1f0>[Playtester] <name>'
+displayNameFormat: '<#3de1f0><name>'
+priority: 995
+permissions: [ 'zombies.early_access', 'zombies.playtest.*' ]

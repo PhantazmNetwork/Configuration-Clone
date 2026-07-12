@@ -1,0 +1,18 @@
+id: flb_t4
+data:
+  type: zombies.upgrade.standard
+  triggers:
+    - type: zombies.upgrade.trigger.event
+      event: ZOMBIES_PLAYER_PROC_FIRE
+      eventFilter:
+        type: zombies.upgrade.filter.type
+        conditions:
+          - type: zombies.upgrade.filter.condition.zombies_player
+  effect:
+    type: zombies.upgrade.effect.damage_scaled_by_health
+    selector:
+      type: zombies.upgrade.selector.event
+      validator:
+        type: zombies.upgrade.validator.mob_in_round
+      useTarget: true
+    percentageOfHealth: 0.05

@@ -1,0 +1,131 @@
+key: confusion_trap_fge
+type: minecraft:armor_stand
+tags: [ deployable, trap_invincible ]
+pathfinding:
+  type: proxima.path_settings.ground
+  jumpHeight: 0
+  fallTolerance: 0
+  stepHeight: 0
+
+meta:
+  isSmall: true
+  isInvisible: true
+  hasGravity: false
+  hasPhysics: false
+
+extra:
+  bypassEndlessScaling: true
+  partOfRound: false
+  killAfterRound: false
+  forceDeselect: true
+  ticksUntilDeath: 600
+
+equipment:
+  HELMET: '{id:"black_stained_glass",Count:1}'
+
+attributes:
+  generic.max_health: 20
+  generic.movement_speed: 0
+  generic.armor: 8
+  generic.armor_toughness: 3
+  generic.knockback_resistance: 1.0
+
+skills:
+  - type: mob.skill.random_timer
+    minInterval: 8
+    maxInterval: 14
+    delegate:
+      type: mob.skill.random
+      chance: 0.75
+      delegate:
+        type: mob.skill.play_sound
+        selector:
+          type: mob.selector.self
+        sound: { name: 'minecraft:block.lava.extinguish', source: HOSTILE, volume: 2.0, pitch: 2.0 }
+
+  - type: mob.skill.timer
+    interval: 12
+    delegate:
+      type: mob.skill.group
+      delegates:
+        - type: mob.skill.temporal
+          minDuration: 100
+          maxDuration: 100
+          delegate:
+            type: mob.skill.apply_ai_goal
+            group: 1
+            selector:
+              type: mob.selector.entities_in_area
+              originSelector:
+                type: mob.selector.self
+              validator: /combinedValidator
+              range: 11
+              target: LIVING_ENTITIES
+            appliedTag: mob_friendly_fire
+            index: 1
+            goal:
+              type: mob.goal.follow_entity
+              selector:
+                type: mob.selector.entities_in_area
+                originSelector:
+                  type: mob.selector.self
+                validator: /combinedValidator
+                target: LIVING_ENTITIES
+                limit: 1
+              retargetInterval: 20
+              followRange: 1024
+
+  - type: mob.skill.timer
+    interval: 5
+    delegate:
+      type: mob.skill.spawn_particle
+      selector:
+        type: mob.selector.self
+      particle:
+        type: particle.wrapper
+        particle: dust
+        variantData:
+          type: particle.variant_data.dust
+          color:
+            r: 100
+            g: 0
+            b: 0
+          size: 2
+        distance: true
+        offsetX: 4.0
+        offsetY: 0.6
+        offsetZ: 4.0
+        data: 0.0
+        particleCount: 25
+      bounds:
+        origin:
+          x: 0.0
+          y: 0.5
+          z: 0.0
+        lengths:
+          x: 0.0
+          y: 0.0
+          z: 0.0
+
+alivePlayers:
+  type: zombies.mob.validator.zombies_player
+  states: [ zombies.player.state.alive ]
+  blacklist: false
+
+targetableMobs:
+  type: mob.validator.mob_type
+  tags: [ ally_targetable, trap_invincible ]
+  blacklist: false
+
+bossMobs:
+  type: mob.validator.mob_type
+  tags: [ boss ]
+  blacklist: false
+
+combinedValidator:
+  type: mob.validator.and
+  validators:
+    - type: mob.validator.mob
+
+    - type: mob.validator.not
+      validators: [ /targetableMobs, /bossMobs ]

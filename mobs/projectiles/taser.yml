@@ -1,0 +1,72 @@
+key: taser
+type: minecraft:item
+pathfinding:
+  type: proxima.path_settings.ground
+  jumpHeight: 0
+  fallTolerance: 0
+  stepHeight: 0
+
+meta:
+  customName: <blue>Taser Zapper</blue>
+  itemStack:
+    material: minecraft:firework_star
+
+extra:
+  bypassEndlessScaling: true
+  ticksUntilDeath: 200
+
+skills:
+  - type: mob.skill.play_sound
+    trigger: ATTACK
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.vex.hurt', source: HOSTILE, volume: 1.5, pitch: 2.0 }
+
+  - type: mob.skill.damage
+    trigger: ATTACK
+    selector:
+      type: mob.selector.last_hit
+    amount: 6
+    knockback: 0.2
+
+  - type: mob.skill.temporal
+    trigger: ATTACK
+    minDuration: 20
+    maxDuration: 20
+    delegate:
+      type: mob.skill.attribute_modifying
+      attribute: generic.movement_speed
+      amount: -1.0
+      attributeOperation: MULTIPLY_TOTAL
+      stage: zombies_game
+      selector:
+        type: mob.selector.last_hit
+
+  - type: mob.skill.spawn_particle
+    trigger: ATTACK
+    selector:
+      type: mob.selector.last_hit
+    particle:
+      type: particle.wrapper
+      particle: crit
+      variantData:
+        type: particle.variant_data.none
+      distance: true
+      offsetX: 0.25
+      offsetY: 0.5
+      offsetZ: 0.25
+      data: 0.0
+      particleCount: 15
+    bounds:
+      origin:
+        x: 0.0
+        y: 1.5
+        z: 0.0
+      lengths:
+        x: 0.0
+        y: 0.0
+        z: 0.0
+
+targetValidator:
+  type: mob.validator.or
+  validators: [ /alivePlayers, /targetableMobs ]

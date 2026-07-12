@@ -1,0 +1,779 @@
+id: phantazm:radio
+trigger:
+  origin: { x: 57, y: 23, z: -7 }
+  lengths: { x: 1, y: 2, z: 1 }
+predicateEvaluation: ALL_TRUE
+data:
+  predicates:
+    - type: zombies.map.shop.predicate.player_state
+      states: [ zombies.player.state.alive ]
+      blacklist: false
+    - { type: zombies.map.shop.predicate.in_game }
+    - type: zombies.map.shop.predicate.type
+      types: [ zombies.map.shop.interaction.right_click_block ]
+      blacklist: false
+  successInteractors:
+    - type: zombies.map.shop.interactor.conditional
+      evaluation: ALL_TRUE
+      predicates:
+        - { type: zombies.map.shop.predicate.map_flag, flag: zombies.map.flag.power, requireAbsent: false }
+      successInteractors:
+        - type: zombies.map.shop.interactor.open_gui
+          title: Radio
+          inventoryType: CHEST_3_ROW
+          dynamic: false
+          guiItems:
+            - type: zombies.map.shop.gui.click_handler.interacting
+              clickTypes: [ LEFT_CLICK ]
+              blacklist: false
+              closeOnInteract: false
+              updatingItem:
+                type: item.updating.static
+                item:
+                  material: 'minecraft:player_head'
+                  displayName: '<!i><b><blue>Select Location'
+                  lore:
+                    - '<!i><#9096ad>Select the location to call in help on.'
+                  tag: '{SkullOwner:{Id:[I;148266834,1365983694,-1912405631,1881942976],Properties:{textures:[{Value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjU5ZThkNDE5NmZlYTgyNzAyNWMyOTI3YTZmY2Q2ZTk4ZDAzMDA1NzM3MTIzOGE3N2FlNGNkZGViY2U4NjQ3NyJ9fX0="}]}}}'
+              clickInteractor:
+                type: zombies.map.shop.interactor.open_gui
+                title: Radio - Locations
+                inventoryType: CHEST_3_ROW
+                dynamic: true
+                guiItems:
+                  - type: zombies.map.shop.gui.click_handler.interacting
+                    clickTypes: [ LEFT_CLICK ]
+                    blacklist: false
+                    closeOnInteract: false
+                    fixedSlot: 11
+                    updatingItem:
+                      type: item.updating.static
+                      item:
+                        material: 'minecraft:end_crystal'
+                        displayName: "<!i><green><b>Road</b></green>"
+                        lore:
+                          - '<!i><#9096ad>Call in help at <green><b>Road</b></green>!</#9096ad></!i>'
+                    clickInteractor:
+                      type: zombies.map.shop.interactor.conditional
+                      evaluation: NONE_TRUE
+                      predicates:
+                        - type: zombies.map.shop.predicate.string_tag
+                          tag: location_selector
+                          onScene: true
+                          value: road
+                          initialValue: none
+                      successInteractors:
+                        - type: zombies.map.shop.interactor.set_string_tag
+                          tag: location_selector
+                          onScene: true
+                          value: road
+
+                        - type: zombies.map.shop.interactor.messaging
+                          messages: [ '<#9096ad><sender> set the target location to <green><b>Road</b></green>!<#9096ad>' ]
+                          broadcast: true
+
+                        - type: zombies.map.shop.interactor.play_sound
+                          sound: { name: 'minecraft:block.note_block.pling', source: PLAYER, volume: 10.0,  pitch: 2.0 }
+                          broadcast: false
+                      failureInteractors:
+                        - type: zombies.map.shop.interactor.messaging
+                          messages: [ "<red>This location is already selected!" ]
+                          broadcast: false
+
+                        - type: zombies.map.shop.interactor.play_sound
+                          sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                                   pitch: 0.0 }
+                          broadcast: false
+
+                  - type: zombies.map.shop.gui.click_handler.interacting
+                    clickTypes: [ LEFT_CLICK ]
+                    blacklist: false
+                    closeOnInteract: false
+                    fixedSlot: 13
+                    updatingItem:
+                      type: item.updating.static
+                      item:
+                        material: 'minecraft:end_crystal'
+                        displayName: "<!i><green><b>Tunnel End</b></green>"
+                        lore:
+                          - '<!i><#9096ad>Call in help at <green><b>Tunnel End</b></green>!</#9096ad></!i>'
+                    clickInteractor:
+                      type: zombies.map.shop.interactor.conditional
+                      evaluation: NONE_TRUE
+                      predicates:
+                        - type: zombies.map.shop.predicate.string_tag
+                          tag: location_selector
+                          onScene: true
+                          value: tunnel_end
+                          initialValue: none
+                      successInteractors:
+                        - type: zombies.map.shop.interactor.set_string_tag
+                          tag: location_selector
+                          onScene: true
+                          value: tunnel_end
+
+                        - type: zombies.map.shop.interactor.messaging
+                          messages: [ '<#9096ad><sender> set the target location to <green><b>Tunnel End</b></green>!<#9096ad>' ]
+                          broadcast: true
+
+                        - type: zombies.map.shop.interactor.play_sound
+                          sound: { name: 'minecraft:block.note_block.pling', source: PLAYER, volume: 10.0,  pitch: 2.0 }
+                          broadcast: false
+                      failureInteractors:
+                        - type: zombies.map.shop.interactor.messaging
+                          messages: [ "<red>This location is already selected!" ]
+                          broadcast: false
+
+                        - type: zombies.map.shop.interactor.play_sound
+                          sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                                   pitch: 0.0 }
+                          broadcast: false
+
+                  - type: zombies.map.shop.gui.click_handler.interacting
+                    clickTypes: [ LEFT_CLICK ]
+                    blacklist: false
+                    closeOnInteract: false
+                    fixedSlot: 15
+                    updatingItem:
+                      type: item.updating.static
+                      item:
+                        material: 'minecraft:end_crystal'
+                        displayName: "<!i><green><b>Intersection</b></green>"
+                        lore:
+                          - '<!i><#9096ad>Call in help at <green><b>Intersection</b></green>!</#9096ad></!i>'
+                    clickInteractor:
+                      type: zombies.map.shop.interactor.conditional
+                      evaluation: NONE_TRUE
+                      predicates:
+                        - type: zombies.map.shop.predicate.string_tag
+                          tag: location_selector
+                          onScene: true
+                          value: intersection
+                          initialValue: none
+                      successInteractors:
+                        - type: zombies.map.shop.interactor.set_string_tag
+                          tag: location_selector
+                          onScene: true
+                          value: intersection
+
+                        - type: zombies.map.shop.interactor.messaging
+                          messages: [ '<#9096ad><sender> set the target location to <green><b>Intersection</b></green>!<#9096ad>' ]
+                          broadcast: true
+
+                        - type: zombies.map.shop.interactor.play_sound
+                          sound: { name: 'minecraft:block.note_block.pling', source: PLAYER, volume: 10.0,  pitch: 2.0 }
+                          broadcast: false
+                      failureInteractors:
+                        - type: zombies.map.shop.interactor.messaging
+                          messages: [ "<red>This location is already selected!" ]
+                          broadcast: false
+
+                        - type: zombies.map.shop.interactor.play_sound
+                          sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                                   pitch: 0.0 }
+                          broadcast: false
+            - type: zombies.map.shop.gui.click_handler.interacting
+              clickTypes: [ LEFT_CLICK ]
+              blacklist: false
+              closeOnInteract: false
+              updatingItem:
+                type: item.updating.static
+                item:
+                  material: 'minecraft:totem_of_undying'
+                  displayName: '<!i><b><blue>Select Action'
+                  lore:
+                    - '<!i><#9096ad>Select what action to call in on'
+                    - '<!i><#9096ad>your selected location.'
+              clickInteractor:
+                type: zombies.map.shop.interactor.open_gui
+                title: Radio - Actions
+                inventoryType: CHEST_3_ROW
+                dynamic: true
+                guiItems:
+                  - type: zombies.map.shop.gui.click_handler.interacting
+                    clickTypes: [ LEFT_CLICK ]
+                    blacklist: false
+                    closeOnInteract: false
+                    fixedSlot: 11
+                    updatingItem:
+                      type: item.updating.static
+                      item:
+                        material: 'minecraft:iron_trapdoor'
+                        displayName: "<!i><white><b>Magnet Trap</b></white>"
+                        lore:
+                          - '<!i><#9096ad>Spawns a trap at the selected location</#9096ad></!i>'
+                          - '<!i><#9096ad>that pulls enemies towards its center.</#9096ad></!i>'
+                          - ''
+                          - '<!i><#9096ad><b>Cost<#b8bfde>:</#b8bfde> <gold>1500 Coins</gold></b></#9096ad></!i>'
+                    clickInteractor:
+                      type: zombies.map.shop.interactor.conditional
+                      evaluation: ALL_TRUE
+                      predicates:
+                        - type: zombies.map.shop.predicate.static_cost
+                          cost: 1500
+                          modifierType: coin_spend.shop
+                      successInteractors:
+                        - type: zombies.map.shop.interactor.conditional
+                          evaluation: NONE_TRUE
+                          predicates:
+                            - type: zombies.map.shop.predicate.string_tag
+                              tag: location_selector
+                              onScene: true
+                              value: none
+                              initialValue: none
+                          successInteractors:
+                            - type: zombies.map.shop.interactor.conditional
+                              evaluation: ALL_TRUE
+                              predicates:
+                                - type: zombies.map.shop.predicate.string_tag
+                                  tag: location_selector
+                                  onScene: true
+                                  value: road
+                                  initialValue: none
+                              successInteractors:
+                                - type: zombies.map.shop.interactor.spawn_mob
+                                  coordinate:
+                                    x: -1
+                                    y: 0
+                                    z: -19
+                                  mob: phantazm:magnet_trap_fge
+
+                                - type: zombies.map.shop.interactor.deduct_coins
+                                  cost: 1500
+                                  modifierType: coin_spend.shop
+
+                                - type: zombies.map.shop.interactor.play_sound
+                                  sound: { name: 'minecraft:entity.firework_rocket.twinkle', source: PLAYER,
+                                           volume: 10.0,
+                                           pitch: 1.0 }
+                                  broadcast: true
+
+                                - type: zombies.map.shop.interactor.messaging
+                                  messages: [ '<#9096ad><sender> summoned <white><b>Magnet Trap</b></white> in <green>Road</green>!<#9096ad>' ]
+                                  broadcast: true
+                              failureInteractors:
+                                - type: zombies.map.shop.interactor.conditional
+                                  evaluation: ALL_TRUE
+                                  predicates:
+                                    - type: zombies.map.shop.predicate.string_tag
+                                      tag: location_selector
+                                      onScene: true
+                                      value: tunnel_end
+                                      initialValue: none
+                                  successInteractors:
+                                    - type: zombies.map.shop.interactor.spawn_mob
+                                      coordinate:
+                                        x: 15
+                                        y: 0
+                                        z: -42
+                                      mob: phantazm:magnet_trap_fge
+
+                                    - type: zombies.map.shop.interactor.deduct_coins
+                                      cost: 1500
+                                      modifierType: coin_spend.shop
+
+                                    - type: zombies.map.shop.interactor.play_sound
+                                      sound: { name: 'minecraft:entity.firework_rocket.twinkle', source: PLAYER,
+                                               volume: 10.0,
+                                               pitch: 1.0 }
+                                      broadcast: true
+
+                                    - type: zombies.map.shop.interactor.messaging
+                                      messages: [ '<#9096ad><sender> summoned <white><b>Magnet Trap</b></white> in <green>Tunnel End</green>!<#9096ad>' ]
+                                      broadcast: true
+                                  failureInteractors:
+                                    - type: zombies.map.shop.interactor.conditional
+                                      evaluation: ALL_TRUE
+                                      predicates:
+                                        - type: zombies.map.shop.predicate.string_tag
+                                          tag: location_selector
+                                          onScene: true
+                                          value: intersection
+                                          initialValue: none
+                                      successInteractors:
+                                        - type: zombies.map.shop.interactor.spawn_mob
+                                          coordinate:
+                                            x: 28
+                                            y: 0
+                                            z: -20
+                                          mob: phantazm:magnet_trap_fge
+
+                                        - type: zombies.map.shop.interactor.deduct_coins
+                                          cost: 1500
+                                          modifierType: coin_spend.shop
+
+                                        - type: zombies.map.shop.interactor.play_sound
+                                          sound: { name: 'minecraft:entity.firework_rocket.twinkle', source: PLAYER,
+                                                   volume: 10.0,
+                                                   pitch: 1.0 }
+                                          broadcast: true
+
+                                        - type: zombies.map.shop.interactor.messaging
+                                          messages: [ '<#9096ad><sender> summoned <white><b>Magnet Trap</b></white> in <green>Intersection</green>!<#9096ad>' ]
+                                          broadcast: true
+                                      failureInteractors:
+                                        - type: zombies.map.shop.interactor.messaging
+                                          messages: [ "<red>Unrecognized location. There's probably a typo in the config." ]
+                                          broadcast: false
+
+                                        - type: zombies.map.shop.interactor.play_sound
+                                          sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                                                   pitch: 0.0 }
+                                          broadcast: false
+                          failureInteractors:
+                            - type: zombies.map.shop.interactor.messaging
+                              messages: [ "<red>Select a location first!" ]
+                              broadcast: false
+
+                            - type: zombies.map.shop.interactor.play_sound
+                              sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                                       pitch: 0.0 }
+                              broadcast: false
+                      failureInteractors:
+                        - type: zombies.map.shop.interactor.messaging
+                          messages: [ "<red>You do not have enough coins to purchase this!" ]
+                          broadcast: false
+
+                        - type: zombies.map.shop.interactor.play_sound
+                          sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                                   pitch: 0.0 }
+                          broadcast: false
+
+                  - type: zombies.map.shop.gui.click_handler.interacting
+                    clickTypes: [ LEFT_CLICK ]
+                    blacklist: false
+                    closeOnInteract: false
+                    fixedSlot: 13
+                    updatingItem:
+                      type: item.updating.static
+                      item:
+                        material: 'minecraft:crimson_trapdoor'
+                        displayName: "<!i><dark_red><b>Confusion Trap</b></dark_red>"
+                        lore:
+                          - '<!i><#9096ad>Spawns a trap at the selected location</#9096ad></!i>'
+                          - '<!i><#9096ad>that causes mobs to turn against each other.</#9096ad></!i>'
+                          - '<!i><#9096ad>Bosses are immune to this effect.</#9096ad></!i>'
+                          - ''
+                          - '<!i><#9096ad><b>Cost<#b8bfde>:</#b8bfde> <gold>3500 Coins</gold></b></#9096ad></!i>'
+                    clickInteractor:
+                      type: zombies.map.shop.interactor.conditional
+                      evaluation: ALL_TRUE
+                      predicates:
+                        - type: zombies.map.shop.predicate.static_cost
+                          cost: 3500
+                          modifierType: coin_spend.shop
+                      successInteractors:
+                        - type: zombies.map.shop.interactor.conditional
+                          evaluation: NONE_TRUE
+                          predicates:
+                            - type: zombies.map.shop.predicate.string_tag
+                              tag: location_selector
+                              onScene: true
+                              value: none
+                              initialValue: none
+                          successInteractors:
+                            - type: zombies.map.shop.interactor.conditional
+                              evaluation: ALL_TRUE
+                              predicates:
+                                - type: zombies.map.shop.predicate.string_tag
+                                  tag: location_selector
+                                  onScene: true
+                                  value: road
+                                  initialValue: none
+                              successInteractors:
+                                - type: zombies.map.shop.interactor.spawn_mob
+                                  coordinate:
+                                    x: -1
+                                    y: 0
+                                    z: -19
+                                  mob: phantazm:confusion_trap_fge
+
+                                - type: zombies.map.shop.interactor.deduct_coins
+                                  cost: 3500
+                                  modifierType: coin_spend.shop
+
+                                - type: zombies.map.shop.interactor.play_sound
+                                  sound: { name: 'minecraft:entity.firework_rocket.twinkle', source: PLAYER,
+                                           volume: 10.0,
+                                           pitch: 1.0 }
+                                  broadcast: true
+
+                                - type: zombies.map.shop.interactor.messaging
+                                  messages: [ '<#9096ad><sender> summoned <dark_red><b>Confusion Trap</b></dark_red> in <green>Road</green>!<#9096ad>' ]
+                                  broadcast: true
+                              failureInteractors:
+                                - type: zombies.map.shop.interactor.conditional
+                                  evaluation: ALL_TRUE
+                                  predicates:
+                                    - type: zombies.map.shop.predicate.string_tag
+                                      tag: location_selector
+                                      onScene: true
+                                      value: tunnel_end
+                                      initialValue: none
+                                  successInteractors:
+                                    - type: zombies.map.shop.interactor.spawn_mob
+                                      coordinate:
+                                        x: 15
+                                        y: 0
+                                        z: -42
+                                      mob: phantazm:confusion_trap_fge
+
+                                    - type: zombies.map.shop.interactor.deduct_coins
+                                      cost: 3500
+                                      modifierType: coin_spend.shop
+
+                                    - type: zombies.map.shop.interactor.play_sound
+                                      sound: { name: 'minecraft:entity.firework_rocket.twinkle', source: PLAYER,
+                                               volume: 10.0,
+                                               pitch: 1.0 }
+                                      broadcast: true
+
+                                    - type: zombies.map.shop.interactor.messaging
+                                      messages: [ '<#9096ad><sender> summoned <dark_red><b>Confusion Trap</b></dark_red> in <green>Tunnel End</green>!<#9096ad>' ]
+                                      broadcast: true
+                                  failureInteractors:
+                                    - type: zombies.map.shop.interactor.conditional
+                                      evaluation: ALL_TRUE
+                                      predicates:
+                                        - type: zombies.map.shop.predicate.string_tag
+                                          tag: location_selector
+                                          onScene: true
+                                          value: intersection
+                                          initialValue: none
+                                      successInteractors:
+                                        - type: zombies.map.shop.interactor.spawn_mob
+                                          coordinate:
+                                            x: 28
+                                            y: 0
+                                            z: -20
+                                          mob: phantazm:confusion_trap_fge
+
+                                        - type: zombies.map.shop.interactor.deduct_coins
+                                          cost: 3500
+                                          modifierType: coin_spend.shop
+
+                                        - type: zombies.map.shop.interactor.play_sound
+                                          sound: { name: 'minecraft:entity.firework_rocket.twinkle', source: PLAYER,
+                                                   volume: 10.0,
+                                                   pitch: 1.0 }
+                                          broadcast: true
+
+                                        - type: zombies.map.shop.interactor.messaging
+                                          messages: [ '<#9096ad><sender> summoned <dark_red><b>Confusion Trap</b></dark_red> in <green>Intersection</green>!<#9096ad>' ]
+                                          broadcast: true
+                                      failureInteractors:
+                                        - type: zombies.map.shop.interactor.messaging
+                                          messages: [ "<red>Unrecognized location. There's probably a typo in the config." ]
+                                          broadcast: false
+
+                                        - type: zombies.map.shop.interactor.play_sound
+                                          sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                                                   pitch: 0.0 }
+                                          broadcast: false
+                          failureInteractors:
+                            - type: zombies.map.shop.interactor.messaging
+                              messages: [ "<red>Select a location first!" ]
+                              broadcast: false
+
+                            - type: zombies.map.shop.interactor.play_sound
+                              sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                                       pitch: 0.0 }
+                              broadcast: false
+                      failureInteractors:
+                        - type: zombies.map.shop.interactor.messaging
+                          messages: [ "<red>You do not have enough coins to purchase this!" ]
+                          broadcast: false
+
+                        - type: zombies.map.shop.interactor.play_sound
+                          sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                                   pitch: 0.0 }
+                          broadcast: false
+
+                  - type: zombies.map.shop.gui.click_handler.interacting
+                    clickTypes: [ LEFT_CLICK ]
+                    blacklist: false
+                    closeOnInteract: false
+                    fixedSlot: 15
+                    updatingItem:
+                      type: item.updating.static
+                      item:
+                        material: 'minecraft:netherite_sword'
+                        displayName: "<!i><#ff67b6><b>The Squad</b></#ff67b6>"
+                        lore:
+                          - '<!i><#9096ad>Spawns a squadron of friendly piglins</#9096ad></!i>'
+                          - '<!i><#9096ad>at the selected location.</#9096ad></!i>'
+                          - ''
+                          - '<!i><#616575>»</#616575> <yellow><b>2x <#3e2620>Powerhouse</#3e2620></b>:'
+                          - '   <!i><yellow>Permanently disables mob skills when hit.'
+                          - '<!i><#616575>»</#616575> <yellow><b>2x <#a3f1ff>Repulsor</#a3f1ff></b>:'
+                          - '   <!i><yellow>Deals large knockback and damage.'
+                          - '<!i><#616575>»</#616575> <yellow><b><#216030>Drill Sergeant</#216030></b>: Buffs allies and players.'
+                          - ''
+                          - '<!i><#9096ad><b>Cost<#b8bfde>:</#b8bfde> <gold>6000 Coins</gold></b></#9096ad></!i>'
+                        tag: '{HideFlags:2}'
+                    clickInteractor:
+                      type: zombies.map.shop.interactor.conditional
+                      evaluation: ALL_TRUE
+                      predicates:
+                        - type: zombies.map.shop.predicate.any_mob_in_map
+                          mobs: [ 'powerhouse_fge', 'repulsor_fge', 'drill_sergeant_fge' ]
+                          blacklist: true
+                      successInteractors:
+                        - type: zombies.map.shop.interactor.conditional
+                          evaluation: ALL_TRUE
+                          predicates:
+                            - type: zombies.map.shop.predicate.static_cost
+                              cost: 6000
+                              modifierType: coin_spend.shop
+                          successInteractors:
+                            - type: zombies.map.shop.interactor.conditional
+                              evaluation: NONE_TRUE
+                              predicates:
+                                - type: zombies.map.shop.predicate.string_tag
+                                  tag: location_selector
+                                  onScene: true
+                                  value: none
+                                  initialValue: none
+                              successInteractors:
+                                - type: zombies.map.shop.interactor.conditional
+                                  evaluation: ALL_TRUE
+                                  predicates:
+                                    - type: zombies.map.shop.predicate.string_tag
+                                      tag: location_selector
+                                      onScene: true
+                                      value: road
+                                      initialValue: none
+                                  successInteractors:
+                                    - type: zombies.map.shop.interactor.spawn_mob
+                                      coordinate:
+                                        x: -1
+                                        y: 0
+                                        z: -19
+                                      mob: phantazm:powerhouse_fge
+
+                                    - type: zombies.map.shop.interactor.spawn_mob
+                                      coordinate:
+                                        x: -1
+                                        y: 0
+                                        z: -19
+                                      mob: phantazm:powerhouse_fge
+
+                                    - type: zombies.map.shop.interactor.spawn_mob
+                                      coordinate:
+                                        x: -1
+                                        y: 0
+                                        z: -19
+                                      mob: phantazm:repulsor_fge
+
+                                    - type: zombies.map.shop.interactor.spawn_mob
+                                      coordinate:
+                                        x: -1
+                                        y: 0
+                                        z: -19
+                                      mob: phantazm:repulsor_fge
+
+                                    - type: zombies.map.shop.interactor.spawn_mob
+                                      coordinate:
+                                        x: -1
+                                        y: 0
+                                        z: -19
+                                      mob: phantazm:drill_sergeant_fge
+
+                                    - type: zombies.map.shop.interactor.deduct_coins
+                                      cost: 6000
+                                      modifierType: coin_spend.shop
+
+                                    - type: zombies.map.shop.interactor.play_sound
+                                      sound: { name: 'minecraft:entity.firework_rocket.twinkle', source: PLAYER,
+                                               volume: 10.0,
+                                               pitch: 1.0 }
+                                      broadcast: true
+
+                                    - type: zombies.map.shop.interactor.messaging
+                                      messages: [ '<#9096ad><sender> summoned <#ff67b6><b>The Squad</b></#ff67b6> in <green>Road</green>!<#9096ad>' ]
+                                      broadcast: true
+                                  failureInteractors:
+                                    - type: zombies.map.shop.interactor.conditional
+                                      evaluation: ALL_TRUE
+                                      predicates:
+                                        - type: zombies.map.shop.predicate.string_tag
+                                          tag: location_selector
+                                          onScene: true
+                                          value: tunnel_end
+                                          initialValue: none
+                                      successInteractors:
+                                        - type: zombies.map.shop.interactor.spawn_mob
+                                          coordinate:
+                                            x: 15
+                                            y: 0
+                                            z: -42
+                                          mob: phantazm:powerhouse_fge
+
+                                        - type: zombies.map.shop.interactor.spawn_mob
+                                          coordinate:
+                                            x: 15
+                                            y: 0
+                                            z: -42
+                                          mob: phantazm:powerhouse_fge
+
+                                        - type: zombies.map.shop.interactor.spawn_mob
+                                          coordinate:
+                                            x: 15
+                                            y: 0
+                                            z: -42
+                                          mob: phantazm:repulsor_fge
+
+                                        - type: zombies.map.shop.interactor.spawn_mob
+                                          coordinate:
+                                            x: 15
+                                            y: 0
+                                            z: -42
+                                          mob: phantazm:repulsor_fge
+
+                                        - type: zombies.map.shop.interactor.spawn_mob
+                                          coordinate:
+                                            x: 15
+                                            y: 0
+                                            z: -42
+                                          mob: phantazm:drill_sergeant_fge
+
+                                        - type: zombies.map.shop.interactor.spawn_mob
+                                          coordinate:
+                                            x: 15
+                                            y: 0
+                                            z: -42
+                                          mob: phantazm:drill_sergeant_fge
+
+                                        - type: zombies.map.shop.interactor.deduct_coins
+                                          cost: 6000
+                                          modifierType: coin_spend.shop
+
+                                        - type: zombies.map.shop.interactor.play_sound
+                                          sound: { name: 'minecraft:entity.firework_rocket.twinkle', source: PLAYER,
+                                                   volume: 10.0,
+                                                   pitch: 1.0 }
+                                          broadcast: true
+
+                                        - type: zombies.map.shop.interactor.messaging
+                                          messages: [ '<#9096ad><sender> summoned <#ff67b6><b>The Squad</b></#ff67b6> in <green>Tunnel End</green>!<#9096ad>' ]
+                                          broadcast: true
+                                      failureInteractors:
+                                        - type: zombies.map.shop.interactor.conditional
+                                          evaluation: ALL_TRUE
+                                          predicates:
+                                            - type: zombies.map.shop.predicate.string_tag
+                                              tag: location_selector
+                                              onScene: true
+                                              value: intersection
+                                              initialValue: none
+                                          successInteractors:
+                                            - type: zombies.map.shop.interactor.spawn_mob
+                                              coordinate:
+                                                x: 28
+                                                y: 0
+                                                z: -20
+                                              mob: phantazm:powerhouse_fge
+
+                                            - type: zombies.map.shop.interactor.spawn_mob
+                                              coordinate:
+                                                x: 28
+                                                y: 0
+                                                z: -20
+                                              mob: phantazm:powerhouse_fge
+
+                                            - type: zombies.map.shop.interactor.spawn_mob
+                                              coordinate:
+                                                x: 28
+                                                y: 0
+                                                z: -20
+                                              mob: phantazm:repulsor_fge
+
+                                            - type: zombies.map.shop.interactor.spawn_mob
+                                              coordinate:
+                                                x: 28
+                                                y: 0
+                                                z: -20
+                                              mob: phantazm:repulsor_fge
+
+                                            - type: zombies.map.shop.interactor.spawn_mob
+                                              coordinate:
+                                                x: 28
+                                                y: 0
+                                                z: -20
+                                              mob: phantazm:drill_sergeant_fge
+
+                                            - type: zombies.map.shop.interactor.deduct_coins
+                                              cost: 6000
+                                              modifierType: coin_spend.shop
+
+                                            - type: zombies.map.shop.interactor.play_sound
+                                              sound: { name: 'minecraft:entity.firework_rocket.twinkle', source: PLAYER,
+                                                       volume: 10.0,
+                                                       pitch: 1.0 }
+                                              broadcast: true
+
+                                            - type: zombies.map.shop.interactor.messaging
+                                              messages: [ '<#9096ad><sender> summoned <#ff67b6><b>The Squad</b></#ff67b6> in <green>Intersection</green>!<#9096ad>' ]
+                                              broadcast: true
+                                          failureInteractors:
+                                            - type: zombies.map.shop.interactor.messaging
+                                              messages: [ "<red>Unrecognized location. There's probably a typo in the config." ]
+                                              broadcast: false
+
+                                            - type: zombies.map.shop.interactor.play_sound
+                                              sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                                                       pitch: 0.0 }
+                                              broadcast: false
+                              failureInteractors:
+                                - type: zombies.map.shop.interactor.messaging
+                                  messages: [ "<red>Select a location first!" ]
+                                  broadcast: false
+
+                                - type: zombies.map.shop.interactor.play_sound
+                                  sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                                           pitch: 0.0 }
+                                  broadcast: false
+                          failureInteractors:
+                            - type: zombies.map.shop.interactor.messaging
+                              messages: [ "<red>You do not have enough coins to purchase this!" ]
+                              broadcast: false
+
+                            - type: zombies.map.shop.interactor.play_sound
+                              sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                                       pitch: 0.0 }
+                              broadcast: false
+                      failureInteractors:
+                        - type: zombies.map.shop.interactor.messaging
+                          messages: [ "<red>Some squad members are still alive!" ]
+                          broadcast: false
+
+                        - type: zombies.map.shop.interactor.play_sound
+                          sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                                   pitch: 0.0 }
+                          broadcast: false
+
+      failureInteractors:
+        - type: zombies.map.shop.interactor.messaging
+          messages: [ <red>Radio requires power to use! Find and activate the</red>
+            <dark_purple>Power Switch</dark_purple> <red>in the</red> <green><b>Garage</b></green>
+            <red>first!</red> ]
+          broadcast: false
+
+        - type: zombies.map.shop.interactor.play_sound
+          sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                   pitch: 0.0 }
+          broadcast: false
+  failureInteractors: [ ]
+  displays:
+    - type: zombies.map.shop.display.flag_conditional
+      flag: zombies.map.flag.power
+      success:
+        - type: zombies.map.shop.display.static_hologram
+          info:
+            text: [ <dark_purple><b>Radio, <yellow>RIGHT-CLICK TO OPEN ]
+            position: { x: -0.25, y: 1, z: -0.5 }
+      failure:
+        - type: zombies.map.shop.display.static_hologram
+          info:
+            text: [ <dark_purple><b>Radio, <grey><i>Requires power! ]
+            position: { x: -0.25, y: 1, z: -0.5 }

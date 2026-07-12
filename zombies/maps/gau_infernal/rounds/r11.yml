@@ -1,0 +1,97 @@
+round: 11
+startActions:
+  - type: zombies.map.round.action.announce
+    format: <red>Round <round>
+    destination: TITLE
+    tickFormatter:
+      type: core.tick_formatter.analog
+      ceil: false
+
+  - type: zombies.map.round.action.announce
+    format: ""
+    destination: SUBTITLE
+    tickFormatter:
+      type: core.tick_formatter.analog
+      ceil: false
+
+  - type: zombies.map.round.action.revive_players
+
+  - type: zombies.map.round.action.play_sound
+    sound: { name: 'minecraft:entity.wither.spawn', source: MASTER, volume: 24.0,
+             pitch: 0.5 }
+
+  - type: zombies.map.round.action.select_bombed
+    inAreaMessage: '<dark_green>You''re growing weak from radiation sickness. Evacuate Tunnel IMMEDIATELY!'
+    bombingDamageName: '<dark_green>Radiation'
+    damage: 4
+    gracePeriod: 1
+    effectDelay: 300
+    damageDelay: 400
+    damageInterval: 100
+    warningMessageHits: 2
+    duration: 1
+    specificRoom: tunnel
+    modifiers:
+      - attribute: phantazm.gun_fire_delay
+        amount: 0.6
+        attributeOperation: MULTIPLY_BASE
+
+      - attribute: phantazm.damage_multiplier
+        amount: -0.6
+        attributeOperation: MULTIPLY_BASE
+    particle:
+      type: particle.wrapper
+      particle: scrape
+      variantData:
+        type: particle.variant_data.none
+      distance: true
+      offsetX: 0.1
+      offsetY: 0.5
+      offsetZ: 0.1
+      data: 0
+      particleCount: 4
+    sound: { name: 'minecraft:ambient.basalt_deltas.additions', source: AMBIENT, volume: 0.75, pitch: 0.75 }
+    soundInterval: 3
+
+endActions: [ ]
+# 41
+waves:
+  - delayTicks: 150
+    spawns:
+      - id: turned_worker_infernal
+        spawnType: window
+        amount: 2
+      - id: hazmat_zombie_infernal
+        spawnType: window
+        amount: 5
+      - id: crazed_zombie_infernal
+        spawnType: window
+        amount: 6
+    spawnActions:
+      - type: zombies.map.wave.action.select_powerup
+        powerups: [ "double_coins", "max_ammo", "health_kit" ]
+  - delayTicks: 240
+    spawns:
+      - id: turned_worker_infernal
+        spawnType: window
+        amount: 5
+      - id: crazed_zombie_infernal
+        spawnType: window
+        amount: 6
+    spawnActions:
+      - type: zombies.map.wave.action.select_powerup
+        powerups: [ "health_kit", "health_kit" ]
+  - delayTicks: 230
+    spawns:
+      - id: turned_worker_infernal
+        spawnType: window
+        amount: 5
+      - id: hazmat_zombie_infernal
+        spawnType: window
+        amount: 5
+      - id: crazed_zombie_infernal
+        spawnType: window
+        amount: 7
+    spawnActions:
+      - type: zombies.map.wave.action.select_powerup
+        powerups: [ "health_kit", "health_kit" ]

@@ -1,0 +1,3 @@
+position: { x: 25, y: 1, z: -29 }
+spawnRule: window
+linkedWindowPosition: { x: 22, y: 2, z: -32 }

@@ -1,0 +1,97 @@
+key: rpg_mob
+type: minecraft:fireball
+pathfinding:
+  type: proxima.path_settings.ground
+  jumpHeight: 0
+  fallTolerance: 0
+  stepHeight: 0
+
+meta:
+  customName: <dark_gray>Rocket</dark_gray>
+
+extra:
+  bypassEndlessScaling: true
+  ticksUntilDeath: 200
+
+skills:
+  - type: mob.skill.group
+    trigger: DEATH
+    delegates:
+      - type: mob.skill.damage
+        selector:
+          type: mob.selector.entities_in_area
+          originSelector:
+            type: mob.selector.self
+          range: 8
+          target: PLAYERS
+          validator: /alivePlayers
+        amount: 8
+        knockback: 0.2
+        damageType: damage.explosion
+
+      - type: mob.skill.potion
+        selector:
+          type: mob.selector.entities_in_area
+          originSelector:
+            type: mob.selector.self
+          range: 8
+          target: PLAYERS
+          validator: /alivePlayers
+        potion:
+          effect: minecraft:nausea
+          amplifier: 2
+          duration: 120
+          flags: 6
+
+      - type: mob.skill.temporal
+        minDuration: 120
+        maxDuration: 120
+        delegate:
+          type: mob.skill.attribute_modifying
+          selector:
+            type: mob.selector.entities_in_area
+            originSelector:
+              type: mob.selector.self
+            range: 8
+            target: PLAYERS
+            validator: /alivePlayers
+          attribute: phantazm.gun_fire_delay
+          amount: 0.3
+          attributeOperation: MULTIPLY_TOTAL
+          stage: zombies_game
+
+  - type: mob.skill.spawn_particle
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    particle:
+      type: particle.wrapper
+      particle: explosion_emitter
+      variantData:
+        type: particle.variant_data.none
+      distance: true
+      offsetX: 0.0
+      offsetY: 0.0
+      offsetZ: 0.0
+      data: 0.0
+      particleCount: 1
+    bounds:
+      origin:
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      lengths:
+        x: 0.0
+        y: 0.0
+        z: 0.0
+
+  - type: mob.skill.play_sound
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.generic.explode', source: HOSTILE, volume: 2.0, pitch: 1.0 }
+
+alivePlayers:
+  type: zombies.mob.validator.zombies_player
+  states: [ zombies.player.state.alive ]
+  blacklist: false

@@ -1,0 +1,6 @@
+type: role.basic
+identifier: averqs
+chatFormat: '<gradient:#aa00aa:#ff5555>[Speedrunner]</gradient> <#ff5555><name>'
+displayNameFormat: '<#ff5555><name>'
+priority: 996
+permissions: [ ]

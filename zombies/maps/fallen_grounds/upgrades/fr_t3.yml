@@ -1,0 +1,110 @@
+id: fr_t3
+data:
+  type: zombies.upgrade.composite
+  upgrades:
+    - type: zombies.upgrade.standard
+      triggers:
+        - type: zombies.upgrade.trigger.event
+          event: ZOMBIES_PLAYER_USE_EQUIPMENT
+          eventFilter:
+            type: zombies.upgrade.filter.equipment
+            equipment: phantazm:fast_revive
+      effect:
+          type: zombies.upgrade.effect.conditional
+          pass:
+            - type: zombies.upgrade.effect.sound
+              sound: { name: 'minecraft:entity.player.burp', source: PLAYER, volume: 2.0, pitch: 0.5 }
+              broadcast: false
+
+            - type: zombies.upgrade.effect.message
+              message: <#6b9e70>You're already exhausted. No one said that you're a *good* necromancer.</#6b9e70>
+          fail:
+            type: zombies.upgrade.effect.conditional
+            pass:
+              type: zombies.upgrade.effect.composite
+              delegates:
+                - type: zombies.upgrade.effect.switch_state
+                  selector:
+                    type: zombies.upgrade.selector.entities_in_area
+                    validator:
+                      type: zombies.upgrade.validator.zombies_player
+                      states: [ zombies.player.state.knocked ]
+                    target: PLAYERS
+                    limit: 1
+
+                - type: zombies.upgrade.effect.adjust_integer_tag
+                  tag: 'fr_t3'
+                  increment: 1
+                  limit: 3
+            fail:
+              type: zombies.upgrade.effect.conditional
+              pass:
+                type: zombies.upgrade.effect.composite
+                delegates:
+                  - type: zombies.upgrade.effect.switch_state
+                    selector:
+                      type: zombies.upgrade.selector.random
+                      count: 1
+                      delegate:
+                        type: zombies.upgrade.selector.entities_in_area
+                        validator:
+                          type: zombies.upgrade.validator.zombies_player
+                          states: [ zombies.player.state.dead ]
+                        target: PLAYERS
+                    respawnAtPlayer: true
+
+                  - type: zombies.upgrade.effect.adjust_integer_tag
+                    tag: 'fr_t3'
+                    increment: 1
+                    limit: 3
+
+              filter:
+                type: zombies.upgrade.filter.selector
+                selector:
+                  type: zombies.upgrade.selector.entities_in_area
+                  validator:
+                    type: zombies.upgrade.validator.zombies_player
+                    states: [ zombies.player.state.dead ]
+                  target: PLAYERS
+            filter:
+              type: zombies.upgrade.filter.selector
+              selector:
+                type: zombies.upgrade.selector.entities_in_area
+                validator:
+                  type: zombies.upgrade.validator.zombies_player
+                  states: [ zombies.player.state.knocked ]
+                target: PLAYERS
+          filter:
+            type: zombies.upgrade.filter.find_tag_in_selector
+            tag: 'fr_t3'
+            condition: LESS_THAN_OR_EQUAL_TO
+            value: 3
+
+    - type: zombies.upgrade.standard
+      triggers:
+        - type: zombies.upgrade.trigger.event
+          event: ROUND_START
+          eventFilter:
+            type: zombies.upgrade.filter.none
+      effect:
+        type: zombies.upgrade.effect.composite
+        delegates:
+          - type: zombies.upgrade.effect.sound
+            sound: { name: 'minecraft:entity.glow_squid.ambient', source: PLAYER, volume: 2.0, pitch: 2.0 }
+            broadcast: false
+
+          - type: zombies.upgrade.effect.sound
+            sound: { name: 'minecraft:entity.glow_squid.ambient', source: PLAYER, volume: 2.0, pitch: 2.0 }
+            broadcast: false
+
+          - type: zombies.upgrade.effect.sound
+            sound: { name: 'minecraft:entity.glow_squid.ambient', source: PLAYER, volume: 2.0, pitch: 2.0 }
+            broadcast: false
+
+          - type: zombies.upgrade.effect.message
+            message: <#14e529>As the round begins, you prepare your necromantic power.</#14e529>
+
+          - type: zombies.upgrade.effect.adjust_integer_tag
+            tag: 'fr_t3'
+            increment: -3
+            limit: 0

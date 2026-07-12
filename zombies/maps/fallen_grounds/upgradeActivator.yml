@@ -1,0 +1,140 @@
+type: zombies.upgrade.activator.synergy
+inventoryGroup: zombies.group.perk
+upgradeGroups:
+  - key: flame_bullets
+    value: [ flb_t1, flb_t2, flb_t3, flb_t4 ]
+
+  - key: quick_fire
+    value: [ qf_t1, qf_t2, qf_t3, qf_t4 ]
+
+  - key: frozen_bullets
+    value: [ frb_t1, frb_t2, frb_t3, frb_t4 ]
+
+  - key: extra_health
+    value: [ eh_t1, eh_t2, eh_t3, eh_t4 ]
+
+  - key: fast_revive
+    value: [ fr_t1, fr_t2, fr_t3, fr_t4 ]
+
+  - key: extra_weapon
+    value: [ ew_t1, ew_t2, ew_t3, ew_t4 ]
+synergies:
+  - key:
+      first: flame_bullets
+      second: quick_fire
+    value:
+      synergy: flb_qf_synergy
+      firstUpgrade: flb_t4
+      secondUpgrade: qf_t4
+
+  - key:
+      first: flame_bullets
+      second: frozen_bullets
+    value:
+      synergy: flb_frb_synergy
+      firstUpgrade: flb_t4
+      secondUpgrade: frb_t4
+
+  - key:
+      first: flame_bullets
+      second: extra_health
+    value:
+      synergy: flb_eh_synergy
+      firstUpgrade: flb_t4
+      secondUpgrade: eh_t4
+
+  - key:
+      first: flame_bullets
+      second: fast_revive
+    value:
+      synergy: flb_fr_synergy
+      firstUpgrade: flb_t4
+      secondUpgrade: fr_t4
+
+  - key:
+      first: flame_bullets
+      second: extra_weapon
+    value:
+      synergy: flb_ew_synergy
+      firstUpgrade: flb_t4
+      secondUpgrade: ew_t4
+
+  - key:
+      first: quick_fire
+      second: frozen_bullets
+    value:
+      synergy: qf_frb_synergy
+      firstUpgrade: qf_t4
+      secondUpgrade: frb_t4
+
+  - key:
+      first: quick_fire
+      second: extra_health
+    value:
+      synergy: qf_eh_synergy
+      firstUpgrade: qf_t4
+      secondUpgrade: eh_t4
+
+  - key:
+      first: quick_fire
+      second: fast_revive
+    value:
+      synergy: qf_fr_synergy
+      firstUpgrade: qf_t4
+      secondUpgrade: fr_t4
+
+  - key:
+      first: quick_fire
+      second: extra_weapon
+    value:
+      synergy: qf_ew_synergy
+      firstUpgrade: qf_t4
+      secondUpgrade: ew_t4
+
+  - key:
+      first: frozen_bullets
+      second: extra_health
+    value:
+      synergy: frb_eh_synergy
+      firstUpgrade: frb_t4
+      secondUpgrade: eh_t4
+
+  - key:
+      first: frozen_bullets
+      second: fast_revive
+    value:
+      synergy: frb_fr_synergy
+      firstUpgrade: frb_t4
+      secondUpgrade: fr_t4
+
+  - key:
+      first: frozen_bullets
+      second: extra_weapon
+    value:
+      synergy: frb_ew_synergy
+      firstUpgrade: frb_t4
+      secondUpgrade: ew_t4
+
+  - key:
+      first: extra_health
+      second: fast_revive
+    value:
+      synergy: eh_fr_synergy
+      firstUpgrade: eh_t4
+      secondUpgrade: fr_t4
+
+  - key:
+      first: extra_health
+      second: extra_weapon
+    value:
+      synergy: eh_ew_synergy
+      firstUpgrade: eh_t4
+      secondUpgrade: ew_t4
+
+  - key:
+      first: fast_revive
+      second: extra_weapon
+    value:
+      synergy: fr_ew_synergy
+      firstUpgrade: fr_t4
+      secondUpgrade: ew_t4

@@ -1,0 +1,61 @@
+id: flb_frb_synergy
+data:
+  type: zombies.upgrade.standard
+  triggers:
+    - type: zombies.upgrade.trigger.event
+      event: ZOMBIES_PLAYER_KILL_MOB
+      eventFilter:
+        type: zombies.upgrade.filter.type
+        conditions:
+          - type: zombies.upgrade.filter.condition.zombies_player
+  effect:
+    type: zombies.upgrade.effect.temporal
+    timer:
+      type: zombies.upgrade.timer.constant
+      duration: 120
+    delegate:
+      type: zombies.upgrade.effect.composite
+      delegates:
+        - type: zombies.upgrade.effect.apply_attribute
+          selector:
+            type: zombies.upgrade.selector.entities_in_area
+            validator:
+              type: zombies.upgrade.validator.mob_in_round
+            originSelector:
+              type: zombies.upgrade.selector.event
+              useTarget: true
+            target: LIVING_ENTITIES
+            range: 3.5
+            limit: 3
+          attribute: generic.armor
+          amount: -0.5
+          operation: MULTIPLY_BASE
+
+        - type: zombies.upgrade.effect.apply_attribute
+          selector:
+            type: zombies.upgrade.selector.entities_in_area
+            validator:
+              type: zombies.upgrade.validator.mob_in_round
+            originSelector:
+              type: zombies.upgrade.selector.event
+              useTarget: true
+            target: LIVING_ENTITIES
+            range: 3.5
+            limit: 3
+          attribute: generic.armor_toughness
+          amount: -0.5
+          operation: MULTIPLY_BASE
+
+        - type: zombies.upgrade.effect.apply_shot_effect
+          selector:
+            type: zombies.upgrade.selector.entities_in_area
+            validator:
+              type: zombies.upgrade.validator.mob_in_round
+            originSelector:
+              type: zombies.upgrade.selector.event
+              useTarget: true
+            target: LIVING_ENTITIES
+            range: 3.5
+            limit: 3
+          scale: 1.5
+          shotEffectType: APPLY_ATTRIBUTE

@@ -1,0 +1,70 @@
+id: flb_eh_synergy
+data:
+  type: zombies.upgrade.standard
+  triggers:
+    - type: zombies.upgrade.trigger.ignite
+
+    - type: zombies.upgrade.trigger.event
+      event: ZOMBIES_PLAYER_DAMAGE
+      eventFilter:
+        type: zombies.upgrade.filter.type
+        conditions:
+          - type: zombies.upgrade.filter.condition.zombies_player
+
+          - type: zombies.upgrade.filter.condition.damage_tag
+            tag: damage.explosion
+
+          - type: zombies.upgrade.filter.condition.damage_amount
+            amount: 3.0
+            condition: GREATER_THAN_OR_EQUAL_TO
+
+  effect:
+    type: zombies.upgrade.effect.conditional
+    pass:
+      type: zombies.upgrade.effect.temporal
+      timer:
+        type: zombies.upgrade.timer.constant
+        duration: 100
+      delegate:
+        type: zombies.upgrade.effect.composite
+        delegates:
+          - type: zombies.upgrade.effect.apply_attribute
+            selector:
+              type: zombies.upgrade.selector.self
+              validator:
+                type: zombies.upgrade.validator.not
+                delegate:
+                  type: zombies.upgrade.validator.boolean_tag
+                  tag: 'flb_eh'
+            attribute: phantazm.gun_damage
+            amount: 0.5
+            operation: MULTIPLY_BASE
+
+          - type: zombies.upgrade.effect.set_boolean_tag
+            selector:
+              type: zombies.upgrade.selector.self
+            tag: 'flb_eh'
+            ephemeral: true
+    fail:
+      type: zombies.upgrade.effect.composite
+      delegates:
+        - type: zombies.upgrade.effect.apply_attribute
+          selector:
+            type: zombies.upgrade.selector.self
+            validator:
+              type: zombies.upgrade.validator.not
+              delegate:
+                type: zombies.upgrade.validator.boolean_tag
+                tag: 'flb_eh'
+          attribute: phantazm.gun_damage
+          amount: 0.5
+          operation: MULTIPLY_BASE
+
+        - type: zombies.upgrade.effect.set_boolean_tag
+          selector:
+            type: zombies.upgrade.selector.self
+          tag: 'flb_eh'
+          ephemeral: true
+    filter:
+      type: zombies.upgrade.filter.type
+      conditions: [ ]

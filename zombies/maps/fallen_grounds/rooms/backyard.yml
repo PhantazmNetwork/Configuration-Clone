@@ -1,0 +1,10 @@
+id: backyard
+isSpawn: true
+displayName: <green><b>Backyard
+regions:
+  - origin: { x: -4, y: 0, z: 1 }
+    lengths: { x: 12, y: 6, z: 12 }
+  - origin: { x: -5, y: 0, z: -9 }
+    lengths: { x: 9, y: 6, z: 10 }
+openActions: [ ]
+

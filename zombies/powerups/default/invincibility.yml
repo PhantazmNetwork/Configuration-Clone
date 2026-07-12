@@ -1,0 +1,73 @@
+# exists in FG but only purchasable
+id: invincibility
+visuals:
+  - type: zombies.powerup.visual.hologram
+    lines: [ "<dark_gray><b>Invincibility</b></dark_gray>" ]
+    timeUntilBlink: 1000
+    blinkFrames:
+      - components: [ "<white><b>Invincibility</b></white>" ]
+        delay: 20
+      - components: [ "<dark_gray><b>Invincibility</b></dark_gray>" ]
+        delay: 20
+    heightOffset: 1.25
+
+  - type: zombies.powerup.visual.item
+    stack: '{id:"bedrock",Count:1}'
+    interval: 1
+    period: 40
+    periodOffset: 0
+    amplitude: 0.1
+    heightOffset: 1
+
+actions:
+  - type: zombies.powerup.action.send_message
+    format: <player> <yellow>activated <dark_gray><b>Invincibility</b></dark_gray> for <red><b>20s</b></red>!</yellow>
+    broadcast: true
+
+  - type: zombies.powerup.action.play_sound
+    sound: { name: 'minecraft:item.armor.equip_netherite', source: PLAYER, volume: 5.0, pitch: 0.5 }
+
+  - type: zombies.powerup.action.play_sound
+    sound: { name: 'minecraft:item.armor.equip_netherite', source: PLAYER, volume: 5.0, pitch: 0.5 }
+
+  - type: zombies.powerup.action.player_flagging
+    flag: zombies.player.flag.invincible
+    global: true
+    deactivationPredicate:
+      type: zombies.powerup.deactivation_predicate.timed
+      time: 400
+
+  - type: zombies.powerup.action.attribute_modifier
+    attribute: generic.knockback_resistance
+    attributeOperation: ADDITION
+    amount: 1.0
+    global: true
+    deactivationPredicate:
+      type: zombies.powerup.deactivation_predicate.timed
+      time: 400
+
+  - type: zombies.powerup.action.boss_bar_timer
+    duration: 400
+    format: <dark_gray><b>Invincibility</b></dark_gray> <#b8bfde>-</#b8bfde> <red><b><time>s</b></red>
+    color: WHITE
+    overlay: PROGRESS
+    tickFormatter:
+      type: core.tick_formatter.precision_second
+      decimalPlaces: 1
+
+  - type: zombies.powerup.action.send_title
+    message: ""
+    titlePart: TITLE
+    broadcast: true
+
+  - type: zombies.powerup.action.send_title
+    message: <dark_gray><b>Invincibility</b></dark_gray>
+    titlePart: SUBTITLE
+    broadcast: true
+
+deactivationPredicate:
+  type: zombies.powerup.deactivation_predicate.timed
+  time: 1200
+powerupEffect:
+  type: zombies.powerup.entity_effect.glow
+  glowColor: DARK_GRAY

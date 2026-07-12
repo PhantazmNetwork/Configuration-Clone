@@ -1,0 +1,11 @@
+id: phantazm:storeroom
+displayName: <bold><green>Storeroom
+regions:
+- origin: {x: 54, y: 9, z: -3}
+  lengths: {x: 7, y: 10, z: 7}
+- origin: {x: 47, y: 14, z: -10}
+  lengths: {x: 14, y: 4, z: 6}
+- origin: {x: 46, y: 14, z: -3}
+  lengths: {x: 7, y: 9, z: 9}
+- origin: {x: 46, y: 23, z: -3}
+  lengths: {x: 3, y: 4, z: 9}

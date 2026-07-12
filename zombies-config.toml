@@ -1,0 +1,15 @@
+maximumScenes = 100
+joinRatelimit = 5000
+teamSizes = [4, 3, 2, 1]
+trackedModifiers = ["0"]
+
+[gamereportConfig]
+playerFormat = "<#b8bfde><display_name> (<yellow><player_kills>, <player_coins>, <player_state></yellow>)</#b8bfde>"
+idleStageFormat = "<#9096ad>Idle</#9096ad>"
+countdownStageFormat = "<yellow>Countdown</yellow>"
+inGameFormat = "<yellow>Round <current_round> <#b8bfde>-</#b8bfde> <game_time></yellow>"
+endedFormat = "<red>Ended <#b8bfde>(<result:'0#LOST - Round <current_round> - <game_time>|1#WON - <game_time>'>)</#b8bfde></red>"
+gameEntryFormat = "   <yellow><current_game>/<total_games></yellow> <yellow><b><game_uuid></b></yellow><br>         <#b8bfde><player_names></#b8bfde><br>         <#b8bfde><hover:show_text:\"<#9096ad>Map<#b8bfde>:</#b8bfde> <yellow><map_name></yellow><br><#9096ad>State</#9096ad><#b8bfde>:</#b8bfde> <game_state><br><#9096ad>Zombies Left</#9096ad><#b8bfde>:</#b8bfde> <yellow><zombies_left></yellow><br><#9096ad>Rating</#9096ad><#b8bfde>:</#b8bfde> <yellow><map_difficulty>✦</yellow><br><#9096ad>Modifiers<#b8bfde>: <has_modifiers:\"0#'<red>Off</red>'|1#'<green>On</green> <#b8bfde>(<modifier_list>)</#b8bfde>'\"><br><#9096ad>Sandbox<#b8bfde>: <not_legit:\"0#'<red>No</red>'|1#'<green>Yes</green>'\"><br><#9096ad>Players</#9096ad><#b8bfde>:</#b8bfde> <#b8bfde><player_list></#b8bfde>\"><b><#b8bfde><map_name></#b8bfde></b></hover>:</#b8bfde> <game_state> <warp><red><b><red><b><hover:show_text:'Click to warp'>[<u>WARP</u>]</hover></b></red></b></red></warp><red><b><hover:show_text:'Sandbox Game'><not_legit:\"0#|1#' <red><b>[S]'\"></hover><hover:show_text:'Modifiers On'><has_modifiers:\"0#|1#' <red><b>[M]'\"></hover></b></red><br>"
+previousPageFormat = "  <b><yellow><previous_page><hover:show_text:'Previous Page'>«</hover></previous_page></yellow></b>"
+nextPageFormat = "<b><yellow><next_page><hover:show_text:'Next Page'>»</hover></next_page></yellow></b>"
+pageFormat = "<gradient:#616575:#4a4c59><st>⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯</st></gradient><br><#fffa9e>»</#fffa9e> <#9096ad><current_page><#b8bfde>/</#b8bfde><max_pages> Gamereport at</#9096ad> <yellow><b><current_time> UTC</b></yellow><br><br>   <#b8bfde><b><total_games> Active Games</b></#b8bfde><br><game_list><br><br><previous_page_optional> <#9096ad>Page <current_page></#9096ad> <next_page_optional><br><gradient:#616575:#4a4c59><st>⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯</st></gradient>"

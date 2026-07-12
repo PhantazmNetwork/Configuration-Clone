@@ -1,0 +1,3 @@
+position: { x: 39, y: 0, z: 41 }
+spawnRule: window
+linkToWindow: false

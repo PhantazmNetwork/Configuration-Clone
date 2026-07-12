@@ -1,0 +1,18 @@
+ordinal: 2
+key: phantazm:decrease_mob_health
+exclusiveModifiers: [ 'phantazm:increase_mob_health' ]
+displayName: '<green>Mob Health Decrease</green>'
+webhookEmoji: '<:mob_health_decrease:1160905067747102770>'
+abbreviatedDisplayName: '<green>MHD'
+displayItem:
+  material: minecraft:player_head
+  displayName: '<!i><b><yellow>Mob Health Decrease</yellow></b></!i>'
+  lore:
+    - ''
+    - '<!i><#616575>»</#616575> <#f062c1>Decrease mob health by <b><green>-50%<green></b></#f062c1></!i>'
+  tag: '{SkullOwner:{Id:[I;1245744062,-912504916,-1090255214,1041306154],Properties:{textures:[{Value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjQ0MWJhMzA5MTA2MWM2OTliOGVhNDA4NTAxMTAzNzhlOTU0NTQwNDhkMWY1MTA1NmM2YWVjMzk1MDUxM2VhYiJ9fX0="}]}}}'
+modifier:
+  type: zombies.modifier.mob_attribute
+  attribute: 'generic.max_health'
+  amount: -0.50
+  attributeOperation: MULTIPLY_BASE

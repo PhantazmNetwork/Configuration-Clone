@@ -1,0 +1,67 @@
+id: phantazm:gas_mask
+trigger:
+  origin: { x: 47, y: 15, z: -8 }
+  lengths: { x: 1, y: 1, z: 2 }
+predicateEvaluation: ALL_TRUE
+data:
+  predicates:
+    - type: zombies.map.shop.predicate.player_state
+      states: [ zombies.player.state.alive ]
+      blacklist: false
+    - { type: zombies.map.shop.predicate.in_game }
+    - type: zombies.map.shop.predicate.type
+      types: [ zombies.map.shop.interaction.right_click_entity ]
+      blacklist: false
+  successInteractors:
+    - type: zombies.map.shop.interactor.conditional
+      evaluation: ALL_TRUE
+      predicates:
+        - { type: zombies.map.shop.predicate.static_cost, cost: 4000, modifierType: coin_spend.shop }
+      successInteractors:
+        - type: zombies.map.shop.interactor.add_equipment
+          groupKey: zombies.group.armor
+          equipmentKey: gas_mask
+          allowReplace: true
+          allowDuplicate: false
+          specificSlot: 41
+          successInteractors:
+            - type: zombies.map.shop.interactor.messaging
+              messages: [ <green>You purchased <blue>Gas Mask</blue>!</green> ]
+              broadcast: false
+            - { type: zombies.map.shop.interactor.deduct_coins, cost: 4000, modifierType: coin_spend.shop }
+            - type: zombies.map.shop.interactor.play_sound
+              sound: { name: 'minecraft:block.note_block.pling', source: PLAYER, volume: 10.0,
+                       pitch: 2.0 }
+              broadcast: false
+          failureInteractors:
+            - type: zombies.map.shop.interactor.messaging
+              messages: [ <red>You have already purchased Gas Mask! ]
+              broadcast: false
+            - type: zombies.map.shop.interactor.play_sound
+              sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                       pitch: 0.0 }
+              broadcast: false
+      failureInteractors: [ ]
+  failureInteractors: [ ]
+  displays:
+    - type: zombies.map.shop.display.interaction_point
+      offset: { x: 0.2, y: 0.6, z: -0.7 }
+    - type: zombies.map.shop.display.interaction_point
+      offset: { x: 0.2, y: 0.6, z: 0 }
+    - type: zombies.map.shop.display.interaction_point
+      offset: { x: 0.2, y: 0.6, z: 0.7 }
+    - type: zombies.map.shop.display.player
+      displayCreator:
+        type: zombies.map.shop.display.player.conditional
+        predicate: { type: zombies.player.condition.has_equipment, groupKey: zombies.group.armor,
+                     equipmentKey: gas_mask }
+        success:
+          - type: zombies.map.shop.display.player.hologram
+            info:
+              text: [ <green>Gas Mask, <gold>UNLOCKED ]
+              position: { x: 0, y: 0.25, z: 0 }
+        failure:
+          - type: zombies.map.shop.display.player.hologram
+            info:
+              text: [ <green>Gas Mask, <gold>4000 Coins ]
+              position: { x: 0, y: 0.25, z: 0 }

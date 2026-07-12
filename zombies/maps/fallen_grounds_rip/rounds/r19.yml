@@ -1,0 +1,49 @@
+round: 19
+startActions:
+  - type: zombies.map.round.action.announce
+    format: <red>Round <round>
+    destination: TITLE
+    tickFormatter:
+      type: core.tick_formatter.analog
+      ceil: false
+
+  - type: zombies.map.round.action.announce
+    format: "<red>You hear oinking in the distance..."
+    destination: SUBTITLE
+    tickFormatter:
+      type: core.tick_formatter.analog
+      ceil: false
+
+  - type: zombies.map.round.action.revive_players
+
+  - type: zombies.map.round.action.play_sound
+    sound: { name: 'minecraft:entity.pig.death', source: MASTER, volume: 24.0,
+             pitch: 0 }
+endActions: [ ]
+waves:
+  - delayTicks: 160
+    spawns:
+      - id: bloated_rip
+        spawnType: window
+        amount: 1
+    spawnActions:
+      - type: zombies.map.wave.action.select_powerup
+        powerups: [ "overclock" ]
+  - delayTicks: 280
+    spawns:
+      - id: bloated_rip
+        spawnType: window
+        amount: 15
+      - id: runner_rip
+        spawnType: window
+        amount: 9
+    spawnActions: [ ]
+  - delayTicks: 280
+    spawns:
+      - id: bloated_rip
+        spawnType: window
+        amount: 19
+      - id: runner_rip
+        spawnType: window
+        amount: 11
+    spawnActions: [ ]

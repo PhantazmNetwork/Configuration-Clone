@@ -1,0 +1,224 @@
+key: little_medic_fge
+type: minecraft:armor_stand
+tags: [ deployable ]
+pathfinding:
+  type: proxima.path_settings.ground
+  jumpHeight: 0
+  fallTolerance: 0
+  stepHeight: 0
+
+meta:
+  isSmall: true
+  isInvisible: true
+  hasGravity: false
+
+extra:
+  bypassEndlessScaling: true
+  partOfRound: false
+
+equipment:
+  MAIN_HAND: '{id:"player_head",Count:1,tag:{display:{Name:"{\"text\":\"Health Kit\"}"},SkullOwner:{Id:[I;-77257264,-1923593218,-1340379741,-1380803999],Properties:{textures:[{Value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTZhMTA2YmQ3YzViZDNmZDA2ZDkwOGRmZjFjNzczMjVjNTIxZGM4NzM1YzAxYWFkZTc3N2YwNTY0MjFhZDkyOSJ9fX0="}]}}}}'
+  BOOTS: '{id:"netherite_boots",Count:1}'
+  LEGGINGS: '{id:"leather_leggings",Count:1,tag:{display:{color:13684141}}}'
+  CHESTPLATE: '{id:"leather_chestplate",Count:1,tag:{display:{color:13684141}}}'
+  HELMET: '{id:"player_head",Count:1,tag:{display:{Name:"{\"text\":\"Soldier\"}"},SkullOwner:{Id:[I;-372769772,-529446980,-1475476884,2067856507],Properties:{textures:[{Value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTlmMDk1YzkwZWY1M2Q5ZWEyZjk2MDAyOTEzNTQ4NTAzYzk5NjM3Yjg3NTE2YjIyNjhkMDViZDUxOTllMjE2NiJ9fX0="}]}}}}'
+
+attributes:
+  generic.max_health: 20
+  generic.movement_speed: 0
+  generic.armor: 8
+  generic.armor_toughness: 3
+  generic.knockback_resistance: 1.0
+
+skills:
+  - type: mob.skill.timer
+    interval: 50
+    delegate:
+      type: mob.skill.weighted_random
+      delegates:
+        - type: mob.skill.group
+          delegates:
+            - type: mob.skill.temporal
+              minDuration: 50
+              maxDuration: 50
+              delegate:
+                type: mob.skill.attribute_modifying
+                selector:
+                  type: mob.selector.entities_in_area
+                  originSelector:
+                    type: mob.selector.self
+                  range: 8
+                  target: PLAYERS
+                  validator: /alivePlayers
+                attribute: phantazm.gun_damage
+                amount: 2
+                attributeOperation: MULTIPLY_TOTAL
+
+            - type: mob.skill.spawn_particle
+              selector:
+                type: mob.selector.self
+              particle:
+                type: particle.wrapper
+                particle: dust
+                variantData:
+                  type: particle.variant_data.dust
+                  color:
+                    r: 221
+                    g: 171
+                    b: 38
+                  size: 2
+                distance: true
+                offsetX: 0.0
+                offsetY: 0.0
+                offsetZ: 0.0
+                data: 0.0
+                particleCount: 5
+              bounds:
+                origin:
+                  x: 0.0
+                  y: 2.0
+                  z: 0.0
+                lengths:
+                  x: 0.0
+                  y: 0.0
+                  z: 0.0
+
+        - type: mob.skill.group
+          delegates:
+            - type: mob.skill.temporal
+              minDuration: 50
+              maxDuration: 50
+              delegate:
+                type: mob.skill.attribute_modifying
+                selector:
+                  type: mob.selector.entities_in_area
+                  originSelector:
+                    type: mob.selector.self
+                  range: 8
+                  target: PLAYERS
+                  validator: /alivePlayers
+                attribute: phantazm.gun_fire_delay
+                amount: -0.75
+                attributeOperation: ADDITION
+
+            - type: mob.skill.spawn_particle
+              selector:
+                type: mob.selector.self
+              particle:
+                type: particle.wrapper
+                particle: dust
+                variantData:
+                  type: particle.variant_data.dust
+                  color:
+                    r: 29
+                    g: 167
+                    b: 64
+                  size: 2
+                distance: true
+                offsetX: 0.0
+                offsetY: 0.0
+                offsetZ: 0.0
+                data: 0.0
+                particleCount: 5
+              bounds:
+                origin:
+                  x: 0.0
+                  y: 2.0
+                  z: 0.0
+                lengths:
+                  x: 0.0
+                  y: 0.0
+                  z: 0.0
+
+        - type: mob.skill.group
+          delegates:
+            - type: mob.skill.heal
+              selector:
+                type: mob.selector.entities_in_area
+                originSelector:
+                  type: mob.selector.self
+                range: 8
+                target: PLAYERS
+                validator: /alivePlayers
+              amount: 10
+
+            - type: mob.skill.spawn_particle
+              selector:
+                type: mob.selector.self
+              particle:
+                type: particle.wrapper
+                particle: dust
+                variantData:
+                  type: particle.variant_data.dust
+                  color:
+                    r: 211
+                    g: 27
+                    b: 45
+                  size: 2
+                distance: true
+                offsetX: 0.0
+                offsetY: 0.0
+                offsetZ: 0.0
+                data: 0.0
+                particleCount: 5
+              bounds:
+                origin:
+                  x: 0.0
+                  y: 2.0
+                  z: 0.0
+                lengths:
+                  x: 0.0
+                  y: 0.0
+                  z: 0.0
+
+        - type: mob.skill.group
+          delegates:
+            - type: mob.skill.temporal
+              minDuration: 50
+              maxDuration: 50
+              delegate:
+                type: mob.skill.attribute_modifying
+                selector:
+                  type: mob.selector.entities_in_area
+                  originSelector:
+                    type: mob.selector.self
+                  range: 8
+                  target: PLAYERS
+                  validator: /alivePlayers
+                attribute: generic.movement_speed
+                amount: 0.4
+                attributeOperation: MULTIPLY_TOTAL
+
+            - type: mob.skill.spawn_particle
+              selector:
+                type: mob.selector.self
+              particle:
+                type: particle.wrapper
+                particle: dust
+                variantData:
+                  type: particle.variant_data.dust
+                  color:
+                    r: 179
+                    g: 255
+                    b: 242
+                  size: 2
+                distance: true
+                offsetX: 0.0
+                offsetY: 0.0
+                offsetZ: 0.0
+                data: 0.0
+                particleCount: 5
+              bounds:
+                origin:
+                  x: 0.0
+                  y: 2.0
+                  z: 0.0
+                lengths:
+                  x: 0.0
+                  y: 0.0
+                  z: 0.0
+      weights: [ 1, 1, 1, 1 ]
+alivePlayers:
+  type: zombies.mob.validator.zombies_player
+  states: [ zombies.player.state.alive ]
+  blacklist: false

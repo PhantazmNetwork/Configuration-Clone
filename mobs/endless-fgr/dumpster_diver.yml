@@ -1,0 +1,148 @@
+key: dumpster_diver_fgre
+type: minecraft:zombie
+pathfinding:
+  type: proxima.path_settings.ground
+  jumpHeight: 1.5
+  fallTolerance: 8
+  stepHeight: 0.5
+
+showNameTag: true
+
+meta:
+  customName: <b><#b90f0f>RIP</#b90f0f> <#251f1c>Dumpster Diver</#251f1c></b>
+  customNameVisible: true
+
+extra:
+  resistInstakill: true
+  announceKill: true
+
+equipment:
+  BOOTS: '{id:"netherite_boots",Count:1}'
+  LEGGINGS: '{id:"netherite_leggings",Count:1}'
+  CHESTPLATE: '{id:"netherite_chestplate",Count:1}'
+  HELMET: '{id:"player_head",Count:1,tag:{display:{Name:"{\"text\":\"Trash Can\"}"},SkullOwner:{Id:[I;-836675537,-810923382,-1074270453,-1520784047],Properties:{textures:[{Value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTBkYjgyNWJiYzdkYmQ3YzM2MGYzZmY2YTI2Njg4YTRhZmQ2YTBiMDI2MDVhZjQxYTIxYjkxYzRjYzMxZjI3ZiJ9fX0="}]}}}}'
+
+attributes:
+  generic.max_health: 2200
+  generic.movement_speed: 0.15
+  generic.attack_damage: 8
+  generic.armor: 20
+  generic.armor_toughness: 12
+  generic.attack_knockback: 0.5
+  generic.knockback_resistance: 0.8
+
+skills:
+  - type: mob.skill.send_message
+    trigger: SPAWN
+    message: <b><#b90f0f>RIP</#b90f0f></b> <yellow><#251f1c><b>Dumpster Diver</b></#251f1c> has spawned!</yellow>
+    selector:
+      type: mob.selector.entities_in_area
+      originSelector:
+        type: mob.selector.self
+      validator:
+        type: mob.validator.always
+      target: PLAYERS
+
+  - type: mob.skill.play_sound
+    trigger: SPAWN
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.lightning_bolt.thunder', source: PLAYER, volume: 100.0, pitch: 1.0 }
+
+  - type: mob.skill.play_sound
+    trigger: DAMAGED
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:block.bell.use', source: HOSTILE, volume: 1.2, pitch: 0.8 }
+
+  - type: mob.skill.play_sound
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:block.decorated_pot.shatter', source: HOSTILE, volume: 1.2, pitch: 0.8 }
+
+  - type: mob.skill.play_sound
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:block.decorated_pot.shatter', source: HOSTILE, volume: 1.2, pitch: 0.8 }
+
+  - type: mob.skill.show_healthbar
+    bar: '<#6b6f80>[<healthbar:bar_component:|:color_start:#dd3e28:color_end:#34bf25:missing_color:gray>]</#6b6f80>'
+    barWidth: 20
+
+  - type: mob.skill.timer
+    interval: 120
+    delegate:
+      type: mob.skill.group
+      delegates:
+        - type: mob.skill.potion
+          selector:
+            type: mob.selector.entities_in_area
+            originSelector:
+              type: mob.selector.self
+            range: 8
+            target: LIVING_ENTITIES
+            validator: /alivePlayers
+          potion:
+            effect: minecraft:nausea
+            amplifier: 1
+            duration: 100
+            flags: 6
+
+  - type: mob.skill.timer
+    interval: 180
+    delegate:
+      type: mob.skill.group
+      delegates:
+        - type: mob.skill.shoot_projectile
+          selector:
+            type: mob.selector.pathfinding_target
+          hitValidator:
+            type: mob.validator.and
+            validators: [ /alivePlayers, /distanceCheck ]
+          callback:
+            type: mob.skill.spawn_mob.callback.none
+          entity: trash_pile_rip
+          power: 1.2
+          spread: 10
+          gravity: true
+
+        - type: mob.skill.play_sound
+          selector:
+            type: mob.selector.self
+          sound: { name: 'minecraft:entity.llama.spit', source: HOSTILE, volume: 1.2, pitch: 0.6 }
+
+goals:
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: zombies.mob.goal.break_window
+        breakTicks: 20
+        breakCount: 6
+        breakRadius: 0.5
+
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: mob.goal.melee_attack
+        cooldown: 20
+        range: 0.25
+
+      - type: mob.goal.follow_entity
+        selector:
+          type: mob.selector.entities_in_area
+          originSelector:
+            type: mob.selector.self
+          validator: /alivePlayers
+          target: PLAYERS
+          limit: 1
+        retargetInterval: 20
+        followRange: 1024
+
+alivePlayers:
+  type: zombies.mob.validator.zombies_player
+  states: [ zombies.player.state.alive ]
+  blacklist: false
+
+distanceCheck:
+  type: mob.validator.distance
+  distance: 15

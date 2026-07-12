@@ -1,0 +1,27 @@
+type: zombies.perk.level.upgradeable
+key: level0
+upgrades: [ level1 ]
+equipment:
+  type: zombies.perk.equipment.basic
+  interactor:
+    type: zombies.perk.interactor.none
+  visual:
+    type: zombies.perk.visual.static
+    stack:
+      material: 'minecraft:sugar'
+      displayName: '<!i><blue><b>Speed</b></blue></!i>'
+      lore:
+        - '<!i><#9096ad>The grim reality of an apocalypse</#9096ad></!i>'
+        - '<!i><#9096ad>gave you cravings for a little</#9096ad></!i>'
+        - '<!i><#9096ad>pick-me-up. However, you didn''t </#9096ad></!i>'
+        - '<!i><#9096ad>expect to get hit with the worst</#9096ad></!i>'
+        - '<!i><#9096ad>sugar rush of your life. Has the</#9096ad></!i>'
+        - '<!i><#9096ad>world slowed down around you or</#9096ad></!i>'
+        - '<!i><#9096ad>are you speeding through time?</#9096ad></!i>'
+        - ''
+        - '<!i><#616575>»</#616575> <#9096ad>Speed modifier</#9096ad><#b8bfde>:</#b8bfde> <green>+20%</green></!i>'
+effects:
+  - type: zombies.perk.effect.attribute_modifier
+    attribute: generic.movement_speed
+    amount: 0.2
+    attributeOperation: MULTIPLY_BASE

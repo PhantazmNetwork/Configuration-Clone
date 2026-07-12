@@ -1,0 +1,43 @@
+round: 1
+startActions:
+  - type: zombies.map.round.action.announce
+    format: <red>Round <round>
+    destination: TITLE
+    tickFormatter:
+      type: core.tick_formatter.analog
+      ceil: false
+
+  - type: zombies.map.round.action.announce
+    format: ""
+    destination: SUBTITLE
+    tickFormatter:
+      type: core.tick_formatter.analog
+      ceil: false
+
+  - type: zombies.map.round.action.revive_players
+
+  - type: zombies.map.round.action.play_sound
+    sound: { name: 'minecraft:entity.wither.spawn', source: MASTER, volume: 24.0,
+             pitch: 0.5 }
+
+  - type: zombies.map.round.action.announce
+    format: '<gradient:#616575:#4a4c59><st>⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯</st></gradient><br><#fffa9e>»</#fffa9e> <red><b>Zombies</b></red><br><br><yellow>  Team up with your friends to defeat massive hordes of<br>  zombies! Gain coins by damaging enemies, which can be<br>  spent on opening new rooms, armor, weapons, or perks<br>  to buff your character. Be careful, however, as the <br>  undead will also become stronger the longer you survive!</yellow><br><br><gradient:#616575:#4a4c59><st>⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯</st></gradient>'
+    destination: CHAT
+    tickFormatter:
+      type: core.tick_formatter.analog
+      ceil: false
+  
+endActions: [ ]
+waves:
+  - delayTicks: 150
+    spawns:
+      - id: civilian
+        spawnType: window
+        amount: 4
+    spawnActions: [ ]
+  - delayTicks: 260
+    spawns:
+      - id: civilian
+        spawnType: window
+        amount: 4
+    spawnActions: [ ]

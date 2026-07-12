@@ -1,0 +1,5 @@
+chatFormats:
+  - key: all
+    value: <sender><#b8bfde>:</#b8bfde> <white><message></white>
+  - key: party
+    value: <#ff76b5>Party</#ff76b5> <#fffa9e>»</#fffa9e> <sender><#b8bfde>:</#b8bfde> <white><message></white>

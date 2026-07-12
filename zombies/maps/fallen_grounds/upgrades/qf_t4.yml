@@ -1,0 +1,68 @@
+id: qf_t4
+data:
+  type: zombies.upgrade.standard
+  triggers:
+    - type: zombies.upgrade.trigger.event
+      event: ENTITY_DAMAGE_BY_GUN
+      eventFilter:
+        type: zombies.upgrade.filter.type
+        conditions:
+          - type: zombies.upgrade.filter.condition.player_shooter
+
+          - type: zombies.upgrade.filter.condition.headshot
+  effect:
+    type: zombies.upgrade.effect.random
+    chance: 0.1
+    delegate:
+      type: zombies.upgrade.effect.composite
+      delegates:
+        - type: zombies.upgrade.effect.damage_increase
+          selector:
+            type: zombies.upgrade.selector.event
+            validator:
+              type: zombies.upgrade.validator.mob_in_round
+            useTarget: true
+          scaling:
+            type: zombies.upgrade.effect.scaling.constant
+            value: 4.0
+
+        - type: zombies.upgrade.effect.random
+          chance: 0.25
+          delegate:
+            type: zombies.upgrade.effect.conditional
+            pass:
+              type: zombies.upgrade.effect.composite
+              delegates:
+                - type: zombies.upgrade.effect.sound
+                  sound: { name: 'minecraft:entity.player.levelup', source: PLAYER, volume: 2.0, pitch: 0.7 }
+                  broadcast: false
+
+                - type: zombies.upgrade.effect.damage_increase
+                  selector:
+                    type: zombies.upgrade.selector.event
+                    validator:
+                      type: zombies.upgrade.validator.mob_in_round
+                    useTarget: true
+                  scaling:
+                    type: zombies.upgrade.effect.scaling.constant
+                    value: 4.0
+            fail:
+              type: zombies.upgrade.effect.composite
+              delegates:
+                - type: zombies.upgrade.effect.sound
+                  sound: { name: 'minecraft:entity.player.levelup', source: PLAYER, volume: 2.0, pitch: 0.7 }
+                  broadcast: false
+
+                - type: zombies.upgrade.effect.damage_scaled_by_health
+                  selector:
+                    type: zombies.upgrade.selector.event
+                    validator:
+                      type: zombies.upgrade.validator.mob_in_round
+                    useTarget: true
+                  percentageOfHealth: 1.0
+            filter:
+              type: zombies.upgrade.filter.type
+              conditions:
+                - type: zombies.upgrade.filter.condition.mob_flag
+                  flag: 'boss'
+                  useTarget: true

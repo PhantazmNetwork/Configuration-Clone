@@ -1,0 +1,15 @@
+type: npc.entity
+location: { x: -38, y: 21, z: 147.5, yaw: -180.0, pitch: 0.0 }
+entity:
+  type: npc.entity.supplier.player
+  playerSkin:
+    textures: "ewogICJ0aW1lc3RhbXAiIDogMTY4ODIzOTQ3MzcyNiwKICAicHJvZmlsZUlkIiA6ICJkZDNjZGJiOTE2M2Q0NzgyOGQ0YmZkODZmYWE4NGY5ZSIsCiAgInByb2ZpbGVOYW1lIiA6ICJFTFdhbEtlUkpBSkEiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2VmOGU1ZGFkOTgzZTQwN2I2Y2RiYzY2MDYzNDhjYmMxM2RlNGYyZDcwZmJhZTkxY2Q5ZDRiNTk3OTA3MjhlYiIKICAgIH0KICB9Cn0="
+    signature: "VjJGOCpzKELrmTh/ZyJwNFOu9hB21fOkj6h7DakMZ/p0lGLnFcmHUPz6rH8xMKfC7j41lbpMzsDT3VzSG+pFkPiAEZQX21OMlH7fRmESRSf7Q2auAsca7tATGNaLwF3jE3oaimzpO+khxJF+K/CVqm+4F/Q02lZ5lsvJc6ALeaZvfahZPrpWMETfglHXPXamvdz4TsYDy7W6HceRf1MXdfWHqL7q0RTmAxuKThhc5SeRVeKDydMAj5GmXQSe2rMvm76em6fq7H9riA1PTro28ja5sv756h1ktmKTxyTDqv63fi+FGWRegK72mvXFBOL0THHRRXsS7bMKPTp2G8LskMDkIBuhOZS7OcU2bWG8TGP74NWTusaqHXh2W3Q9iKR5tVHZo86YCNoBrw3JB+dPE25E8AWQhg5YWa5reAI6FA5XqjCTtUCp5/nMswmIxP/O1WnqbWAjvGpTiuvdf69ZNshYXXUB3uGpqe9e8zKc2kJngCp55WgiDebYXxNGT2gMnbzz3fUKmfqZxr2XKnxK39qYE0UC6JUr9srjpTHEv4NAS/kcvO9ET0UwWkwiKPqluemw4773JEpu8J6DysNK+VEm3B90oCDF6RU5tOZvxnB8J4zKXrgoOEx2VtcuRCfXkpdCXpwV4pp2huJpWL5B3rbSdFjFRh8ndd+2lmlq2aw="
+
+settings:
+  type: npc.entity.settings
+ticker:
+  type: npc.entity.ticker.none
+interactor:
+  type: npc.interactor.command
+  command: 'zombies rejoin'

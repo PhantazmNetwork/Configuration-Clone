@@ -1,0 +1,53 @@
+key: dee_oh_double_g
+type: minecraft:item
+pathfinding:
+  type: proxima.path_settings.ground
+  jumpHeight: 0
+  fallTolerance: 0
+  stepHeight: 0
+
+meta:
+  customName: <gradient:#ff0303:#ff7c02>Blaze It</gradient>
+  itemStack:
+    material: minecraft:fern
+
+extra:
+  ticksUntilDeath: 200
+
+skills:
+  - type: mob.skill.temporal
+    trigger: ATTACK
+    minDuration: 80
+    maxDuration: 80
+    delegate:
+      type: mob.skill.apply_fire
+      trigger: ATTACK
+      selector:
+        type: mob.selector.last_hit
+
+  - type: mob.skill.damage_over_time
+    trigger: ATTACK
+    selector:
+      type: mob.selector.last_hit
+    validator:
+      type: zombies.mob.validator.zombies_player
+      states: [ zombies.player.state.alive ]
+      blacklist: false
+    damageAmount: 1.5
+    bypassArmor: true
+    damageInterval: 20
+    damageTime: 80
+
+  - type: mob.skill.timer
+    trigger: ATTACK
+    interval: 20
+    requiresActivation: true
+    resetOnActivation: true
+    repeat: 4
+    delegate:
+      type: mob.skill.play_sound
+      trigger: SPAWN
+      selector:
+        type: mob.selector.last_hit
+      sound: { name: 'minecraft:entity.player.hurt_on_fire', source: PLAYER, volume: 1.0, pitch: 1.0 }
+      broadcast: false

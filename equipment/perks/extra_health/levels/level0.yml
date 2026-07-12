@@ -1,0 +1,22 @@
+type: zombies.perk.level.non_upgradeable
+key: level0
+equipment:
+  type: zombies.perk.equipment.basic
+  interactor:
+    type: zombies.perk.interactor.none
+  visual:
+    type: zombies.perk.visual.static
+    stack:
+      material: 'minecraft:apple'
+      displayName: '<!i><blue><b>Extra Health</b></blue></!i>'
+      lore:
+        - '<!i><#9096ad>An apple a day keeps the zombie</#9096ad></!i>'
+        - '<!i><#9096ad>hordes away. Or at least makes it</#9096ad></!i>'
+        - '<!i><#9096ad>take longer for them to eat you.</#9096ad></!i>'
+        - ''
+        - '<!i><#616575>»</#616575> <#9096ad>Bonus Health</#9096ad><#b8bfde>:</#b8bfde> <green>10.0 HP</green></!i>'
+effects:
+  - type: zombies.perk.effect.attribute_modifier
+    attribute: generic.max_health
+    amount: 10
+    attributeOperation: ADDITION

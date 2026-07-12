@@ -1,0 +1,69 @@
+id: eh_fr_synergy
+data:
+  type: zombies.upgrade.standard
+  triggers:
+    - type: zombies.upgrade.trigger.event
+      event: ZOMBIES_PLAYER_REVIVE
+      eventFilter:
+        type: zombies.upgrade.filter.type
+        conditions:
+          - type: zombies.upgrade.filter.condition.zombies_player
+  effect:
+    type: zombies.upgrade.effect.conditional
+    pass:
+      type: zombies.upgrade.effect.composite
+      delegates:
+        - type: zombies.upgrade.effect.message
+          message: <#7f5e737>You recently revived this player. Tell them to stop having a skill issue.</#7f5e73>
+
+        - type: zombies.upgrade.effect.sound
+          sound: { name: 'minecraft:entity.player.burp', source: PLAYER, volume: 2.0, pitch: 0.5 }
+          broadcast: false
+
+    fail:
+      type: zombies.upgrade.effect.conditional
+      pass:
+        - type: zombies.upgrade.effect.message
+          message: <#7f5e737>You're too close to other people. Reviving feels too performative.</#7f5e73>
+
+        - type: zombies.upgrade.effect.sound
+          sound: { name: 'minecraft:entity.player.burp', source: PLAYER, volume: 2.0, pitch: 0.5 }
+          broadcast: false
+      fail:
+        type: zombies.upgrade.effect.composite
+        delegates:
+          - type: zombies.upgrade.effect.heal
+            selector:
+              type: zombies.upgrade.selector.event
+              useTarget: false
+            healAmount: 20
+
+          - type: zombies.upgrade.effect.sound
+            sound: { name: 'minecraft:entity.player.levelup', source: PLAYER, volume: 2.0, pitch: 1.1 }
+            broadcast: false
+
+          - type: zombies.upgrade.effect.message
+            message: <#fc6cc7>Your altruism rewards you with 20 HP!</#fc6cc7>
+
+          - type: zombies.upgrade.effect.record_target
+            duration: 200
+            target:
+              type: zombies.upgrade.selector.event
+              useTarget: true
+            queueName: 'eh_fr_synergy_queue'
+      filter:
+        type: zombies.upgrade.filter.selector
+        selector:
+          type: zombies.upgrade.selector.entities_in_area
+          validator:
+            type: zombies.upgrade.validator.zombies_player
+            states: [ zombies.player.state.alive ]
+            blacklist: false
+          target: PLAYERS
+          range: 5.0
+    filter:
+      type: zombies.upgrade.filter.queue
+      queueName: 'eh_fr_synergy_queue'
+      target:
+        type: zombies.upgrade.selector.event
+        useTarget: true

@@ -1,0 +1,21 @@
+id: flb_t2
+data:
+  type: zombies.upgrade.standard
+  triggers:
+    - type: zombies.upgrade.trigger.single
+  effect:
+    type: zombies.upgrade.effect.composite
+    delegates:
+      - type: zombies.upgrade.effect.apply_attribute
+        selector:
+          type: zombies.upgrade.selector.self
+        attribute: damage.explosion
+        amount: -0.5
+        operation: MULTIPLY_BASE
+
+      - type: zombies.upgrade.effect.apply_attribute
+        selector:
+          type: zombies.upgrade.selector.self
+        attribute: damage.fire
+        amount: -0.5
+        operation: MULTIPLY_BASE

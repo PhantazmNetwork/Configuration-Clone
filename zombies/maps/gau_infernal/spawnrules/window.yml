@@ -1,0 +1,5 @@
+id: window
+spawnType: window
+spawns: [ ]
+isBlacklist: true
+sla: 60

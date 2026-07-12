@@ -1,0 +1,110 @@
+id: ultimate_machine
+trigger:
+  origin: { x: 176, y: 1, z: 19 }
+  lengths: { x: 1, y: 1, z: 1 }
+predicateEvaluation: ALL_TRUE
+data:
+  predicates:
+    - type: zombies.map.shop.predicate.player_state
+      states: [ zombies.player.state.alive ]
+      blacklist: false
+
+    - type: zombies.map.shop.predicate.in_game
+
+    - type: zombies.map.shop.predicate.type
+      types: [ zombies.map.shop.interaction.right_click_block ]
+      blacklist: false
+
+  successInteractors:
+    - type: zombies.map.shop.interactor.conditional
+      evaluation: ALL_TRUE
+      predicates:
+        - type: zombies.map.shop.predicate.map_flag
+          flag: zombies.map.flag.power
+          requireAbsent: false
+      successInteractors:
+        - type: zombies.map.shop.interactor.conditional
+          evaluation: ALL_TRUE
+          predicates:
+            - type: zombies.map.shop.predicate.static_cost
+              cost: 1500
+              modifierType: coin_spend.shop
+          successInteractors:
+            - type: zombies.map.shop.interactor.upgrade_equipment
+              upgradeFormatMessage: "<#9096ad>You upgraded your <blue><b><previous_item></b></blue> to <blue><b><upgraded_item></b></blue>!</#9096ad>"
+              upgradePath:
+                type: zombies.map.shop.upgrade_path.linear
+                upgrades: [ level0, level1, level2, level3, level4 ]
+              notUpgradableInteractors:
+                - type: zombies.map.shop.interactor.messaging
+                  messages: [ "<red>You cannot upgrade this weapon!" ]
+                  broadcast: false
+                - type: zombies.map.shop.interactor.play_sound
+                  sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                           pitch: 0.0 }
+                  broadcast: false
+              noHeldEquipmentInteractors:
+                - type: zombies.map.shop.interactor.messaging
+                  messages: [ "<red>Hold a weapon and right-click to upgrade!" ]
+                  broadcast: false
+                - type: zombies.map.shop.interactor.play_sound
+                  sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                           pitch: 0.0 }
+                  broadcast: false
+              noUpgradeInteractors:
+                - type: zombies.map.shop.interactor.messaging
+                  messages: [ "<red>This equipment is already at the max level!" ]
+                  broadcast: false
+                - type: zombies.map.shop.interactor.play_sound
+                  sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                           pitch: 0.0 }
+                  broadcast: false
+              upgradeInteractors:
+                - type: zombies.map.shop.interactor.deduct_coins
+                  cost: 1500
+                  modifierType: coin_spend.shop
+
+                - type: zombies.map.shop.interactor.play_sound
+                  sound: { name: 'minecraft:entity.experience_orb.pickup', source: PLAYER, volume:
+                    10.0,  pitch: 1.0 }
+                  broadcast: false
+          failureInteractors:
+            - type: zombies.map.shop.interactor.messaging
+              messages: [ "<red>You do not have enough coins to purchase this!" ]
+              broadcast: false
+
+            - type: zombies.map.shop.interactor.play_sound
+              sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                       pitch: 0.0 }
+              broadcast: false
+
+      failureInteractors:
+        - type: zombies.map.shop.interactor.messaging
+          messages: [ "<red>The <dark_purple><b>Ultimate Machine</b></dark_purple> requires power to use! Find and activate the</red> <dark_purple>Generator</dark_purple> <red>in</red> <green><b>Generator</b></green> <red>first!</red>" ]
+          broadcast: false
+
+        - type: zombies.map.shop.interactor.play_sound
+          sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                   pitch: 0.0 }
+          broadcast: false
+
+  failureInteractors: [ ]
+  displays:
+    - type: zombies.map.shop.display.flag_conditional
+      flag: zombies.map.flag.power
+      success:
+        - type: zombies.map.shop.display.static_hologram
+          info:
+            text: [ "<dark_purple><b>Ultimate Machine", "<gold>1500 Coins" ]
+            position:
+              x: -0.25
+              y: -0.15
+              z: 0
+      failure:
+        - type: zombies.map.shop.display.static_hologram
+          info:
+            text: [ "<dark_purple><b>Ultimate Machine", "<grey><i>Requires power!" ]
+            position:
+              x: -0.25
+              y: -0.15
+              z: 0

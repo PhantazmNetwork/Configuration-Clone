@@ -1,0 +1,12 @@
+id: road
+displayName: <green><b>Road
+regions:
+  - origin: { x: -13, y: 0, z: -26 }
+    lengths: { x: 22, y: 7, z: 12 }
+  - origin: { x: -19, y: 0, z: -17 }
+    lengths: { x: 7, y: 7, z: 4 }
+  - origin: { x: -12, y: 0, z: -14 }
+    lengths: { x: 8, y: 7, z: 1 }
+  - origin: { x: -2, y: 0, z: -14 }
+    lengths: { x: 4, y: 6, z: 5 }
+openActions: [ ]

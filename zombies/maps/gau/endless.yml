@@ -1,0 +1,25 @@
+type: zombies.endless.basic
+healthScaling:
+  kind: LINEAR
+  ceiling: 10
+  a: 1
+damageScaling:
+  kind: LINEAR
+  ceiling: 5
+  a: 0.5
+speedScaling:
+  kind: LINEAR
+  ceiling: 0.05
+  a: 0.001
+spawnAmountScaling:
+  kind: LINEAR
+  ceiling: 250
+  a: 2
+spawnAmountBase: 69
+waveScaling:
+  kind: CONSTANT
+  ceiling: 32
+  a: 0
+waveBase: 3
+introductions: [ ]
+themes: [ ]

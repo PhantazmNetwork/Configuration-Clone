@@ -1,0 +1,221 @@
+id: team_machine
+trigger:
+  origin: { x: 127, y: 1, z: 3 }
+  lengths: { x: 1, y: 1, z: 1 }
+predicateEvaluation: ALL_TRUE
+data:
+  predicates:
+    - type: zombies.map.shop.predicate.player_state
+      states: [ zombies.player.state.alive ]
+      blacklist: false
+
+    - type: zombies.map.shop.predicate.in_game
+
+    - type: zombies.map.shop.predicate.type
+      types: [ zombies.map.shop.interaction.right_click_block ]
+      blacklist: false
+
+  successInteractors:
+    - type: zombies.map.shop.interactor.conditional
+      evaluation: ALL_TRUE
+      predicates:
+        - type: zombies.map.shop.predicate.map_flag
+          flag: zombies.map.flag.power
+          requireAbsent: false
+      successInteractors:
+        - type: zombies.map.shop.interactor.open_gui
+          title: "Team Machine"
+          inventoryType: CHEST_3_ROW
+          dynamic: false
+          guiItems:
+            - type: zombies.map.shop.gui.click_handler.interacting
+              clickTypes: [ LEFT_CLICK ]
+              blacklist: false
+              updatingItem:
+                type: item.updating.static
+                item:
+                  material: 'minecraft:arrow'
+                  displayName: "<!i><green><b>Ammo Refill"
+                  lore:
+                    - '<!i><#9096ad>Gain max ammo for all of your</#9096ad></!i>'
+                    - '<!i><#9096ad>and your teammates'' weapons.</#9096ad></!i>'
+                    - ''
+                    - '<!i><#9096ad><b>Cost<#b8bfde>:</#b8bfde> <gold>1500 Coins</gold></b></#9096ad></!i>'
+
+              clickInteractor:
+                type: zombies.map.shop.interactor.conditional
+                evaluation: ALL_TRUE
+                predicates:
+                  - type: zombies.map.shop.predicate.static_cost
+                    cost: 1500
+                    modifierType: coin_spend.shop
+                successInteractors:
+                  - type: zombies.map.shop.interactor.refill_all_ammo
+
+                  - type: zombies.map.shop.interactor.play_sound
+                    sound: { name: 'minecraft:entity.firework_rocket.twinkle', source: PLAYER,
+                             volume: 10.0,
+                             pitch: 1.0 }
+                    broadcast: true
+
+                  - type: zombies.map.shop.interactor.deduct_coins
+                    cost: 1500
+                    modifierType: coin_spend.shop
+
+                  - type: zombies.map.shop.interactor.messaging
+                    messages: [ '<#9096ad><sender> activated <green><b>Ammo Refill</b></green> from the <green>Team Machine</green>!<#9096ad>' ]
+                    broadcast: true
+                failureInteractors:
+                  - type: zombies.map.shop.interactor.messaging
+                    messages: [ "<red>You do not have enough coins to purchase this!" ]
+                    broadcast: false
+
+                  - type: zombies.map.shop.interactor.play_sound
+                    sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                             pitch: 0.0 }
+                    broadcast: false
+            - type: zombies.map.shop.gui.click_handler.interacting
+              clickTypes: [ LEFT_CLICK ]
+              blacklist: false
+              updatingItem:
+                type: item.updating.static
+                item:
+                  material: 'minecraft:golden_apple'
+                  displayName: "<!i><green><b>Full Revive"
+                  lore:
+                    - '<!i><#9096ad>Revives all downed and dead</#9096ad></!i>'
+                    - '<!i><#9096ad>teammates.</#9096ad></!i>'
+                    - ''
+                    - '<!i><#9096ad><b>Cost<#b8bfde>:</#b8bfde> <gold>4000 Coins</gold></b></#9096ad></!i>'
+
+              clickInteractor:
+                type: zombies.map.shop.interactor.conditional
+                evaluation: ALL_TRUE
+                predicates:
+                  - type: zombies.map.shop.predicate.static_cost
+                    cost: 4000
+                    modifierType: coin_spend.shop
+                successInteractors:
+                  - type: zombies.map.shop.interactor.revive_all
+                    messageFormat: <green><revive_count> players</green><#9096ad> were revived!</#9096ad>
+                    broadcast: true
+
+                  - type: zombies.map.shop.interactor.play_sound
+                    sound: { name: 'minecraft:entity.firework_rocket.twinkle', source: PLAYER,
+                             volume: 10.0,
+                             pitch: 1.0 }
+                    broadcast: true
+
+                  - type: zombies.map.shop.interactor.deduct_coins
+                    cost: 4000
+                    modifierType: coin_spend.shop
+
+                  - type: zombies.map.shop.interactor.messaging
+                    messages: [ '<#9096ad><sender> activated <green><b>Full Revive</b></green> from the <green>Team Machine</green>!<#9096ad>' ]
+                    broadcast: true
+                failureInteractors:
+                  - type: zombies.map.shop.interactor.messaging
+                    messages: [ "<red>You do not have enough coins to purchase this!" ]
+                    broadcast: false
+
+                  - type: zombies.map.shop.interactor.play_sound
+                    sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                             pitch: 0.0 }
+                    broadcast: false
+            - type: zombies.map.shop.gui.click_handler.interacting
+              clickTypes: [ LEFT_CLICK ]
+              blacklist: false
+              updatingItem:
+                type: item.updating.cost_substituting
+                material: 'minecraft:dragon_egg'
+                displayName: '<!i><green><b>Dragon''s Wrath'
+                lore:
+                  - '<!i><#9096ad>Kills all enemies within a <green>15</green></#9096ad></!i>'
+                  - '<!i><#9096ad>block radius after a short delay.</#9096ad></!i>'
+                  - ''
+                  - '<!i><#9096ad><b>Cost<#b8bfde>:</#b8bfde> <gold><cost> Coins</gold></b></#9096ad></!i>'
+                cost: 10000
+                modifier: coin_spend.shop.dragons_wrath
+
+              clickInteractor:
+                type: zombies.map.shop.interactor.conditional
+                evaluation: ALL_TRUE
+                predicates:
+                  - type: zombies.map.shop.predicate.static_cost
+                    cost: 10000
+                    modifierType: coin_spend.shop.dragons_wrath
+                successInteractors:
+                  - type: zombies.map.shop.interactor.delayed
+                    delayTicks: 60
+                    interactors:
+                      - type: zombies.map.shop.interactor.dragons_wrath
+                        sound: { name: 'minecraft:entity.lightning_bolt.thunder', source: PLAYER, volume: 5.0, pitch: 1.0 }
+                        messageFormat: <green><kill_count> enemies</green> <#9096ad>were killed!</#9096ad>
+                        broadcast: true
+                        radius: 15
+
+                  - type: zombies.map.shop.interactor.messaging
+                    messages: [ '<#9096ad><sender> activated <green><b>Dragon''s Wrath</b></green> from the <green>Team Machine</green>!<#9096ad>' ]
+                    broadcast: true
+
+                  - type: zombies.map.shop.interactor.play_sound
+                    sound: { name: 'minecraft:entity.firework_rocket.twinkle', source: PLAYER,
+                             volume: 10.0,
+                             pitch: 1.0 }
+                    broadcast: true
+
+                  - type: zombies.map.shop.interactor.play_sound
+                    sound: { name: 'minecraft:entity.ender_dragon.growl', source: PLAYER,
+                             volume: 30.0,
+                             pitch: 1.0 }
+                    broadcast: true
+
+                  - type: zombies.map.shop.interactor.deduct_coins
+                    cost: 10000
+                    modifierType: coin_spend.shop.dragons_wrath
+
+                  - type: zombies.map.shop.interactor.cumulative_transaction_modifier
+                    modifierGroup: coin_spend.shop.dragons_wrath
+                    modifierAction: ABS_ADD
+                    amount: 5000
+                failureInteractors:
+                  - type: zombies.map.shop.interactor.messaging
+                    messages: [ "<red>You do not have enough coins to purchase this!" ]
+                    broadcast: false
+
+                  - type: zombies.map.shop.interactor.play_sound
+                    sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                             pitch: 0.0 }
+                    broadcast: false
+
+      failureInteractors:
+        - type: zombies.map.shop.interactor.messaging
+          messages: [ "<red>The <green><b>Team Machine</b></green> requires power to use! Find and activate the</red> <dark_purple>Generator</dark_purple> <red>in</red> <green><b>Generator</b></green> <red>first!</red>" ]
+          broadcast: false
+
+        - type: zombies.map.shop.interactor.play_sound
+          sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                   pitch: 0.0 }
+          broadcast: false
+
+  failureInteractors: [ ]
+  displays:
+    - type: zombies.map.shop.display.flag_conditional
+      flag: zombies.map.flag.power
+      success:
+        - type: zombies.map.shop.display.static_hologram
+          info:
+            text: [ "<green><b>Team Machine", "<yellow>RIGHT-CLICK TO OPEN" ]
+            position:
+              x: 0
+              y: 0
+              z: 0
+
+      failure:
+        - type: zombies.map.shop.display.static_hologram
+          info:
+            text: [ "<green><b>Team Machine", "<grey><i>Requires power!" ]
+            position:
+              x: 0
+              y: 0
+              z: 0

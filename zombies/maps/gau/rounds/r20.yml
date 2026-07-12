@@ -1,0 +1,66 @@
+round: 20
+startActions:
+  - type: zombies.map.round.action.announce
+    format: <red>Round <round>
+    destination: TITLE
+    tickFormatter:
+      type: core.tick_formatter.analog
+      ceil: false
+
+  - type: zombies.map.round.action.announce
+    format: ""
+    destination: SUBTITLE
+    tickFormatter:
+      type: core.tick_formatter.analog
+      ceil: false
+
+  - type: zombies.map.round.action.revive_players
+
+  - type: zombies.map.round.action.play_sound
+    sound: { name: 'minecraft:entity.wither.spawn', source: MASTER, volume: 24.0,
+             pitch: 0.5 }
+endActions:
+  - type: zombies.map.round.action.announce
+    format: <gradient:#616575:#4a4c59><st>⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯</st></gradient><br><#fffa9e>»</#fffa9e> <#9096ad>You completed <b><green>Round <round></green></b> in <b><red><time></red></b><#b8bfde>!</#b8bfde></#9096ad><br><gradient:#616575:#4a4c59><st>⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯</st></gradient>
+    destination: CHAT
+    tickFormatter:
+      type: core.tick_formatter.analog
+      ceil: false
+# 69
+waves:
+  - delayTicks: 130
+    spawns:
+      - id: dried_undead
+        spawnType: window
+        amount: 8
+      - id: spitter
+        spawnType: window
+        amount: 9
+    spawnActions: [ ]
+  - delayTicks: 240
+    spawns:
+      - id: crazed_zombie
+        spawnType: window
+        amount: 8
+      - id: dried_undead
+        spawnType: window
+        amount: 8
+      - id: spitter
+        spawnType: window
+        amount: 10
+    spawnActions: [ ]
+  - delayTicks: 240
+    spawns:
+      - id: hazmat_zombie
+        spawnType: window
+        amount: 10
+      - id: crazed_zombie
+        spawnType: window
+        amount: 6
+      - id: spitter
+        spawnType: window
+        amount: 9
+      - id: elephants_foot
+        spawnType: window
+        amount: 1
+    spawnActions: [ ]

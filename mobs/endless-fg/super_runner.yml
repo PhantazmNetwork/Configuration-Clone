@@ -1,0 +1,91 @@
+key: super_runner_fge
+type: minecraft:zombified_piglin
+tags: [ endless ]
+pathfinding:
+  type: proxima.path_settings.ground
+  jumpHeight: 2
+  fallTolerance: 10
+  stepHeight: 1.0
+
+meta:
+  customName: <#aef3ff>Supercharged Runner</#aef3ff>
+
+extra:
+  endlessSpeedScaling:
+    kind: LINEAR
+    ceiling: 0.3
+    a: 0.002
+
+equipment:
+  BOOTS: '{id:"diamond_boots",Count:1}'
+  LEGGINGS: '{id:"diamond_leggings",Count:1}'
+  CHESTPLATE: '{id:"golden_chestplate",Count:1}'
+
+attributes:
+  generic.max_health: 30
+  generic.movement_speed: 0.29
+  generic.attack_damage: 3
+  generic.armor: 11
+  generic.attack_knockback: 0.3
+
+skills:
+  - type: mob.skill.play_sound
+    trigger: DAMAGED
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.zombified_piglin.hurt', source: HOSTILE, volume: 1.5, pitch: 0.9 }
+
+  - type: mob.skill.play_sound
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.zombified_piglin.death', source: HOSTILE, volume: 1.5, pitch: 0.9 }
+
+  - type: mob.skill.random_timer
+    minInterval: 100
+    maxInterval: 160
+    delegate:
+      type: mob.skill.random
+      chance: 0.5
+      delegate:
+        type: mob.skill.play_sound
+        selector:
+          type: mob.selector.self
+        sound: { name: 'minecraft:entity.zombified_piglin.angry', source: HOSTILE, volume: 1.5, pitch: 0.9 }
+
+goals:
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: zombies.mob.goal.break_window
+        breakTicks: 10
+        breakCount: 1
+        breakRadius: 0.5
+
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: mob.goal.melee_attack
+        cooldown: 10
+        range: 0.25
+
+      - type: mob.goal.follow_entity
+        selector:
+          type: mob.selector.entities_in_area
+          originSelector:
+            type: mob.selector.self
+          validator:
+            type: mob.validator.or
+            validators: [ /alivePlayers, /targetableMobs ]
+          target: LIVING_ENTITIES
+          limit: 1
+        retargetInterval: 20
+        followRange: 1024
+
+alivePlayers:
+  type: zombies.mob.validator.zombies_player
+  states: [ zombies.player.state.alive ]
+  blacklist: false
+
+targetableMobs:
+  type: mob.validator.mob_type
+  tags: [ ally_targetable ]
+  blacklist: false

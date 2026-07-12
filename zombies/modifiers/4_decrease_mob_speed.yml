@@ -1,0 +1,17 @@
+ordinal: 4
+key: phantazm:decrease_mob_speed
+exclusiveModifiers: [ 'phantazm:increase_mob_speed' ]
+displayName: '<green>Mob Speed Decrease</green>'
+webhookEmoji: '<:mob_speed_decrease:1160905074718019595>'
+abbreviatedDisplayName: '<green>MSD'
+displayItem:
+  material: minecraft:sugar
+  displayName: '<!i><b><yellow>Mob Speed Decrease</yellow></b></!i>'
+  lore:
+    - ''
+    - '<!i><#616575>»</#616575> <#f062c1>Decrease mob speed by <b><green>-25%<green></b></#f062c1></!i>'
+modifier:
+  type: zombies.modifier.mob_attribute
+  attribute: 'generic.movement_speed'
+  amount: -0.25
+  attributeOperation: MULTIPLY_BASE

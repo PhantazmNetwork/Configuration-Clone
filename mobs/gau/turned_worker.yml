@@ -1,0 +1,78 @@
+key: turned_worker
+type: minecraft:zombie
+pathfinding:
+  type: proxima.path_settings.ground
+  jumpHeight: 1.25
+  fallTolerance: 4
+  stepHeight: 0.5
+
+meta:
+  customName: <dark_gray>Turned Worker</dark_gray>
+
+equipment:
+  BOOTS: '{id:"leather_boots",Count:1,tag:{display:{color:6974058}}}'
+  LEGGINGS: '{id:"leather_leggings",Count:1,tag:{display:{color:6974058}}}'
+  CHESTPLATE: '{id:"chainmail_chestplate",Count:1}'
+  HELMET: '{id:"player_head",Count:1,tag:{display:{Name:"{\"text\":\"Zombie Builder\"}"},SkullOwner:{Id:[I;-1236269788,-390640242,-2038675606,1046215258],Properties:{textures:[{Value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZmQ5NDg1NzI2NGE4NDBiMzg0YTEzYTE5MDcxNDFiNGU1MDAxYzcxZGM3ZDI4OTY3MzcxMzQyZGIwY2E4NzllYSJ9fX0="}]}}}}'
+
+attributes:
+  generic.max_health: 20
+  generic.movement_speed: 0.24
+  generic.attack_damage: 4
+  generic.armor: 4
+  generic.attack_knockback: 0.2
+
+skills:
+  - type: mob.skill.play_sound
+    trigger: DAMAGED
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.zombie.hurt', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+  - type: mob.skill.play_sound
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.zombie.death', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+  - type: mob.skill.random_timer
+    minInterval: 100
+    maxInterval: 160
+    delegate:
+      type: mob.skill.random
+      chance: 0.5
+      delegate:
+        type: mob.skill.play_sound
+        selector:
+          type: mob.selector.self
+        sound: { name: 'minecraft:entity.zombie.ambient', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+goals:
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: zombies.mob.goal.break_window
+        breakTicks: 20
+        breakCount: 1
+        breakRadius: 0.5
+
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: mob.goal.melee_attack
+        cooldown: 20
+        range: 0.25
+
+      - type: mob.goal.follow_entity
+        selector:
+          type: mob.selector.entities_in_area
+          originSelector:
+            type: mob.selector.self
+          validator: /alivePlayers
+          target: PLAYERS
+          limit: 1
+        retargetInterval: 20
+        followRange: 1024
+
+alivePlayers:
+  type: zombies.mob.validator.zombies_player
+  states: [ zombies.player.state.alive ]
+  blacklist: false

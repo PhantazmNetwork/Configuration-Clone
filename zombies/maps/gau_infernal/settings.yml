@@ -1,0 +1,112 @@
+mapDataVersion: 1
+id: gau_infernal
+instancePath: [ "gau" ]
+origin: { x: -93, y: 121, z: 48 }
+reviveHealthFactor: 0.25
+minimumProtocolVersion: 47
+maximumProtocolVersion: -1
+spawn: { x: 0.5, y: 0, z: 0.5 }
+pitch: 0.0
+yaw: -90.0
+chunkLoadRange: 15
+displayName: GAU
+displayItemSnbt: '{id:"stone",Count:1,tag:{Name:"gau"}}'
+idleRevertTicks: 12000
+coinsLostOnKnock: 0.25
+mapDifficulty: 8
+introMessages:
+  - - component: '<red>Zombies'
+      destination: TITLE
+    - component: '<#3410ad>Infernal Mode <#fffa9e>(8✦) <red>(EARLY ACCESS)'
+      destination: SUBTITLE
+countdownTicks: 400
+countdownAlertTicks: [ 400, 200, 100, 80, 60, 40, 20 ]
+countdownTickSound: { name: 'minecraft:block.note_block.hat', source: MASTER, volume: 1.0, pitch: 1.0 }
+countdownTimeFormat: <#9096ad>The game starts in <yellow><time> seconds</yellow>.</#9096ad>
+endTicks: 200
+endGameStatsFormat: '<gradient:#616575:#4a4c59><st>⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯</st></gradient><br><#fffa9e>»</#fffa9e> <#9096ad><b><red>Zombies</red><#b8bfde>:</#b8bfde> <yellow><map></yellow> <#b8bfde>-</#b8bfde> <yellow>Game Results</yellow></b></#9096ad><br><br>     <#9096ad><b>Times Knocked Down</b></#9096ad> <#b8bfde>-</#b8bfde> <yellow><knocks></yellow><br>     <#9096ad><b>Deaths</b></#9096ad> <#b8bfde>-</#b8bfde> <yellow><deaths></yellow><br>     <#9096ad><b>Kills</b></#9096ad> <#b8bfde>-</#b8bfde> <yellow><kills></yellow><br>     <#9096ad><b>Players Revived</b></#9096ad> <#b8bfde>-</#b8bfde> <yellow><revives></yellow><br>     <#9096ad><b>Total Shots</b></#9096ad> <#b8bfde>-</#b8bfde> <yellow><total_shots></yellow><br>     <#9096ad><b>Gun Accuracy</b></#9096ad> <#b8bfde>-</#b8bfde> <yellow><gun_accuracy>%</yellow><br>     <#9096ad><b>Headshot Accuracy</b></#9096ad> <#b8bfde>-</#b8bfde> <yellow><headshot_accuracy>%</yellow><br>     <#9096ad><b>Total Coins Gained</b></#9096ad> <#b8bfde>-</#b8bfde> <yellow><coins_gained></yellow><br>     <#9096ad><b>Total Coins Spent</b></#9096ad> <#b8bfde>-</#b8bfde> <yellow><coins_spent></yellow><br><br>  <#9096ad><b><yellow>Time: <final_time></yellow> (<red>Round <round></red>) <#b8bfde>-</#b8bfde> <#3410ad>Infernal Mode</#3410ad> <yellow>(8✦)</yellow></b></#9096ad><br><gradient:#616575:#4a4c59><st>⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯</st></gradient>'
+scoreboardHeader: '    <yellow><b>EARLY ACCESS</b></yellow>     '
+worldTime: 18000
+maxPlayers: 4
+minPlayers: 1
+startingCoins: 0
+repairCoins: 20
+windowRepairRadius: 1.5
+powerupPickupRadius: 1.0
+windowRepairTicks: 20
+corpseDeathTicks: 500
+healTicks: -1
+reviveRadius: 2.0
+reviveInvulnerabilityTicks: 20
+canWallshoot: true
+lostOnDeath: [ 'zombies.group.perk' ]
+baseReviveTicks: 30
+rollsPerChest: 5
+punchDamage: 0.0
+punchRange: 3
+punchKnockback: 0.4
+punchCooldown: 20
+mobPlayerCollisions: false
+milestoneRounds: [ ]
+trackStats: false
+disallowedModifiers: [ 'phantazm:endless' ]
+defaultEquipment:
+  - key: zombies.group.gun
+    value: [ pistol ]
+  - key: zombies.group.melee
+    value: [ knife ]
+  - key: zombies.group.speed
+    value: [ speed ]
+
+equipmentGroups:
+  - key: zombies.group.melee
+    value:
+      slots: [ 0 ]
+
+  - key: zombies.group.gun
+    value:
+      defaultItem: '{"id":"minecraft:gray_dye","Count":1B,"tag":{"display":{"Name":"{\"italic\":false,\"color\":\"yellow\",\"text\":\"Gun\"}","Lore":["{\"italic\":false,\"color\":\"#9096AD\",\"text\":\"Purchase guns at shops.\"}"]}}}'
+      slots: [ 1, 2 ]
+
+  - key: zombies.group.perk
+    value:
+      defaultItem: '{"id":"minecraft:gray_dye","Count":1B,"tag":{"display":{"Name":"{\"italic\":false,\"color\":\"yellow\",\"text\":\"Perk\"}","Lore":["{\"italic\":false,\"color\":\"#9096AD\",\"extra\":[{\"color\":\"blue\",\"text\":\"Perk Machines\"},{\"text\":\".\"}],\"text\":\"Buy perks at \"}","{\"italic\":false,\"color\":\"#9096AD\",\"text\":\"Perk Machines require the\"}","{\"italic\":false,\"color\":\"#9096AD\",\"extra\":[{\"color\":\"gold\",\"text\":\"Power\"},{\"text\":\" to be on. Find and\"}],\"text\":\"\"}","{\"italic\":false,\"color\":\"#9096AD\",\"extra\":[{\"color\":\"gold\",\"text\":\"Power Switch\"},{\"text\":\" in\"}],\"text\":\"activate the \"}","{\"italic\":false,\"color\":\"#9096AD\",\"extra\":[{\"bold\":true,\"color\":\"green\",\"text\":\"Generator\"},{\"text\":\" in order to \"}],\"text\":\"the \"}","{\"italic\":false,\"color\":\"#9096AD\",\"text\":\"buy Perks!\"}"]}}}'
+      slots: [ 6, 7, 8 ]
+
+  - key: zombies.group.speed
+    value:
+      slots: [ 5 ]
+
+  - key: zombies.group.armor
+    value:
+      slots: [ 41, 42, 43, 44 ]
+winTitleFormat: <green><b>You Win!</b></green>
+winSubtitleFormat: <#9096ad>You have beaten <yellow>Round <round></yellow>!</#9096ad>
+lossTitleFormat: <red><b>Game Over</b></red>
+lossSubtitleFormat: <#9096ad>You made it to <yellow>Round <round></yellow>!</#9096ad>
+reviveStatusToReviverFormat: <#9096ad>Reviving <knocked></#9096ad> <#b8bfde>-</#b8bfde> <red><time>s</red>
+reviveStatusToKnockedFormat: <#9096ad><reviver> is reviving you</#9096ad> <#b8bfde>-</#b8bfde> <red><time>s</red>
+dyingStatusFormat: <#ff2655>⚠</#ff2655> <b><red>YOU ARE DYING!</red> <#b8bfde>-</#b8bfde> <#fffa9e><time>s</#fffa9e></b>
+reviveMessageToRevivedFormat: <#9096ad>You were revived<reviver_present:' by <reviver>'>!</#9096ad>
+reviveMessageToOthersFormat: <#9096ad><revived> was revived<reviver_present:' by <reviver>'>!</#9096ad>
+reviveSound: { name: 'minecraft:block.brewing_stand.brew', source: MASTER, volume: 1.0, pitch: 1.0 }
+knockedMessageToKnockedFormat: <#9096ad>You were knocked down<killer_present:' by <killer>'><knocked_room_present:' in <knocked_room>'>. You have <red><b><time>s</b></red> to get revived!</#9096ad>
+knockedMessageToOthersFormat: <#9096ad><knocked> was knocked down<killer_present:' by <killer>'><knocked_room_present:' in <knocked_room>'>. You have <red><b><time>s</b></red> to revive them!</#9096ad>
+knockedTitleFormat: <knocked>
+knockedSubtitleFormat: <#9096ad>is down<knocked_room_present:' in <knocked_room>'></#9096ad>
+knockedSound: { name: 'minecraft:entity.ender_dragon.growl', source: MASTER, volume: 1.0, pitch: 0.5 }
+deathMessageToKilledFormat: <#9096ad>You were killed<killer_present:' by <killer>'><death_room_present:' in <death_room>'>.</#9096ad>
+deathMessageToOthersFormat: <#9096ad><killed> was killed<killer_present:' by <killer>'><death_room_present:' in <death_room>'>.</#9096ad>
+deathSound: { name: 'minecraft:entity.player.hurt' , source: MASTER, volume: 1.0, pitch: 1.0 }
+rejoinMessageFormat: <#9096ad><rejoiner> rejoined the game.</#9096ad>
+quitMessageFormat: <red><quitter> left the game.</red>
+nearWindowMessage: <yellow>Hold <key:key.sneak> to repair!
+startRepairingMessage: <green>Started repairing the window; hold <key:key.sneak> to continue...
+stopRepairingMessage: <red>Stopped repairing.
+finishRepairingMessage: <green>Window fully repaired!
+enemiesNearbyMessage: <red>You cannot repair that window while enemies are nearby!
+healthDisplay: <red>❤
+killMobFormat: <#9096ad><mob> was killed by <player>!</#9096ad>
+gameJoinFormat: <joiner> <#9096ad>joined the game</#9096ad> <yellow>(<count>/<max_players>)</yellow>
+coinLossFormat: <red>You got knocked down and lost <percent>% of your coins (<amount> coins)!</red>
+modifierReportFormat: '<gradient:#616575:#4a4c59><st>⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯</st></gradient><br><#fffa9e>»</#fffa9e> <b><yellow>Modifier Key:</yellow></b> <#9096ad><modifier_key></#9096ad><br>  <yellow>Active Modifiers:</yellow> <#9096ad><modifiers></#9096ad><br><gradient:#616575:#4a4c59><st>⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯</st></gradient>'

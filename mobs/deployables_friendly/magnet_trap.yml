@@ -1,0 +1,104 @@
+key: magnet_trap_fge
+type: minecraft:armor_stand
+tags: [ deployable, trap_invincible ]
+pathfinding:
+  type: proxima.path_settings.ground
+  jumpHeight: 0
+  fallTolerance: 0
+  stepHeight: 0
+
+meta:
+  isSmall: true
+  isInvisible: true
+  hasGravity: false
+  hasPhysics: false
+
+extra:
+  bypassEndlessScaling: true
+  partOfRound: false
+  killAfterRound: false
+  forceDeselect: true
+  ticksUntilDeath: 600
+
+equipment:
+  HELMET: '{id:"black_stained_glass",Count:1}'
+
+attributes:
+  generic.max_health: 20
+  generic.movement_speed: 0
+  generic.armor: 8
+  generic.armor_toughness: 3
+  generic.knockback_resistance: 1.0
+
+skills:
+  - type: mob.skill.random_timer
+    minInterval: 8
+    maxInterval: 14
+    delegate:
+      type: mob.skill.random
+      chance: 0.75
+      delegate:
+        type: mob.skill.play_sound
+        selector:
+          type: mob.selector.self
+        sound: { name: 'minecraft:block.lava.extinguish', source: HOSTILE, volume: 2.0, pitch: 0.5 }
+
+  - type: mob.skill.timer
+    interval: 12
+    delegate:
+      type: mob.skill.push
+      power: -16
+      vertical: 1
+      additive: true
+      selector:
+        type: mob.selector.entities_in_area
+        originSelector:
+          type: mob.selector.self
+        validator: /combinedValidator
+        range: 18
+        target: LIVING_ENTITIES
+
+  - type: mob.skill.timer
+    interval: 5
+    delegate:
+      type: mob.skill.spawn_particle
+      selector:
+        type: mob.selector.self
+      particle:
+        type: particle.wrapper
+        particle: cloud
+        variantData:
+          type: particle.variant_data.none
+        distance: true
+        offsetX: 2.0
+        offsetY: 1.0
+        offsetZ: 2.0
+        data: 0.0
+        particleCount: 15
+      bounds:
+        origin:
+          x: 0.0
+          y: 1.0
+          z: 0.0
+        lengths:
+          x: 0.0
+          y: 0.0
+          z: 0.0
+
+alivePlayers:
+  type: zombies.mob.validator.zombies_player
+  states: [ zombies.player.state.alive ]
+  blacklist: false
+
+targetableMobs:
+  type: mob.validator.mob_type
+  tags: [ ally_targetable, trap_invincible ]
+  blacklist: false
+
+combinedValidator:
+  type: mob.validator.and
+  validators:
+    - type: mob.validator.mob
+
+    - type: mob.validator.not
+      validators: [ /targetableMobs ]

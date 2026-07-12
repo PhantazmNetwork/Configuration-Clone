@@ -1,0 +1,192 @@
+key: gravity_well_infernal
+type: minecraft:zombie
+pathfinding:
+  type: proxima.path_settings.ground
+  jumpHeight: 1.25
+  fallTolerance: 6
+  stepHeight: 3.0
+
+showNameTag: true
+
+meta:
+  customName: <black><b>Gravity Well</b></black>
+  customNameVisible: true
+  isBaby: true
+
+extra:
+  resistInstakill: true
+  resistFire: true
+  resistSlowDown: true
+  announceKill: true
+
+equipment:
+  BOOTS: '{id:"leather_boots",Count:1,tag:{display:{color:0}}}'
+  LEGGINGS: '{id:"netherite_leggings",Count:1}'
+  CHESTPLATE: '{id:"leather_chestplate",Count:1,tag:{display:{color:0}}}'
+  HELMET: '{id:"black_concrete",Count:1}'
+
+attributes:
+  generic.max_health: 2400
+  generic.movement_speed: 0.1
+  generic.attack_damage: 40
+  generic.armor: 20
+  generic.attack_knockback: 0.2
+  generic.knockback_resistance: 1.0
+  phantazm.hitbox_expand: 0.4
+  phantazm.gun_headshot_damage_received: 0.5
+
+skills:
+  - type: mob.skill.send_message
+    trigger: SPAWN
+    message: <yellow><#3410ad><b>INFERNAL</b></#3410ad> <black><b>Gravity Well</b></black> has spawned!</yellow>
+    selector:
+      type: mob.selector.entities_in_area
+      originSelector:
+        type: mob.selector.self
+      validator:
+        type: mob.validator.always
+      target: PLAYERS
+
+  - type: mob.skill.play_sound
+    trigger: SPAWN
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.lightning_bolt.thunder', source: PLAYER, volume: 100.0, pitch: 1.0 }
+
+  - type: mob.skill.play_sound
+    trigger: DAMAGED
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:block.note_block.didgeridoo', source: HOSTILE, volume: 2.0, pitch: 0.5 }
+
+  - type: mob.skill.play_sound
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:item.shield.block', source: HOSTILE, volume: 2.0, pitch: 0.5 }
+
+  - type: mob.skill.spawn_particle
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    particle:
+      type: particle.wrapper
+      particle: smoke
+      variantData:
+        type: particle.variant_data.none
+      distance: true
+      offsetX: 4.0
+      offsetY: 4.0
+      offsetZ: 4.0
+      data: 0.0
+      particleCount: 50
+    bounds:
+      origin:
+        x: 0.0
+        y: 1.0
+        z: 0.0
+      lengths:
+        x: 0.0
+        y: 0.0
+        z: 0.0
+
+  - type: mob.skill.show_healthbar
+    bar: '<#6b6f80>[<healthbar:bar_component:|:color_start:#dd3e28:color_end:#34bf25:missing_color:gray>]</#6b6f80>'
+    barWidth: 20
+
+  - type: mob.skill.random_timer
+    minInterval: 100
+    maxInterval: 160
+    delegate:
+      type: mob.skill.random
+      chance: 0.5
+      delegate:
+        type: mob.skill.play_sound
+        selector:
+          type: mob.selector.self
+        sound: { name: 'minecraft:block.lava.extinguish', source: HOSTILE, volume: 2.0, pitch: 0.5 }
+
+  - type: mob.skill.timer
+    interval: 17
+    delegate:
+      type: mob.skill.push
+      power: -16
+      vertical: 1
+      additive: true
+      selector:
+        type: mob.selector.entities_in_area
+        originSelector:
+          type: mob.selector.self
+        validator: /alivePlayers
+        target: PLAYERS
+
+  - type: mob.skill.timer
+    interval: 5
+    delegate:
+      type: mob.skill.spawn_particle
+      selector:
+        type: mob.selector.self
+      particle:
+        type: particle.wrapper
+        particle: dragon_breath
+        variantData:
+          type: particle.variant_data.none
+        distance: true
+        offsetX: 2.0
+        offsetY: 1.0
+        offsetZ: 2.0
+        data: 0.0
+        particleCount: 25
+      bounds:
+        origin:
+          x: -9.5
+          y: -1.0
+          z: -9.5
+        lengths:
+          x: 16.5
+          y: 8.0
+          z: 16.5
+
+  - type: mob.skill.timer
+    interval: 20
+    delegate:
+      type: mob.skill.damage
+      selector:
+        type: mob.selector.entities_in_area
+        originSelector:
+          type: mob.selector.self
+        range: 11
+        target: LIVING_ENTITIES
+        validator: /alivePlayers
+      amount: 2
+      bypassArmor: true
+
+goals:
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: zombies.mob.goal.break_window
+        breakTicks: 10
+        breakCount: 6
+        breakRadius: 0.5
+
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: mob.goal.melee_attack
+        cooldown: 20
+        range: 0.25
+
+      - type: mob.goal.follow_entity
+        selector:
+          type: mob.selector.entities_in_area
+          originSelector:
+            type: mob.selector.self
+          validator: /alivePlayers
+          target: PLAYERS
+          limit: 1
+        retargetInterval: 20
+        followRange: 1024
+
+alivePlayers:
+  type: zombies.mob.validator.zombies_player
+  states: [ zombies.player.state.alive ]
+  blacklist: false

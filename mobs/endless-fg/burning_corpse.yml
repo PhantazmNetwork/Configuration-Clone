@@ -1,0 +1,490 @@
+key: burning_corpse_fge
+type: minecraft:husk
+tags: [ endless, boss, fire_res, fire]
+pathfinding:
+  type: proxima.path_settings.ground
+  jumpHeight: 1.25
+  fallTolerance: 4
+  stepHeight: 0.5
+
+showNameTag: true
+
+meta:
+  customName: <#9b430e><b>Burning Corpse</b></#9b430e>
+  customNameVisible: true
+
+extra:
+  resistInstakill: true
+  resistFire: true
+  announceKill: true
+  endlessHealthScaling:
+    kind: LINEAR
+    ceiling: 2147483647
+    a: 5
+
+equipment:
+  BOOTS: '{id:"golden_boots",Count:1}'
+  LEGGINGS: '{id:"golden_leggings",Count:1}'
+  CHESTPLATE: '{id:"golden_chestplate",Count:1}'
+  HELMET: '{id:"shroomlight",Count:1}'
+
+attributes:
+  generic.max_health: 1400
+  generic.movement_speed: 0.21
+  generic.attack_damage: 5
+  generic.armor: 9
+  generic.attack_knockback: 0.2
+  generic.knockback_resistance: 0.6
+
+skills:
+  - type: mob.skill.send_message
+    trigger: SPAWN
+    message: <yellow><#9b430e><b>Burning Corpse</b></#9b430e> has spawned!</yellow>
+    selector:
+      type: mob.selector.entities_in_area
+      originSelector:
+        type: mob.selector.self
+      validator:
+        type: mob.validator.always
+      target: PLAYERS
+
+  - type: mob.skill.play_sound
+    trigger: SPAWN
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.lightning_bolt.thunder', source: PLAYER, volume: 100.0, pitch: 1.0 }
+
+  - type: mob.skill.apply_fire
+    trigger: SPAWN
+    selector:
+      type: mob.selector.self
+
+  - type: mob.skill.temporal
+    trigger: ATTACK
+    minDuration: 80
+    maxDuration: 80
+    delegate:
+      type: mob.skill.apply_fire
+      selector:
+        type: mob.selector.last_hit
+
+  - type: mob.skill.damage_over_time
+    trigger: ATTACK
+    selector:
+      type: mob.selector.last_hit
+    validator: /alivePlayers
+    damageAmount: 2.4
+    bypassArmor: true
+    damageInterval: 10
+    damageTime: 80
+    damageType: damage.fire
+    exceedMobLifetime: true
+    sound: { name: 'minecraft:entity.player.hurt_on_fire', source: PLAYER, volume: 1.0, pitch: 1.0 }
+
+  - type: mob.skill.play_sound
+    trigger: DAMAGED
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.husk.hurt', source: HOSTILE, volume: 1.5, pitch: 1.4 }
+
+  - type: mob.skill.play_sound
+    trigger: DAMAGED
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:item.firecharge.use', source: HOSTILE, volume: 1.5, pitch: 1.6 }
+
+  - type: mob.skill.play_sound
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.husk.death', source: HOSTILE, volume: 1.5, pitch: 1.4 }
+
+  - type: mob.skill.play_sound
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:block.fire.extinguish', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+  - type: mob.skill.show_healthbar
+    bar: '<#6b6f80>[<healthbar:bar_component:|:color_start:#dd3e28:color_end:#34bf25:missing_color:gray>]</#6b6f80>'
+    barWidth: 20
+
+  - type: mob.skill.random_timer
+    minInterval: 100
+    maxInterval: 160
+    delegate:
+      type: mob.skill.random
+      chance: 0.5
+      delegate:
+        type: mob.skill.group
+        delegates:
+          - type: mob.skill.play_sound
+            selector:
+              type: mob.selector.self
+            sound: { name: 'minecraft:entity.zombie.ambient', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+          - type: mob.skill.play_sound
+            selector:
+              type: mob.selector.self
+            sound: { name: 'minecraft:block.fire.ambient', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+  - type: mob.skill.conditional
+    trigger: DAMAGED
+    condition:
+      type: mob.skill.condition.health
+      selector:
+        type: mob.selector.self
+      condition: LESS_THAN
+      amountType: PERCENTAGE
+      amount: 0.75
+    delegate:
+      type: mob.skill.conditional
+      condition:
+        type: mob.skill.condition.flag
+        selector:
+          type: mob.selector.self
+        flag: 75_health
+        blacklist: true
+      delegate:
+        type: mob.skill.group
+        delegates:
+          - type: mob.skill.apply_boolean_tag
+            selector:
+              type: mob.selector.self
+            tag: 75_health
+
+          - type: mob.skill.change_equipment
+            selector:
+              type: mob.selector.self
+            equipment:
+              - key: BOOTS
+                value:
+                  material: minecraft:netherite_boots
+
+          - type: mob.skill.attribute_modifying
+            selector:
+              type: mob.selector.self
+            attribute: generic.armor
+            amount: 2
+            attributeOperation: ADDITION
+
+          - type: mob.skill.attribute_modifying
+            selector:
+              type: mob.selector.self
+            attribute: generic.armor_toughness
+            amount: 3
+            attributeOperation: ADDITION
+
+          - type: mob.skill.attribute_modifying
+            selector:
+              type: mob.selector.self
+            attribute: generic.movement_speed
+            amount: 0.5
+            attributeOperation: ADDITION
+
+          - type: mob.skill.attribute_modifying
+            selector:
+              type: mob.selector.self
+            attribute: generic.attack_damage
+            amount: 2
+            attributeOperation: ADDITION
+
+          - type: mob.skill.timer
+            interval: 240
+            requiresActivation: true
+            delegate:
+              type: mob.skill.group
+              delegates:
+                - type: mob.skill.temporal
+                  minDuration: 60
+                  maxDuration: 60
+                  delegate:
+                    type: mob.skill.apply_fire
+                    selector:
+                      type: mob.selector.entities_in_area
+                      originSelector:
+                        type: mob.selector.self
+                      range: 6
+                      target: PLAYERS
+                      validator: /alivePlayers
+
+                - type: mob.skill.damage_over_time
+                  selector:
+                    type: mob.selector.entities_in_area
+                    originSelector:
+                      type: mob.selector.self
+                    range: 6
+                    target: PLAYERS
+                    validator: /alivePlayers
+                  validator: /alivePlayers
+                  damageAmount: 3.2
+                  bypassArmor: true
+                  damageInterval: 10
+                  damageTime: 60
+                  damageType: damage.fire
+                  exceedMobLifetime: true
+                  sound: { name: 'minecraft:entity.player.hurt_on_fire', source: PLAYER, volume: 1.0, pitch: 1.0 }
+
+                - type: mob.skill.spawn_particle
+                  selector:
+                    type: mob.selector.self
+                  particle:
+                    type: particle.wrapper
+                    particle: flame
+                    variantData:
+                      type: particle.variant_data.none
+                    distance: true
+                    offsetX: 6.0
+                    offsetY: 0.05
+                    offsetZ: 6.0
+                    data: 0.0
+                    particleCount: 20
+                  bounds:
+                    origin:
+                      x: 0.0
+                      y: 1.0
+                      z: 0.0
+                    lengths:
+                      x: 0.0
+                      y: 0.0
+                      z: 0.0
+
+  - type: mob.skill.conditional
+    trigger: DAMAGED
+    condition:
+      type: mob.skill.condition.health
+      selector:
+        type: mob.selector.self
+      condition: LESS_THAN
+      amountType: PERCENTAGE
+      amount: 0.5
+    delegate:
+      type: mob.skill.conditional
+      condition:
+        type: mob.skill.condition.flag
+        selector:
+          type: mob.selector.self
+        flag: 50_health
+        blacklist: true
+      delegate:
+        type: mob.skill.group
+        delegates:
+          - type: mob.skill.apply_boolean_tag
+            selector:
+              type: mob.selector.self
+            tag: 50_health
+
+          - type: mob.skill.change_equipment
+            selector:
+              type: mob.selector.self
+            equipment:
+              - key: LEGGINGS
+                value:
+                  material: minecraft:netherite_leggings
+
+          - type: mob.skill.change_equipment
+            selector:
+              type: mob.selector.self
+            equipment:
+              - key: HELMET
+                value:
+                  material: minecraft:magma_block
+
+          - type: mob.skill.attribute_modifying
+            selector:
+              type: mob.selector.self
+            attribute: generic.armor
+            amount: 3
+            attributeOperation: ADDITION
+
+          - type: mob.skill.attribute_modifying
+            selector:
+              type: mob.selector.self
+            attribute: generic.armor_toughness
+            amount: 3
+            attributeOperation: ADDITION
+
+          - type: mob.skill.attribute_modifying
+            selector:
+              type: mob.selector.self
+            attribute: generic.movement_speed
+            amount: 0.5
+            attributeOperation: ADDITION
+
+          - type: mob.skill.attribute_modifying
+            selector:
+              type: mob.selector.self
+            attribute: generic.attack_damage
+            amount: 2
+            attributeOperation: ADDITION
+
+          - type: mob.skill.timer
+            interval: 50
+            requiresActivation: true
+            delegate:
+              type: mob.skill.group
+              delegates:
+                - type: mob.skill.group
+                  delegates:
+                    - type: mob.skill.shoot_projectile
+                      selector:
+                        type: mob.selector.pathfinding_target
+                      hitValidator:
+                        type: mob.validator.and
+                        validators: [ /alivePlayers, /distanceCheck ]
+                      callback:
+                        type: mob.skill.spawn_mob.callback.none
+                      entity: flamethrower_spray
+                      power: 2
+                      spread: 0
+                      gravity: false
+
+                    - type: mob.skill.play_sound
+                      selector:
+                        type: mob.selector.self
+                      sound: { name: 'minecraft:entity.blaze.shoot', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+                    - type: mob.skill.timer
+                      repeat: 1
+                      interval: 10
+                      requiresActivation: true
+                      delegate:
+                        type: mob.skill.group
+                        delegates:
+                          - type: mob.skill.shoot_projectile
+                            selector:
+                              type: mob.selector.pathfinding_target
+                            hitValidator:
+                              type: mob.validator.and
+                              validators: [ /alivePlayers, /distanceCheck ]
+                            callback:
+                              type: mob.skill.spawn_mob.callback.none
+                            entity: flamethrower_spray
+                            power: 2
+                            spread: 0
+                            gravity: false
+
+                          - type: mob.skill.play_sound
+                            selector:
+                              type: mob.selector.self
+                            sound: { name: 'minecraft:entity.blaze.shoot', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+  - type: mob.skill.conditional
+    trigger: DAMAGED
+    condition:
+      type: mob.skill.condition.health
+      selector:
+        type: mob.selector.self
+      condition: LESS_THAN
+      amountType: PERCENTAGE
+      amount: 0.25
+    delegate:
+      type: mob.skill.conditional
+      condition:
+        type: mob.skill.condition.flag
+        selector:
+          type: mob.selector.self
+        flag: 25_health
+        blacklist: true
+      delegate:
+        type: mob.skill.group
+        delegates:
+          - type: mob.skill.apply_boolean_tag
+            selector:
+              type: mob.selector.self
+            tag: 25_health
+
+          - type: mob.skill.change_equipment
+            selector:
+              type: mob.selector.self
+            equipment:
+              - key: CHESTPLATE
+                value:
+                  material: minecraft:netherite_chestplate
+
+          - type: mob.skill.change_equipment
+            selector:
+              type: mob.selector.self
+            equipment:
+              - key: HELMET
+                value:
+                  material: minecraft:coal_block
+
+          - type: mob.skill.attribute_modifying
+            selector:
+              type: mob.selector.self
+            attribute: generic.armor
+            amount: 3
+            attributeOperation: ADDITION
+
+          - type: mob.skill.attribute_modifying
+            selector:
+              type: mob.selector.self
+            attribute: generic.armor_toughness
+            amount: 3
+            attributeOperation: ADDITION
+
+          - type: mob.skill.attribute_modifying
+            selector:
+              type: mob.selector.self
+            attribute: generic.movement_speed
+            amount: 0.5
+            attributeOperation: ADDITION
+
+          - type: mob.skill.attribute_modifying
+            selector:
+              type: mob.selector.self
+            attribute: generic.attack_damage
+            amount: 2
+            attributeOperation: ADDITION
+
+          - type: mob.skill.timer
+            interval: 140
+            requiresActivation: true
+            delegate:
+              type: mob.skill.leap
+              selector:
+                type: mob.selector.pathfinding_target
+              strength: 50
+              angle: 20
+
+goals:
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: zombies.mob.goal.break_window
+        breakTicks: 20
+        breakCount: 1
+        breakRadius: 0.5
+
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: mob.goal.melee_attack
+        cooldown: 20
+        range: 0.25
+
+      - type: mob.goal.follow_entity
+        selector:
+          type: mob.selector.entities_in_area
+          originSelector:
+            type: mob.selector.self
+          validator:
+            type: mob.validator.or
+            validators: [ /alivePlayers, /targetableMobs ]
+          target: LIVING_ENTITIES
+          limit: 1
+        retargetInterval: 20
+        followRange: 1024
+
+alivePlayers:
+  type: zombies.mob.validator.zombies_player
+  states: [ zombies.player.state.alive ]
+  blacklist: false
+
+targetableMobs:
+  type: mob.validator.mob_type
+  tags: [ ally_targetable ]
+  blacklist: false
+
+distanceCheck:
+  type: mob.validator.distance
+  distance: 17

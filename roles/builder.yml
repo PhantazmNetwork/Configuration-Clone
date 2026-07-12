@@ -1,0 +1,6 @@
+type: role.basic
+identifier: builder
+chatFormat: '<#f06e3d>[Builder] <name>'
+displayNameFormat: '<#f06e3d><name>'
+priority: 997
+permissions: [ ]

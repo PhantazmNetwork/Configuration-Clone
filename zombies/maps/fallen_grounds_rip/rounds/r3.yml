@@ -1,0 +1,49 @@
+round: 3
+startActions:
+  - type: zombies.map.round.action.announce
+    format: <red>Round <round>
+    destination: TITLE
+    tickFormatter:
+      type: core.tick_formatter.analog
+      ceil: false
+
+  - type: zombies.map.round.action.announce
+    format: ""
+    destination: SUBTITLE
+    tickFormatter:
+      type: core.tick_formatter.analog
+      ceil: false
+
+  - type: zombies.map.round.action.revive_players
+
+  - type: zombies.map.round.action.play_sound
+    sound: { name: 'minecraft:entity.wither.spawn', source: MASTER, volume: 24.0,
+             pitch: 0.5 }
+endActions: [ ]
+waves:
+  - delayTicks: 170
+    spawns:
+      - id: civilian_rip
+        spawnType: window
+        amount: 3
+      - id: runner_rip
+        spawnType: window
+        amount: 1
+    spawnActions:
+      - type: zombies.map.wave.action.select_powerup
+        powerups: [ "double_coins" ]
+  - delayTicks: 260
+    spawns:
+      - id: civilian_rip
+        spawnType: window
+        amount: 2
+      - id: runner_rip
+        spawnType: window
+        amount: 2
+    spawnActions: [ ]
+  - delayTicks: 260
+    spawns:
+      - id: runner_rip
+        spawnType: window
+        amount: 4
+    spawnActions: [ ]

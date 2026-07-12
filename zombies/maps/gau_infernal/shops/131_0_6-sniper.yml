@@ -1,0 +1,183 @@
+id: sniper
+trigger:
+  origin: { x: 131, y: 0, z: 6 }
+  lengths: { x: 3, y: 3, z: 1 }
+predicateEvaluation: ALL_TRUE
+data:
+  predicates:
+    - type: zombies.map.shop.predicate.player_state
+      states: [ zombies.player.state.alive ]
+      blacklist: false
+
+    - type: zombies.map.shop.predicate.in_game
+
+    - type: zombies.map.shop.predicate.type
+      types: [ zombies.map.shop.interaction.right_click_entity ]
+      blacklist: false
+
+  successInteractors:
+    - type: zombies.map.shop.interactor.conditional
+      evaluation: ALL_TRUE
+      predicates:
+        - type: zombies.map.shop.equipment_predicate.present
+          equipmentGroup: zombies.group.gun
+          equipmentKey: sniper
+          requirePresent: false
+          requireHeld: false
+
+      successInteractors:
+        - type: zombies.map.shop.interactor.conditional
+          evaluation: ALL_TRUE
+          predicates:
+            - type: zombies.map.shop.predicate.static_cost
+              cost: 1400
+              modifierType: coin_spend.shop
+          successInteractors:
+            - type: zombies.map.shop.interactor.add_equipment
+              groupKey: zombies.group.gun
+              equipmentKey: sniper
+              allowReplace: true
+              allowDuplicate: false
+              specificSlot: -1
+              successInteractors:
+                - type: zombies.map.shop.interactor.messaging
+                  messages: [ "<green>You purchased <blue>Sniper</blue>!</green><#616575><br>»</#616575> <#9096ad>Damage</#9096ad><#b8bfde>:</#b8bfde> <green>20.0 HP</green><br><#616575>»</#616575> <#9096ad>Headshot</#9096ad><#b8bfde>:</#b8bfde> <green>20.0 HP</green><br><#616575>»</#616575> <#9096ad>Max Ammo</#9096ad><#b8bfde>:</#b8bfde> <green>50</green><br><#616575>»</#616575> <#9096ad>Clip Size</#9096ad><#b8bfde>:</#b8bfde> <green>4</green><br><#616575>»</#616575> <#9096ad>Fire Rate</#9096ad><#b8bfde>:</#b8bfde> <green>1s (1/s)</green><br><#616575>»</#616575> <#9096ad>Reload Speed</#9096ad><#b8bfde>:</#b8bfde> <green>2s</green><br><#616575>»</#616575> <#9096ad>Pierce</#9096ad><#b8bfde>:</#b8bfde> <green>2</green>" ]
+                  broadcast: false
+
+                - type: zombies.map.shop.interactor.deduct_coins
+                  cost: 1400
+                  modifierType: coin_spend.shop
+
+                - type: zombies.map.shop.interactor.play_sound
+                  sound: { name: 'minecraft:block.note_block.pling', source: PLAYER, volume:
+                    10.0,  pitch: 2.0 }
+                  broadcast: false
+              failureInteractors:
+                - type: zombies.map.shop.interactor.messaging
+                  messages: [ "<red>Swap to a weapon and <key:key.use> to replace it!" ]
+                  broadcast: false
+
+                - type: zombies.map.shop.interactor.play_sound
+                  sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                           pitch: 0.0 }
+                  broadcast: false
+          failureInteractors:
+            - type: zombies.map.shop.interactor.messaging
+              messages: [ "<red>You don't have enough coins to purchase Sniper!" ]
+              broadcast: false
+
+            - type: zombies.map.shop.interactor.play_sound
+              sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                       pitch: 0.0 }
+              broadcast: false
+
+      failureInteractors:
+        - type: zombies.map.shop.interactor.conditional
+          evaluation: ALL_TRUE
+          predicates:
+            - type: zombies.map.shop.predicate.static_cost
+              cost: 400
+              modifierType: coin_spend.shop
+          successInteractors:
+            - type: zombies.map.shop.interactor.conditional
+              evaluation: ALL_TRUE
+              predicates:
+                - type: zombies.map.shop.equipment_predicate.present
+                  equipmentGroup: zombies.group.gun
+                  equipmentKey: sniper
+                  requirePresent: true
+                  requireHeld: true
+              successInteractors:
+                - type: zombies.map.shop.interactor.conditional
+                  evaluation: ALL_TRUE
+                  predicates:
+                    - type: zombies.map.shop.predicate.not
+                      predicate:
+                        type: zombies.map.shop.predicate.gun_full
+                        equipmentKey: sniper
+                        onlyHeld: true
+                        matchKey: true
+                  successInteractors:
+                    - type: zombies.map.shop.interactor.refill_ammo
+                      equipmentKey: sniper
+                      onlyHeld: true
+                      matchKey: true
+
+                    - type: zombies.map.shop.interactor.messaging
+                      messages: [ "<green>Refilled Sniper ammo!" ]
+                      broadcast: false
+
+                    - type: zombies.map.shop.interactor.deduct_coins
+                      cost: 400
+                      modifierType: coin_spend.shop
+
+                    - type: zombies.map.shop.interactor.play_sound
+                      sound: { name: 'minecraft:entity.experience_orb.pickup', source: PLAYER, volume:
+                        10.0,  pitch: 1.0 }
+                      broadcast: false
+                  failureInteractors:
+                    - type: zombies.map.shop.interactor.messaging
+                      messages: [ "<red>Your gun is already filled!" ]
+                      broadcast: false
+
+                    - type: zombies.map.shop.interactor.play_sound
+                      sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                               pitch: 0.0 }
+                      broadcast: false
+              failureInteractors:
+                - type: zombies.map.shop.interactor.messaging
+                  messages: [ "<red>Hold Sniper and <key:key.use> again to refill its ammo!" ]
+                  broadcast: false
+
+                - type: zombies.map.shop.interactor.play_sound
+                  sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                           pitch: 0.0 }
+                  broadcast: false
+          failureInteractors:
+            - type: zombies.map.shop.interactor.messaging
+              messages: [ "<red>You don't have enough coins to refill Sniper!" ]
+              broadcast: false
+
+            - type: zombies.map.shop.interactor.play_sound
+              sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                       pitch: 0.0 }
+              broadcast: false
+
+  failureInteractors: [ ]
+
+  displays:
+    - type: zombies.map.shop.display.interaction_point
+      offset:
+        x: 0
+        y: 0
+        z: 0
+
+    - type: zombies.map.shop.display.static_item
+      offset: { x: 0, y: 0, z: 0 }
+      displayItem: '{id:"minecraft:wooden_shovel",Count:1}'
+
+    - type: zombies.map.shop.display.player
+      displayCreator:
+        type: zombies.map.shop.display.player.conditional
+        predicate:
+          type: zombies.player.condition.has_equipment
+          groupKey: zombies.group.gun
+          equipmentKey: sniper
+
+        success:
+          - type: zombies.map.shop.display.player.hologram
+            info:
+              text: [ "<green>Sniper Ammo", "<gold>400 Coins" ]
+              position:
+                x: 0
+                y: -1.25
+                z: 0
+
+        failure:
+          - type: zombies.map.shop.display.player.hologram
+            info:
+              text: [ "<green>Sniper", "<gold>1400 Coins" ]
+              position:
+                x: 0
+                y: -1.25
+                z: 0

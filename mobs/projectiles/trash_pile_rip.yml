@@ -1,0 +1,107 @@
+key: trash_pile_rip
+type: minecraft:fireball
+pathfinding:
+  type: proxima.path_settings.ground
+  jumpHeight: 0
+  fallTolerance: 0
+  stepHeight: 0
+
+meta:
+  customName: <#251f1c>Trash</#251f1c>
+
+extra:
+  ticksUntilDeath: 200
+
+skills:
+  - type: mob.skill.damage
+    trigger: ATTACK
+    selector:
+      type: mob.selector.last_hit
+    amount: 15
+    bypassArmor: true
+    knockback: 0.2
+
+  - type: mob.skill.damage
+    trigger: DEATH
+    selector:
+      type: mob.selector.entities_in_area
+      originSelector:
+        type: mob.selector.self
+      range: 2.5
+      target: LIVING_ENTITIES
+      validator: /alivePlayers
+    amount: 3
+    bypassArmor: false
+
+  - type: mob.skill.group
+    trigger: DEATH
+    delegates:
+      - type: mob.skill.spawn_particle
+        selector:
+          type: mob.selector.self
+        particle:
+          type: particle.wrapper
+          particle: block
+          variantData:
+            type: particle.variant_data.block
+            block: minecraft:exposed_cut_copper
+          distance: true
+          offsetX: 1.0
+          offsetY: 1.0
+          offsetZ: 1.0
+          data: 0.0
+          particleCount: 10
+        bounds:
+          origin:
+            x: 0.0
+            y: 1.5
+            z: 0.0
+          lengths:
+            x: 0.0
+            y: 0.0
+            z: 0.0
+      - type: mob.skill.spawn_particle
+        selector:
+          type: mob.selector.self
+        particle:
+          type: particle.wrapper
+          particle: block
+          variantData:
+            type: particle.variant_data.block
+            block: minecraft:oak_wood
+          distance: true
+          offsetX: 1.0
+          offsetY: 1.0
+          offsetZ: 1.0
+          data: 0.0
+          particleCount: 10
+        bounds:
+          origin:
+            x: 0.0
+            y: 1.5
+            z: 0.0
+          lengths:
+            x: 0.0
+            y: 0.0
+            z: 0.0
+
+  - type: mob.skill.play_sound
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.zombie.attack_wooden_door', source: HOSTILE, volume: 2.0, pitch: 1.0 }
+
+  - type: mob.skill.spawn_mob
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    callback:
+      type: zombies.mob.skill.spawn_mob.callback.add_to_round
+    identifier: phantazm:organic_matter_endless-fg
+    spawnAmount: 10
+    maxSpawn: 10
+
+alivePlayers:
+  type: zombies.mob.validator.zombies_player
+  states: [ zombies.player.state.alive ]
+  blacklist: false

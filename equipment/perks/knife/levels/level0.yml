@@ -1,0 +1,31 @@
+type: zombies.perk.level.upgradeable
+key: level0
+upgrades: [ level1 ]
+equipment:
+  type: zombies.perk.equipment.basic
+  interactor:
+    type: zombies.perk.interactor.cooldown
+    cooldown: 10
+    types: [ ATTACK ]
+    delegate:
+      type: zombies.perk.interactor.melee
+      damage: 6
+      knockback: 0.4
+      coins: 15
+      bypassArmor: false
+  visual:
+    type: zombies.perk.visual.static
+    stack:
+      material: 'minecraft:iron_sword'
+      displayName: '<!i><green>Knife<green></!i>'
+      lore:
+        - '<!i><#9096ad>Basic knife, short and flimsy. You</#9096ad></!i>'
+        - '<!i><#9096ad>get the sense that it isn''t very</#9096ad></!i>'
+        - '<!i><#9096ad>effective, but less experienced</#9096ad></!i>'
+        - '<!i><#9096ad>survivors may disagree...</#9096ad></!i>'
+        - ''
+        - '<!i><#616575>»</#616575> <#9096ad>Damage</#9096ad><#b8bfde>:</#b8bfde> <green>6.0 HP</green></!i>'
+        - '<!i><#616575>»</#616575> <#9096ad>Cooldown</#9096ad><#b8bfde>:</#b8bfde> <green>0.5s</green></!i>'
+        - '<!i><#616575>»</#616575> <#9096ad>Knockback</#9096ad><#b8bfde>:</#b8bfde> <green>0.4</green></!i>'
+      tag: '{HideFlags:2}'
+effects: [ ]

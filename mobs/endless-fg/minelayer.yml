@@ -1,0 +1,105 @@
+key: minelayer_fge
+type: minecraft:zombie
+tags: [ endless ]
+pathfinding:
+  type: proxima.path_settings.ground
+  jumpHeight: 1.25
+  fallTolerance: 4
+  stepHeight: 0.5
+
+meta:
+  customName: <#757348>Minelayer</#757348>
+
+equipment:
+  BOOTS: '{id:"netherite_boots",Count:1}'
+  LEGGINGS: '{id:"leather_leggings",Count:1,tag:{display:{color:7697224}}}'
+  CHESTPLATE: '{id:"leather_chestplate",Count:1,tag:{display:{color:7697224}}}'
+  HELMET: '{id:"player_head",Count:1,tag:{display:{Name:"{\"text\":\"Soldier\"}"},SkullOwner:{Id:[I;422927797,1135429778,-1847544940,-1925851930],Properties:{textures:[{Value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTZjNWFmMjNiYzRiZmZmZjk3MjJlNmU3ZWNhNzQyOGI5ZGZjZWViMzdjYzE2YjU4ODJiNWFjYjZjN2RkODBlNyJ9fX0="}]}}}}'
+
+attributes:
+  generic.max_health: 35
+  generic.movement_speed: 0.2
+  generic.attack_damage: 6
+  generic.armor: 10
+  generic.attack_knockback: 0.2
+
+skills:
+  - type: mob.skill.play_sound
+    trigger: DAMAGED
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.husk.hurt', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+  - type: mob.skill.play_sound
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.husk.death', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+  - type: mob.skill.conditional
+    trigger: DEATH
+    condition:
+      type: mob.skill.condition.boolean_tag
+      selector:
+        type: mob.selector.self
+      tag: skill_cancel
+      blacklist: true
+    delegate:
+      type: mob.skill.spawn_mob
+      selector:
+        type: mob.selector.self
+      callback:
+        type: zombies.mob.skill.spawn_mob.callback.add_to_round
+      identifier: phantazm:mine_fge
+      spawnAmount: 1
+      maxSpawn: 8
+      instanceCountKey: 'mine_fge_spawn'
+
+  - type: mob.skill.random_timer
+    minInterval: 100
+    maxInterval: 160
+    delegate:
+      type: mob.skill.random
+      chance: 0.5
+      delegate:
+        type: mob.skill.play_sound
+        selector:
+          type: mob.selector.self
+        sound: { name: 'minecraft:entity.husk.ambient', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+goals:
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: zombies.mob.goal.break_window
+        breakTicks: 20
+        breakCount: 1
+        breakRadius: 0.5
+
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: mob.goal.melee_attack
+        cooldown: 20
+        range: 0.25
+
+      - type: mob.goal.follow_entity
+        selector:
+          type: mob.selector.entities_in_area
+          originSelector:
+            type: mob.selector.self
+          validator:
+            type: mob.validator.or
+            validators: [ /alivePlayers, /targetableMobs ]
+          target: LIVING_ENTITIES
+          limit: 1
+        retargetInterval: 20
+        followRange: 1024
+
+alivePlayers:
+  type: zombies.mob.validator.zombies_player
+  states: [ zombies.player.state.alive ]
+  blacklist: false
+
+targetableMobs:
+  type: mob.validator.mob_type
+  tags: [ ally_targetable ]
+  blacklist: false

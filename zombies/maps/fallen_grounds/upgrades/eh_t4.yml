@@ -1,0 +1,55 @@
+id: eh_t4
+data:
+  type: zombies.upgrade.composite
+  upgrades:
+    - type: zombies.upgrade.standard
+      triggers:
+        - type: zombies.upgrade.trigger.event
+          event: ZOMBIES_PLAYER_MELEE_ENTITY
+          eventFilter:
+            type: zombies.upgrade.filter.type
+            conditions:
+              - type: zombies.upgrade.filter.condition.zombies_player
+      effect:
+        type: zombies.upgrade.effect.composite
+        delegates:
+          - type: zombies.upgrade.effect.store_target_uuid
+            selector:
+              type: zombies.upgrade.selector.event
+              useTarget: true
+            tag: 'eh_t4_target'
+
+          - type: zombies.upgrade.effect.sound
+            sound: { name: 'minecraft:item.axe.scrape', source: PLAYER, volume: 2.0, pitch: 1.3 }
+            broadcast: false
+
+    - type: zombies.upgrade.standard
+      triggers:
+        - type: zombies.upgrade.trigger.event
+          event: ZOMBIES_PLAYER_DAMAGE
+          eventFilter:
+            type: zombies.upgrade.filter.type
+            conditions:
+              - type: zombies.upgrade.filter.condition.zombies_player
+
+              - type: zombies.upgrade.filter.condition.stored_uuid_alive
+                tag: 'eh_t4_target'
+      effect:
+        type: zombies.upgrade.effect.conditional
+        pass:
+          type: zombies.upgrade.effect.reflect_damage
+          selector:
+            type: zombies.upgrade.selector.stored_uuid
+            tag: 'eh_t4_target'
+          percentageReflected: 0.25
+        fail:
+          type: zombies.upgrade.effect.reflect_damage
+          selector:
+            type: zombies.upgrade.selector.stored_uuid
+            tag: 'eh_t4_target'
+          percentageReflected: 0.5
+        filter:
+          type: zombies.upgrade.filter.type
+          conditions:
+            - type: zombies.upgrade.filter.condition.mob_flag
+              flag: 'boss'

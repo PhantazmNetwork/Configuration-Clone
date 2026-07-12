@@ -1,0 +1,12 @@
+id: ew_t2
+data:
+  type: zombies.upgrade.standard
+  triggers:
+    - type: zombies.upgrade.trigger.single
+  effect:
+    type: zombies.upgrade.effect.apply_attribute
+    selector:
+      type: zombies.upgrade.selector.self
+    attribute: phantazm.gun_damage
+    amount: 0.2
+    operation: MULTIPLY_BASE

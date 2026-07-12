@@ -1,0 +1,143 @@
+key: bloated_rip
+type: minecraft:zombified_piglin
+tags: [ explosion ]
+pathfinding:
+  type: proxima.path_settings.ground
+  jumpHeight: 1.5
+  fallTolerance: 8
+  stepHeight: 0.5
+
+meta:
+  customName: <red>Bloated Zombie</red>
+
+equipment:
+  MAIN_HAND: '{id:"nether_wart",Count:1}'
+  OFF_HAND: '{id:"nether_wart",Count:1}'
+  CHESTPLATE: '{id:"diamond_chestplate",Count:1}'
+
+attributes:
+  generic.max_health: 50
+  generic.movement_speed: 0.2
+  generic.attack_damage: 2
+  generic.armor: 12
+  generic.attack_knockback: 0.5
+  generic.knockback_resistance: 1.0
+
+skills:
+  - type: mob.skill.play_sound
+    trigger: DAMAGED
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.zombified_piglin.hurt', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+  - type: mob.skill.radial_damage
+    trigger: DEATH
+    selector:
+      type: mob.selector.entities_in_area
+      originSelector:
+        type: mob.selector.self
+      range: 6
+      target: PLAYERS
+      validator: /alivePlayers
+    damage: 12
+    bypassArmor: true
+    range: 6
+
+  - type: mob.skill.play_sound
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.generic.explode', source: HOSTILE, volume: 2.0, pitch: 1.0 }
+
+  - type: mob.skill.spawn_particle
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    particle:
+      type: particle.wrapper
+      particle: block
+      variantData:
+        type: particle.variant_data.block
+        block: minecraft:redstone_block
+      distance: true
+      offsetX: 0.5
+      offsetY: 0.5
+      offsetZ: 0.5
+      data: 0.0
+      particleCount: 60
+    bounds:
+      origin:
+        x: 0.0
+        y: 1.0
+        z: 0.0
+      lengths:
+        x: 0.0
+        y: 0.0
+        z: 0.0
+
+  - type: mob.skill.spawn_particle
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    particle:
+      type: particle.wrapper
+      particle: explosion
+      variantData:
+        type: particle.variant_data.none
+      distance: true
+      offsetX: 0
+      offsetY: 0
+      offsetZ: 0
+      data: 0.0
+      particleCount: 1
+    bounds:
+      origin:
+        x: 0.0
+        y: 1.0
+        z: 0.0
+      lengths:
+        x: 0.0
+        y: 0.0
+        z: 0.0
+
+  - type: mob.skill.random_timer
+    minInterval: 100
+    maxInterval: 160
+    delegate:
+      type: mob.skill.random
+      chance: 0.5
+      delegate:
+        type: mob.skill.play_sound
+        selector:
+          type: mob.selector.self
+        sound: { name: 'minecraft:entity.zombified_piglin.angry', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+goals:
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: zombies.mob.goal.break_window
+        breakTicks: 20
+        breakCount: 2
+        breakRadius: 0.5
+
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: mob.goal.melee_attack
+        cooldown: 20
+        range: 0.25
+
+      - type: mob.goal.follow_entity
+        selector:
+          type: mob.selector.entities_in_area
+          originSelector:
+            type: mob.selector.self
+          validator: /alivePlayers
+          target: PLAYERS
+          limit: 1
+        retargetInterval: 20
+        followRange: 1024
+
+alivePlayers:
+  type: zombies.mob.validator.zombies_player
+  states: [ zombies.player.state.alive ]
+  blacklist: false

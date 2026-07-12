@@ -1,0 +1,307 @@
+id: lucky_chest_electrical_equipment
+trigger:
+  origin: { x: 81, y: 0, z: 59 }
+  lengths: { x: 2, y: 1, z: 1 }
+predicateEvaluation: ALL_TRUE
+data:
+  predicates:
+    - type: zombies.map.shop.predicate.player_state
+      states: [ zombies.player.state.alive ]
+      blacklist: false
+    - type: zombies.map.shop.predicate.in_game
+    - type: zombies.map.shop.predicate.type
+      types: [ zombies.map.shop.interaction.right_click_block ]
+      blacklist: false
+  successInteractors:
+    - type: zombies.map.shop.interactor.selection_group
+      group: lucky_chest
+      activeInteractors:
+        - type: zombies.map.shop.interactor.slot_machine
+          frameCount: 65
+          hologramOffset: 2
+          itemOffset: 0.5
+          gracePeriodTicks: 200
+          itemRolledToSelfFormat: "<#9096ad>You found <rolled_item> in the <dark_purple>Lucky Chest</dark_purple>! You have <b><red>10s</red></b> to claim it before it disappears!</#9096ad>"
+          itemRolledToOthersFormat: "<#9096ad><green><roller></green> found <rolled_item> in the <dark_purple>Lucky Chest</dark_purple>!"
+          itemClaimedFormat: "<#9096ad>You claimed <claimed_item> from the <dark_purple>Lucky Chest</dark_purple>!</#9096ad>"
+          frameHologramFormats:
+            - "<dark_purple><b>Lucky Chest"
+            - "<b><yellow><rolling_player> is rolling..."
+            - "<gold><item_name>"
+          rollingFlag: lucky_chest_rolling
+          evaluation: ALL_TRUE
+          rollPredicates:
+            - type: zombies.map.shop.predicate.static_cost
+              cost: 1000
+              modifierType: coin_spend.shop
+          gracePeriodFormats:
+            - "<red>⚠ Expires in <b><time_left>s"
+            - ""
+            - "<dark_purple><b>Lucky Chest"
+            - "<yellow>RIGHT-CLICK TO CLAIM!"
+            - "<gold><item_name>"
+          tickFormatter:
+            type: core.tick_formatter.precision_second
+            decimalPlaces: 1
+          delayFormula:
+            type: zombies.map.shop.interactor.slot_machine.delay.linear
+            startDelay: 2
+            endDelay: 2
+          frames:
+            - type: zombies.map.shop.interactor.slot_machine.frame
+              itemStack:
+                material: "netherite_shovel"
+                displayName: "<gold>Barret .50"
+              interactors:
+                - type: zombies.map.shop.interactor.equipment_station
+                  equipmentKey: barret_50
+                  groupKey: zombies.group.gun
+                  successInteractors: [ ]
+                  holdingInteractors:
+                    - type: zombies.map.shop.interactor.refill_ammo
+                      equipmentKey: barret_50
+                      onlyHeld: false
+                      matchKey: true
+                  duplicateInteractors:
+                    - type: zombies.map.shop.interactor.messaging
+                      messages: [ "<red>Hold Barret 50 and <key:key.use> to refill it!" ]
+                      broadcast: false
+
+                    - type: zombies.map.shop.interactor.play_sound
+                      sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                               pitch: 0.0 }
+                      broadcast: false
+                  failureInteractors:
+                    - type: zombies.map.shop.interactor.messaging
+                      messages: [ "<red>Swap to a weapon and <key:key.use> to replace it!" ]
+                      broadcast: false
+
+                    - type: zombies.map.shop.interactor.play_sound
+                      sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                               pitch: 0.0 }
+                      broadcast: false
+            - type: zombies.map.shop.interactor.slot_machine.frame
+              itemStack:
+                material: "diamond_hoe"
+                displayName: "<gold>Decontamination Sprayer"
+              interactors:
+                - type: zombies.map.shop.interactor.equipment_station
+                  equipmentKey: decontamination_sprayer
+                  groupKey: zombies.group.gun
+                  successInteractors: [ ]
+                  holdingInteractors:
+                    - type: zombies.map.shop.interactor.refill_ammo
+                      equipmentKey: decontamination_sprayer
+                      onlyHeld: false
+                      matchKey: true
+                  duplicateInteractors:
+                    - type: zombies.map.shop.interactor.messaging
+                      messages: [ "<red>Hold Decontamination Sprayer and <key:key.use> to refill it!" ]
+                      broadcast: false
+
+                    - type: zombies.map.shop.interactor.play_sound
+                      sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                               pitch: 0.0 }
+                      broadcast: false
+                  failureInteractors:
+                    - type: zombies.map.shop.interactor.messaging
+                      messages: [ "<red>Swap to a weapon and <key:key.use> to replace it!" ]
+                      broadcast: false
+
+                    - type: zombies.map.shop.interactor.play_sound
+                      sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                               pitch: 0.0 }
+                      broadcast: false
+            - type: zombies.map.shop.interactor.slot_machine.frame
+              itemStack:
+                material: "flint_and_steel"
+                displayName: "<gold>Double Barrel Shotgun"
+              interactors:
+                - type: zombies.map.shop.interactor.equipment_station
+                  equipmentKey: double_barrel_shotgun
+                  groupKey: zombies.group.gun
+                  successInteractors: [ ]
+                  holdingInteractors:
+                    - type: zombies.map.shop.interactor.refill_ammo
+                      equipmentKey: double_barrel_shotgun
+                      onlyHeld: false
+                      matchKey: true
+                  duplicateInteractors:
+                    - type: zombies.map.shop.interactor.messaging
+                      messages: [ "<red>Hold Double Barrel Shotgun and <key:key.use> to refill it!" ]
+                      broadcast: false
+
+                    - type: zombies.map.shop.interactor.play_sound
+                      sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                               pitch: 0.0 }
+                      broadcast: false
+                  failureInteractors:
+                    - type: zombies.map.shop.interactor.messaging
+                      messages: [ "<red>Swap to a weapon and <key:key.use> to replace it!" ]
+                      broadcast: false
+
+                    - type: zombies.map.shop.interactor.play_sound
+                      sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                               pitch: 0.0 }
+                      broadcast: false
+            - type: zombies.map.shop.interactor.slot_machine.frame
+              itemStack:
+                material: "netherite_hoe"
+                displayName: "<gold>Combat SMG"
+              interactors:
+                - type: zombies.map.shop.interactor.equipment_station
+                  equipmentKey: combat_smg
+                  groupKey: zombies.group.gun
+                  successInteractors: [ ]
+                  holdingInteractors:
+                    - type: zombies.map.shop.interactor.refill_ammo
+                      equipmentKey: combat_smg
+                      onlyHeld: false
+                      matchKey: true
+                  duplicateInteractors:
+                    - type: zombies.map.shop.interactor.messaging
+                      messages: [ "<red>Hold Combat SMG and <key:key.use> to refill it!" ]
+                      broadcast: false
+
+                    - type: zombies.map.shop.interactor.play_sound
+                      sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                               pitch: 0.0 }
+                      broadcast: false
+                  failureInteractors:
+                    - type: zombies.map.shop.interactor.messaging
+                      messages: [ "<red>Swap to a weapon and <key:key.use> to replace it!" ]
+                      broadcast: false
+
+                    - type: zombies.map.shop.interactor.play_sound
+                      sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                               pitch: 0.0 }
+                      broadcast: false
+            - type: zombies.map.shop.interactor.slot_machine.frame
+              itemStack:
+                material: "stone_shovel"
+                displayName: "<gold>RPG"
+              interactors:
+                - type: zombies.map.shop.interactor.equipment_station
+                  equipmentKey: rpg
+                  groupKey: zombies.group.gun
+                  successInteractors: [ ]
+                  holdingInteractors:
+                    - type: zombies.map.shop.interactor.refill_ammo
+                      equipmentKey: rpg
+                      onlyHeld: false
+                      matchKey: true
+                  duplicateInteractors:
+                    - type: zombies.map.shop.interactor.messaging
+                      messages: [ "<red>Hold RPG and <key:key.use> to refill it!" ]
+                      broadcast: false
+
+                    - type: zombies.map.shop.interactor.play_sound
+                      sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                               pitch: 0.0 }
+                      broadcast: false
+                  failureInteractors:
+                    - type: zombies.map.shop.interactor.messaging
+                      messages: [ "<red>Swap to a weapon and <key:key.use> to replace it!" ]
+                      broadcast: false
+
+                    - type: zombies.map.shop.interactor.play_sound
+                      sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                               pitch: 0.0 }
+                      broadcast: false
+          rollFailInteractors:
+            - type: zombies.map.shop.interactor.messaging
+              messages: [ "<red>You do not have enough coins to purchase this!" ]
+              broadcast: false
+
+            - type: zombies.map.shop.interactor.play_sound
+              sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                       pitch: 0.0 }
+              broadcast: false
+          rollStartInteractors:
+            - type: zombies.map.shop.interactor.deduct_coins
+              cost: 1000
+              modifierType: coin_spend.shop
+
+            - type: zombies.map.shop.interactor.play_song
+              songKey: weapon_chest_jingle
+              broadcast: true
+
+            - type: zombies.map.shop.interactor.chest_state
+              open: true
+          mismatchedPlayerInteractors:
+            - type: zombies.map.shop.interactor.messaging
+              messages: [ "<red>You didn't roll this chest!" ]
+              broadcast: false
+
+            - type: zombies.map.shop.interactor.play_sound
+              sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                       pitch: 0.0 }
+              broadcast: false
+          whileRollingInteractors:
+            - type: zombies.map.shop.interactor.messaging
+              messages: [ "<red>You are already rolling this chest!" ]
+              broadcast: false
+
+            - type: zombies.map.shop.interactor.play_sound
+              sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                       pitch: 0.0 }
+              broadcast: false
+          timeoutExpiredInteractors:
+            - type: zombies.map.shop.interactor.messaging
+              messages: [ "<red>Your item disappeared..." ]
+              broadcast: false
+          itemClaimedInteractors:
+            - type: zombies.map.shop.interactor.play_sound
+              sound: { name: 'minecraft:block.note_block.pling', source: PLAYER, volume:
+                10.0,  pitch: 2.0 }
+              broadcast: false
+          endInteractors:
+            - type: zombies.map.shop.interactor.counting
+              maxUses: 5
+              reset: true
+              successInteractors: [ ]
+              failureInteractors:
+                - type: zombies.map.shop.interactor.change_selection_group
+                  group: lucky_chest
+                  moveMessage: '<yellow>The Lucky Chest has moved to <room_name>!'
+                  broadcast: true
+
+            - type: zombies.map.shop.interactor.chest_state
+              open: false
+      inactiveInteractors:
+        - type: zombies.map.shop.interactor.announce_active_selection_group
+          group: lucky_chest
+          format: "<red>This <dark_purple>Lucky Chest</dark_purple> is not active! Find the active one in <active_room>!</red>"
+
+        - type: zombies.map.shop.interactor.play_sound
+          sound: { name: 'minecraft:entity.enderman.teleport', source: PLAYER, volume: 10.0,
+                   pitch: 0.0 }
+          broadcast: false
+  failureInteractors: [ ]
+  displays:
+    - type: zombies.map.shop.display.flag_conditional
+      flag: lucky_chest
+      source: SHOP
+      success:
+        - type: zombies.map.shop.display.flag_conditional
+          flag: lucky_chest_rolling
+          source: SHOP
+          success:
+            - type: zombies.map.shop.display.static_hologram
+              info:
+                text: [ ]
+                position: { x: 0, y: 1, z: 0 }
+          failure:
+            - type: zombies.map.shop.display.static_hologram
+              info:
+                text:
+                  - "<dark_purple><b>Lucky Chest"
+                  - "<gold>1000 Coins"
+                position: { x: 0, y: 1, z: 0 }
+      failure:
+        - type: zombies.map.shop.display.static_hologram
+          info:
+            text:
+              - "<dark_purple>Lucky Chest"
+              - "<red>Inactive"
+            position: { x: 0, y: 1, z: 0 }

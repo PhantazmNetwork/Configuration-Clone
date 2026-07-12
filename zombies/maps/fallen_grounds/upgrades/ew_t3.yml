@@ -1,0 +1,34 @@
+id: ew_t3
+data:
+  type: zombies.upgrade.composite
+  upgrades:
+    - type: zombies.upgrade.standard
+      triggers:
+        - type: zombies.upgrade.trigger.single
+      effect:
+        type: zombies.upgrade.effect.apply_attribute
+        selector:
+          type: zombies.upgrade.selector.self
+        attribute: phantazm.max_clip
+        amount: 0.2
+        operation: MULTIPLY_BASE
+
+    - type: zombies.upgrade.standard
+      triggers:
+        - type: zombies.upgrade.trigger.event
+          event: GUN_LOSE_AMMO
+          eventFilter:
+            type: zombies.upgrade.filter.type
+            conditions:
+              - type: zombies.upgrade.filter.condition.player_shooter
+      effect:
+        type: zombies.upgrade.effect.random
+        chance: 0.2
+        delegate:
+          type: zombies.upgrade.effect.composite
+          delegates:
+            - type: zombies.upgrade.effect.sound
+              sound: { name: 'minecraft:block.amethyst_block.step', source: PLAYER, volume: 2.0, pitch: 0.8 }
+              broadcast: false
+
+            - type: zombies.upgrade.effect.cancel

@@ -1,0 +1,72 @@
+key: arrow_police
+type: minecraft:arrow
+pathfinding:
+  type: proxima.path_settings.ground
+  jumpHeight: 0
+  fallTolerance: 0
+  stepHeight: 0
+
+meta:
+  customName: <blue>Police Chief</blue>
+
+extra:
+  ticksUntilDeath: 200
+
+skills:
+  - type: mob.skill.damage
+    trigger: ATTACK
+    selector:
+      type: mob.selector.last_hit
+    amount: 6
+    knockback: 0.2
+
+  - type: mob.skill.potion
+    trigger: ATTACK
+    selector:
+      type: mob.selector.last_hit
+    potion:
+      effect: minecraft:slowness
+      amplifier: 1
+      duration: 60
+      flags: 4
+
+  - type: mob.skill.temporal
+    minDuration: 60
+    maxDuration: 60
+    trigger: ATTACK
+    delegate:
+      type: mob.skill.attribute_modifying
+      trigger: ATTACK
+      attribute: generic.movement_speed
+      amount: -0.1
+      attributeOperation: MULTIPLY_TOTAL
+      stage: zombies_game
+      selector:
+        type: mob.selector.last_hit
+
+  - type: mob.skill.timer
+    interval: 3
+    delegate:
+      type: mob.skill.spawn_particle
+      selector:
+        type: mob.selector.self
+      particle:
+        type: particle.wrapper
+        particle: crit
+        variantData:
+          type: particle.variant_data.none
+        distance: true
+        offsetX: 0.0
+        offsetY: 0.1
+        offsetZ: 0.0
+        data: 0.0
+        particleCount: 4
+      bounds:
+        origin:
+          x: 0.0
+          y: 0.0
+          z: 0.0
+        lengths:
+          x: 0.0
+          y: 0.0
+          z: 0.0

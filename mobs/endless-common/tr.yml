@@ -1,0 +1,127 @@
+# only mob that spawns on the integer overflow limit, why not?
+# needs variant of Random skill that picks between other skills instead of a flat chance
+
+key: tr_oll
+type: minecraft:zombie
+tags: [ endless, fire_res, troll, boss]
+pathfinding:
+  type: proxima.path_settings.ground
+  jumpHeight: 1.25
+  fallTolerance: 6
+  stepHeight: 3.0
+
+showNameTag: true
+
+meta:
+  customName: <black><b>Your Mom</b></black>
+  customNameVisible: true
+
+extra:
+  resistInstakill: true
+  resistFire: true
+  resistSlowDown: true
+  announceKill: true
+
+equipment:
+  BOOTS: '{id:"leather_boots",Count:1,tag:{display:{color:0}}}'
+  LEGGINGS: '{id:"leather_leggings",Count:1,tag:{display:{color:0}}}'
+  CHESTPLATE: '{id:"leather_chestplate",Count:1,tag:{display:{color:0}}}'
+  HELMET: '{id:"player_head",Count:1,tag:{display:{Name:"{\"text\":\"troll\"}"},SkullOwner:{Id:[I;2102121264,-738373683,-1293993199,1141833595],Properties:{textures:[{Value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTYyNmMwMTljOGI0MWM3YjI0OWFlOWJiNjc2MGM0ZTY5ODAwNTFjZjBkNjg5NWNiM2U2ODQ2ZDgxMjQ1YWQxMSJ9fX0="}]}}}}'
+
+attributes:
+  generic.max_health: 69420
+  generic.movement_speed: 0.9
+  generic.attack_damage: 40
+  generic.armor: 20
+  generic.attack_knockback: 1.0
+  generic.knockback_resistance: 1.0
+
+skills:
+  - type: mob.skill.send_message
+    trigger: SPAWN
+    message: <black><b>Never Gonna Give You Up, Never Gonna Let You Down</b></black>
+    selector:
+      type: mob.selector.entities_in_area
+      originSelector:
+        type: mob.selector.self
+      validator:
+        type: mob.validator.always
+      target: PLAYERS
+
+  - type: mob.skill.play_sound
+    trigger: SPAWN
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.witch.celebrate', source: PLAYER, volume: 100.0, pitch: 1.7 }
+
+  - type: mob.skill.play_sound
+    trigger: DAMAGED
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.witch.celebrate', source: HOSTILE, volume: 2.0, pitch: 1.7 }
+
+  - type: mob.skill.play_sound
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.witch.celebrate', source: HOSTILE, volume: 2.0, pitch: 1.7 }
+
+  - type: mob.skill.show_healthbar
+    bar: '<#000000>[<healthbar:bar_component:|:color_start:#000000:color_end:#000000:missing_color:gray>]</#000000>'
+    barWidth: 20
+
+  - type: mob.skill.random_timer
+    minInterval: 60
+    maxInterval: 100
+    delegate:
+      type: mob.skill.random
+      chance: 0.5
+      delegate:
+        type: mob.skill.play_sound
+        selector:
+          type: mob.selector.self
+        sound: { name: 'minecraft:entity.witch.celebrate', source: HOSTILE, volume: 2.0, pitch: 1.7 }
+
+  - type: mob.skill.timer
+    interval: 20
+    delegate:
+      type: mob.skill.damage
+      selector:
+        type: mob.selector.entities_in_area
+        originSelector:
+          type: mob.selector.self
+        validator: /alivePlayers
+        target: PLAYERS
+        limit: 1
+      amount: 40
+      bypassArmor: true
+
+goals:
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: zombies.mob.goal.break_window
+        breakTicks: 2
+        breakCount: 6
+        breakRadius: 0.5
+
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: mob.goal.melee_attack
+        cooldown: 2
+        range: 0.25
+
+      - type: mob.goal.follow_entity
+        selector:
+          type: mob.selector.entities_in_area
+          originSelector:
+            type: mob.selector.self
+          validator: /alivePlayers
+          target: PLAYERS
+          limit: 1
+        retargetInterval: 20
+        followRange: 1024
+
+alivePlayers:
+  type: zombies.mob.validator.zombies_player
+  states: [ zombies.player.state.alive ]
+  blacklist: false

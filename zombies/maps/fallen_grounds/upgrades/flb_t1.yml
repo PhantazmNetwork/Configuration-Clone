@@ -1,0 +1,21 @@
+id: flb_t1
+data:
+  type: zombies.upgrade.standard
+  triggers:
+    - type: zombies.upgrade.trigger.single
+  effect:
+    type: zombies.upgrade.effect.composite
+    delegates:
+      - type: zombies.upgrade.effect.apply_attribute
+        selector:
+          type: zombies.upgrade.selector.self
+        attribute: damage.fire.duration
+        amount: 20
+        operation: ADDITION
+
+      - type: zombies.upgrade.effect.apply_attribute
+        selector:
+          type: zombies.upgrade.selector.self
+        attribute: damage.fire.apply
+        amount: 1
+        operation: ADDITION

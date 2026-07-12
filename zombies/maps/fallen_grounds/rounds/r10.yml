@@ -1,0 +1,65 @@
+round: 10
+startActions:
+  - type: zombies.map.round.action.announce
+    format: <red>Round <round>
+    destination: TITLE
+    tickFormatter:
+      type: core.tick_formatter.analog
+      ceil: false
+
+  - type: zombies.map.round.action.announce
+    format: ""
+    destination: SUBTITLE
+    tickFormatter:
+      type: core.tick_formatter.analog
+      ceil: false
+
+  - type: zombies.map.round.action.revive_players
+
+  - type: zombies.map.round.action.play_sound
+    sound: { name: 'minecraft:entity.wither.spawn', source: MASTER, volume: 24.0,
+             pitch: 0.5 }
+endActions:
+  - type: zombies.map.round.action.announce
+    format: <gradient:#616575:#4a4c59><st>⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯</st></gradient><br><#fffa9e>»</#fffa9e> <#9096ad>You completed <b><green>Round <round></green></b> in <b><red><time></red></b><#b8bfde>!</#b8bfde></#9096ad><br><gradient:#616575:#4a4c59><st>⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯</st></gradient>
+    destination: CHAT
+    tickFormatter:
+      type: core.tick_formatter.analog
+      ceil: false
+waves:
+  - delayTicks: 160
+    spawns:
+      - id: civilian
+        spawnType: window
+        amount: 4
+      - id: runner
+        spawnType: window
+        amount: 2
+      - id: police_officer
+        spawnType: window
+        amount: 2
+    spawnActions: [ ]
+  - delayTicks: 260
+    spawns:
+      - id: civilian
+        spawnType: window
+        amount: 5
+      - id: runner
+        spawnType: window
+        amount: 3
+    spawnActions: [ ]
+  - delayTicks: 270
+    spawns:
+      - id: ram
+        spawnType: window
+        amount: 1
+      - id: riot_police
+        spawnType: window
+        amount: 4
+      - id: police_officer
+        spawnType: window
+        amount: 3
+      - id: civilian
+        spawnType: window
+        amount: 2
+    spawnActions: [ ]

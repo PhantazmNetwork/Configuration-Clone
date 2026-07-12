@@ -1,0 +1,86 @@
+key: flamethrower_spray
+type: minecraft:item
+pathfinding:
+  type: proxima.path_settings.ground
+  jumpHeight: 0
+  fallTolerance: 0
+  stepHeight: 0
+
+meta:
+  customName: <#ff6918>Arsonist</#ff6918>
+
+extra:
+  ticksUntilDeath: 12
+
+skills:
+  - type: mob.skill.temporal
+    trigger: ATTACK
+    minDuration: 80
+    maxDuration: 80
+    delegate:
+      type: mob.skill.apply_fire
+      trigger: ATTACK
+      selector:
+        type: mob.selector.last_hit
+
+  - type: mob.skill.damage_over_time
+    trigger: ATTACK
+    selector:
+      type: mob.selector.last_hit
+    validator: /targetValidator
+    damageAmount: 1.5
+    bypassArmor: true
+    damageInterval: 10
+    damageTime: 80
+    damageType: damage.fire
+    exceedMobLifetime: true
+    sound: { name: 'minecraft:entity.player.hurt_on_fire', source: PLAYER, volume: 1.0, pitch: 1.0 }
+
+  - type: mob.skill.damage
+    trigger: ATTACK
+    selector:
+      type: mob.selector.last_hit
+    validator: /targetValidator
+    amount: 1
+    damageType: damage.fire
+
+  - type: mob.skill.timer
+    interval: 3
+    delegate:
+      type: mob.skill.spawn_particle
+      selector:
+        type: mob.selector.self
+      particle:
+        type: particle.wrapper
+        particle: flame
+        variantData:
+          type: particle.variant_data.none
+        distance: true
+        offsetX: 0.1
+        offsetY: 0.1
+        offsetZ: 0.1
+        data: 0.0
+        particleCount: 3
+      bounds:
+        origin:
+          x: 0.0
+          y: 0.0
+          z: 0.0
+        lengths:
+          x: 0.0
+          y: 0.0
+          z: 0.0
+
+alivePlayers:
+  type: zombies.mob.validator.zombies_player
+  states: [ zombies.player.state.alive ]
+  blacklist: false
+
+targetableMobs:
+  type: mob.validator.mob_type
+  tags: [ ally_targetable ]
+  blacklist: false
+
+targetValidator:
+  type: mob.validator.or
+  validators: [ /alivePlayers, /targetableMobs ]

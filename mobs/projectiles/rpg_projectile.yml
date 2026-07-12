@@ -1,0 +1,11 @@
+key: rpg_projectile
+type: minecraft:fireball
+pathfinding:
+  type: proxima.path_settings.ground
+  jumpHeight: 0
+  fallTolerance: 0
+  stepHeight: 0
+
+extra:
+  bypassEndlessScaling: true
+  ticksUntilDeath: 200

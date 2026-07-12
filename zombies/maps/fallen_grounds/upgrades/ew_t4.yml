@@ -1,0 +1,34 @@
+id: ew_t4
+data:
+  type: zombies.upgrade.standard
+  triggers:
+    - type: zombies.upgrade.trigger.event
+      event: ENTITY_DAMAGE_BY_GUN
+      eventFilter:
+        type: zombies.upgrade.filter.type
+        conditions:
+          - type: zombies.upgrade.filter.condition.player_shooter
+  effect:
+    type: zombies.upgrade.effect.damage_increase
+    selector:
+      type: zombies.upgrade.selector.event
+      validator:
+        type: zombies.upgrade.validator.mob_in_round
+      useTarget: true
+    scaling:
+      type: zombies.upgrade.effect.scaling.gun_usage_ratio
+      startMultiplier: 1.0
+      endMultiplier: 2.5
+      onlyHotbar: false
+      eligibleWeapons:
+        - key: 'mp5'
+          value: 4
+
+        - key: 'rpg'
+          value: 20
+
+        - key: 'smg'
+          value: 4
+
+        - key: 'sniper'
+          value: 20

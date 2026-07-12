@@ -1,0 +1,16 @@
+ordinal: 5
+key: phantazm:pistol_only
+displayName: '<red>Pistol Only</red>'
+webhookEmoji: '<:pistol_only:1160905078773919764>'
+abbreviatedDisplayName: '<red>PO'
+displayItem:
+  material: minecraft:wooden_hoe
+  displayName: '<!i><b><yellow>Pistol Only</yellow></b></!i>'
+  lore:
+    - ''
+    - '<!i><#616575>»</#616575> <#f062c1>You are unable to buy weapons other than pistol!</#f062c1></!i>'
+  tag: '{HideFlags:2}'
+modifier:
+  type: zombies.modifier.equipment_restricting
+  blacklist: true
+  equipment: [ 'barret_50', 'combat_smg', 'decontamination_sprayer', 'double_barrel_shotgun', 'mp5', 'rifle', 'rpg', 'shotgun', 'smg', 'sniper' ] # equipment that is restricted (all guns)

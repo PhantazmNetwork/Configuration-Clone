@@ -1,0 +1,10 @@
+id: garage
+displayName: <green><b>Garage
+regions:
+  - origin: { x: 38, y: -3, z: -51 }
+    lengths: { x: 15, y: 6, z: 10 }
+  - origin: { x: 42, y: -4, z: -41 }
+    lengths: { x: 11, y: 7, z: 4 }
+  - origin: { x: 53, y: -3, z: -48 }
+    lengths: { x: 5, y: 5, z: 6 }
+openActions: [ ]

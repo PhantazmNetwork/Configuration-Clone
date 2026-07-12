@@ -1,0 +1,21 @@
+id: frb_t4
+data:
+  type: zombies.upgrade.standard
+  triggers:
+    - type: zombies.upgrade.trigger.event
+      event: ZOMBIES_PLAYER_DAMAGE
+      eventFilter:
+        type: zombies.upgrade.filter.type
+        conditions:
+          - type: zombies.upgrade.filter.condition.zombies_player
+  effect:
+    type: zombies.upgrade.effect.random
+    chance: 0.075
+    delegate:
+      type: zombies.upgrade.effect.composite
+      delegates:
+        - type: zombies.upgrade.effect.sound
+          sound: { name: 'minecraft:entity.phantom.flap', source: PLAYER, volume: 2.0, pitch: 2.0 }
+          broadcast: false
+
+        - type: zombies.upgrade.effect.cancel

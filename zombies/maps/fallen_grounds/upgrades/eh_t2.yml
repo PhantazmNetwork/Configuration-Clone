@@ -1,0 +1,12 @@
+id: eh_t2
+data:
+  type: zombies.upgrade.standard
+  triggers:
+    - type: zombies.upgrade.trigger.single
+  effect:
+    type: zombies.upgrade.effect.apply_attribute
+    selector:
+      type: zombies.upgrade.selector.self
+    attribute: phantazm.heal_rate
+    amount: -0.4
+    operation: MULTIPLY_BASE

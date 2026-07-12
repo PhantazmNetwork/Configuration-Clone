@@ -1,0 +1,26 @@
+type: zombies.perk.level.non_upgradeable
+key: level0
+equipment:
+  type: zombies.perk.equipment.basic
+  interactor:
+    type: zombies.perk.interactor.none
+  visual:
+    type: zombies.perk.visual.static
+    stack:
+      material: 'minecraft:blaze_powder'
+      displayName: '<!i><blue><b>Flame Bullets</b></blue></!i>'
+      lore:
+        - '<!i><#9096ad>By adding illegal modifications</#9096ad></!i>'
+        - '<!i><#9096ad>to your weapons, your bullets</#9096ad></!i>'
+        - '<!i><#9096ad>can now set zombies on fire.</#9096ad></!i>'
+        - ''
+        - '<!i><#616575>»</#616575> <#9096ad>Effect duration</#9096ad><#b8bfde>:</#b8bfde> <green>2.0s</green></!i>'
+        - '<!i><#616575>»</#616575> <#9096ad>Damage rate</#9096ad><#b8bfde>:</#b8bfde> <green>8/s</green></!i>'
+effects:
+  - type: zombies.perk.effect.shot
+    actions:
+      - type: zombies.perk.effect.shot_entity.apply_fire
+        fireTicks: 40
+        damageInterval: 5
+        damage: 2
+        bypassArmor: false

@@ -1,0 +1,58 @@
+id: eh_t3
+data:
+  type: zombies.upgrade.composite
+  upgrades:
+    - type: zombies.upgrade.standard
+      triggers:
+        - type: zombies.upgrade.trigger.event
+          event: ZOMBIES_PLAYER_KILL_MOB
+          eventFilter:
+            type: zombies.upgrade.filter.type
+            conditions:
+              - type: zombies.upgrade.filter.condition.zombies_player
+      effect:
+        type: zombies.upgrade.effect.conditional
+        pass:
+          type: zombies.upgrade.effect.adjust_integer_tag
+          tag: 'eh_t3'
+          increment: 1
+          limit: 10
+          ephemeral: true
+        filter:
+          type: zombies.upgrade.filter.find_tag_in_selector
+          tag: 'eh_t3'
+          condition: LESS_THAN_OR_EQUAL_TO
+          value: 10
+
+    - type: zombies.upgrade.standard
+      triggers:
+        - type: zombies.upgrade.trigger.event
+          event: ZOMBIES_PLAYER_DAMAGE
+          eventFilter:
+            type: zombies.upgrade.filter.type
+            conditions:
+              - type: zombies.upgrade.filter.condition.zombies_player
+      effect:
+        type: zombies.upgrade.effect.conditional
+        pass:
+          type: zombies.upgrade.effect.composite
+          delegates:
+            - type: zombies.upgrade.effect.damage_increase
+              scaling:
+                type: zombies.upgrade.effect.scaling.constant
+                value: -0.25
+
+            - type: zombies.upgrade.effect.adjust_integer_tag
+              tag: 'eh_t3'
+              increment: -1
+              limit: 0
+              ephemeral: true
+
+            - type: zombies.upgrade.effect.sound
+              sound: { name: 'minecraft:item.shield.block', source: PLAYER, volume: 2.0, pitch: 0.9 }
+              broadcast: false
+        filter:
+          type: zombies.upgrade.filter.find_tag_in_selector
+          tag: 'eh_t3'
+          condition: GREATER_THAN
+          value: 0

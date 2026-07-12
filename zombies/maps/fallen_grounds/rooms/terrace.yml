@@ -1,0 +1,7 @@
+id: phantazm:terrace
+displayName: <bold><green>Terrace
+regions:
+- origin: {x: 52, y: 23, z: -10}
+  lengths: {x: 17, y: 6, z: 26}
+- origin: {x: 44, y: 23, z: -10}
+  lengths: {x: 8, y: 6, z: 7}

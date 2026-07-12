@@ -1,0 +1,23 @@
+id: flb_t3
+data:
+  type: zombies.upgrade.standard
+  triggers:
+    - type: zombies.upgrade.trigger.event
+      event: ENTITY_DAMAGE_BY_GUN
+      eventFilter:
+        type: zombies.upgrade.filter.type
+        conditions:
+          - type: zombies.upgrade.filter.condition.player_shooter
+  effect:
+    type: zombies.upgrade.effect.apply_shot_effect
+    selector:
+      type: zombies.upgrade.selector.entities_in_area
+      validator:
+        type: zombies.upgrade.validator.mob_in_round
+      originSelector:
+        type: zombies.upgrade.selector.event
+        useTarget: true
+      target: LIVING_ENTITIES
+      range: 3.0
+    scale: 1.0
+    shotEffectType: APPLY_FIRE

@@ -1,0 +1,88 @@
+key: infested_technician
+type: minecraft:drowned
+pathfinding:
+  type: proxima.path_settings.ground
+  jumpHeight: 1.75
+  fallTolerance: 8
+  stepHeight: 1.25
+
+meta:
+  customName: <#00fff7>Infested Technician</#00fff7>
+
+equipment:
+  MAIN_HAND: '{id:"lightning_rod",Count:1}'
+  BOOTS: '{id:"leather_boots",Count:1,tag:{display:{color:7613700}}}'
+  LEGGINGS: '{id:"leather_leggings",Count:1,tag:{display:{color:7613700}}}'
+  CHESTPLATE: '{id:"leather_chestplate",Count:1,tag:{display:{color:7613700}}}'
+
+attributes:
+  generic.max_health: 35
+  generic.movement_speed: 0.2
+  generic.attack_damage: 5
+  generic.armor: 10
+  generic.attack_knockback: 0.3
+
+skills:
+  - type: mob.skill.play_sound
+    trigger: DAMAGED
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.drowned.hurt', source: HOSTILE, volume: 1.5, pitch: 0.5 }
+
+  - type: mob.skill.play_sound
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.drowned.death', source: HOSTILE, volume: 1.5, pitch: 0.5 }
+
+  - type: mob.skill.spawn_mob
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    callback:
+      type: zombies.mob.skill.spawn_mob.callback.add_to_round
+    identifier: phantazm:alien_parasite
+    spawnAmount: 1
+    maxSpawn: 1
+
+  - type: mob.skill.random_timer
+    minInterval: 100
+    maxInterval: 160
+    delegate:
+      type: mob.skill.random
+      chance: 0.5
+      delegate:
+        type: mob.skill.play_sound
+        selector:
+          type: mob.selector.self
+        sound: { name: 'minecraft:entity.drowned.ambient', source: HOSTILE, volume: 1.5, pitch: 0.5 }
+
+goals:
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: zombies.mob.goal.break_window
+        breakTicks: 20
+        breakCount: 1
+        breakRadius: 0.5
+
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: mob.goal.melee_attack
+        cooldown: 20
+        range: 0.25
+
+      - type: mob.goal.follow_entity
+        selector:
+          type: mob.selector.entities_in_area
+          originSelector:
+            type: mob.selector.self
+          validator: /alivePlayers
+          target: PLAYERS
+          limit: 1
+        retargetInterval: 20
+        followRange: 1024
+
+alivePlayers:
+  type: zombies.mob.validator.zombies_player
+  states: [ zombies.player.state.alive ]
+  blacklist: false

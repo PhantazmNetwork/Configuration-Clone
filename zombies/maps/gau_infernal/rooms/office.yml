@@ -1,0 +1,20 @@
+id: office
+displayName: <green><b>Office
+regions:
+  - origin: { x: 24, y: -1, z: -26 }
+    lengths: { x: 24, y: 6, z: 3 }
+  - origin: { x: 40, y: 0, z: -23 }
+    lengths: { x: 6, y: 5, z: 13 }
+  - origin: { x: 40, y: -1, z: -10 }
+    lengths: { x: 3, y: 7, z: 9 }
+  - origin: { x: 43, y: 0, z: -4 }
+    lengths: { x: 13, y: 6, z: 4 }
+  - origin: { x: 50, y: 0, z: -32 }
+    lengths: { x: 6, y: 6, z: 28 }
+  - origin: { x: 45, y: 0, z: -32 }
+    lengths: { x: 5, y: 6, z: 6 }
+  - origin: { x: 25, y: 0, z: -23 }
+    lengths: { x: 6, y: 6, z: 13 }
+  - origin: { x: 31, y: 0, z: -14 }
+    lengths: { x: 9, y: 6, z: 4 }
+openActions: [ ]

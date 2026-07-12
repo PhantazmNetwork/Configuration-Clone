@@ -1,0 +1,52 @@
+round: 15
+startActions:
+  - type: zombies.map.round.action.announce
+    format: <red>Round <round>
+    destination: TITLE
+    tickFormatter:
+      type: core.tick_formatter.analog
+      ceil: false
+
+  - type: zombies.map.round.action.announce
+    format: ""
+    destination: SUBTITLE
+    tickFormatter:
+      type: core.tick_formatter.analog
+      ceil: false
+
+  - type: zombies.map.round.action.revive_players
+
+  - type: zombies.map.round.action.play_sound
+    sound: { name: 'minecraft:entity.wither.spawn', source: MASTER, volume: 24.0,
+             pitch: 0.5 }
+endActions: [ ]
+waves:
+  - delayTicks: 150
+    spawns:
+      - id: civilian_rip
+        spawnType: window
+        amount: 7
+      - id: banshee_rip
+        spawnType: window
+        amount: 11
+    spawnActions:
+      - type: zombies.map.wave.action.select_powerup
+        powerups: [ "insta_kill" ]
+  - delayTicks: 270
+    spawns:
+      - id: banshee_rip
+        spawnType: window
+        amount: 10
+      - id: police_officer_rip
+        spawnType: window
+        amount: 15
+    spawnActions: [ ]
+  - delayTicks: 270
+    spawns:
+      - id: ram_rip
+        spawnType: window
+        amount: 5
+      - id: banshee_rip
+        spawnType: window
+        amount: 15
+    spawnActions: [ ]

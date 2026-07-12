@@ -1,0 +1,34 @@
+key: slimeball_projectile
+type: minecraft:item
+pathfinding:
+  type: proxima.path_settings.ground
+  jumpHeight: 0
+  fallTolerance: 0
+  stepHeight: 0
+
+meta:
+  itemStack:
+    material: minecraft:slime_ball
+
+extra:
+  ticksUntilDeath: 200
+
+skills:
+  - type: mob.skill.damage
+    trigger: ATTACK
+    selector:
+      type: mob.selector.last_hit
+    amount: 5
+    knockback: 0.2
+
+  - type: mob.skill.temporal
+    trigger: ATTACK
+    minDuration: 80
+    maxDuration: 80
+    delegate:
+      type: mob.skill.attribute_modifying
+      attribute: generic.movement_speed
+      amount: -1.0
+      attributeOperation: MULTIPLY_TOTAL
+      selector:
+        type: mob.selector.last_hit

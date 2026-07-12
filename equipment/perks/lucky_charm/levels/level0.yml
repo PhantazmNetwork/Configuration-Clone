@@ -1,0 +1,24 @@
+type: zombies.perk.level.non_upgradeable
+key: level0
+equipment:
+  type: zombies.perk.equipment.basic
+  interactor:
+    type: zombies.perk.interactor.none
+  visual:
+    type: zombies.perk.visual.static
+    stack:
+      material: 'minecraft:bamboo'
+      displayName: '<!i><blue><b>Lucky Charm</b></blue></!i>'
+      lore:
+        - '<!i><#9096ad>Through smart investments and</#9096ad></!i>'
+        - '<!i><#9096ad>dodging the capital gains tax,</#9096ad></!i>'
+        - '<!i><#9096ad>you now receive more coins from</#9096ad></!i>'
+        - '<!i><#9096ad>all sources.</#9096ad></!i>'
+        - ''
+        - '<!i><#616575>»</#616575> <#9096ad>Coin gain modifier</#9096ad><#b8bfde>:</#b8bfde> <green>+50%</green></!i>'
+effects:
+  - type: zombies.perk.effect.transaction_modifier
+    group: coin_gain
+    modifierName: '<green>Lucky Charm'
+    modifierAction: MULTIPLY
+    amount: 0.5

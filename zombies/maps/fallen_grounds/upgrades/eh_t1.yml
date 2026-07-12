@@ -1,0 +1,12 @@
+id: eh_t1
+data:
+  type: zombies.upgrade.standard
+  triggers:
+    - type: zombies.upgrade.trigger.single
+  effect:
+    type: zombies.upgrade.effect.transaction_modifier
+    modifierGroup: coin_spend.shop.max_health
+    displayName: <green><b>Health Upgrade Discount</b></green>
+    modifierAction: MULTIPLY
+    amount: -0.2
+    priority: -1

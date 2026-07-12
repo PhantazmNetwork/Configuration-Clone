@@ -1,0 +1,27 @@
+type: zombies.perk.level.non_upgradeable
+key: level0
+equipment:
+  type: zombies.perk.equipment.basic
+  interactor:
+    type: zombies.perk.interactor.none
+  visual:
+    type: zombies.perk.visual.static
+    stack:
+      material: 'minecraft:iron_ingot'
+      displayName: '<!i><#b90f0f><b>Modified</b></#b90f0f> <blue><b>Extra Weapon</b></blue></!i>'
+      lore:
+        - '<!i><#9096ad>You can hold three weapons!</#9096ad></!i>'
+        - '<!i><#9096ad>However, doing this is a bit awkward.</#9096ad></!i>'
+        - '<!i><#9096ad>Your damage output is reduced.</#9096ad></!i>'
+        - ''
+        - '<!i><#616575>»</#616575> <#9096ad>Bonus weapon slots</#9096ad><#b8bfde>:</#b8bfde> <green>1</green></!i>'
+        - '<!i><#616575>»</#616575> <#9096ad>Damage reduction</#9096ad><#b8bfde>:</#b8bfde> <red>-25%</red></!i>'
+effects:
+  - type: zombies.perk.effect.add_group_slots
+    group: zombies.group.gun
+    additionalSlots: [ 3 ]
+
+  - type: zombies.perk.effect.attribute_modifier
+    attribute: phantazm.damage_multiplier
+    amount: -0.25
+    attributeOperation: MULTIPLY_BASE

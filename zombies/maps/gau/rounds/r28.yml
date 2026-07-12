@@ -1,0 +1,53 @@
+round: 28
+startActions:
+  - type: zombies.map.round.action.announce
+    format: <red>Round <round>
+    destination: TITLE
+    tickFormatter:
+      type: core.tick_formatter.analog
+      ceil: false
+
+  - type: zombies.map.round.action.announce
+    format: ""
+    destination: SUBTITLE
+    tickFormatter:
+      type: core.tick_formatter.analog
+      ceil: false
+
+  - type: zombies.map.round.action.revive_players
+
+  - type: zombies.map.round.action.play_sound
+    sound: { name: 'minecraft:entity.wither.spawn', source: MASTER, volume: 24.0,
+             pitch: 0.5 }
+endActions: [ ]
+# 85
+waves:
+  - delayTicks: 130
+    spawns:
+      - id: mutant
+        spawnType: window
+        amount: 7
+      - id: decaying_wolf
+        spawnType: window
+        amount: 18
+    spawnActions:
+      - type: zombies.map.wave.action.select_powerup
+        powerups: [ "insta_kill" ]
+  - delayTicks: 250
+    spawns:
+      - id: glower
+        spawnType: window
+        amount: 14
+      - id: decaying_wolf
+        spawnType: window
+        amount: 16
+    spawnActions: [ ]
+  - delayTicks: 290
+    spawns:
+      - id: dried_undead
+        spawnType: window
+        amount: 13
+      - id: decaying_wolf
+        spawnType: window
+        amount: 17
+    spawnActions: [ ]

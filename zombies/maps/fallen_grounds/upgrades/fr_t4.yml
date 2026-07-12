@@ -1,0 +1,161 @@
+id: fr_t4
+data:
+  type: zombies.upgrade.composite
+  upgrades:
+    - type: zombies.upgrade.standard
+      triggers:
+        - type: zombies.upgrade.trigger.event
+          event: ZOMBIES_PLAYER_POST_KNOCK
+          eventFilter:
+            type: zombies.upgrade.filter.none
+      effect:
+        type: zombies.upgrade.effect.conditional
+        pass:
+          type: zombies.upgrade.effect.composite
+          delegates:
+            - type: zombies.upgrade.effect.message
+              message: <#191919>You already used up your lives.</#191919>
+
+            - type: zombies.upgrade.effect.sound
+              sound: { name: 'minecraft:entity.player.burp', source: PLAYER, volume: 2.0, pitch: 0.5 }
+              broadcast: false
+        fail:
+          type: zombies.upgrade.effect.conditional
+          fail:
+            type: zombies.upgrade.effect.temporal
+            timer:
+              type: zombies.upgrade.timer.constant
+              duration: 200
+            resetTimerOnApply: true
+            rerunOnRepeat: true
+            delegate:
+              type: zombies.upgrade.effect.composite
+              delegates:
+                - type: zombies.upgrade.effect.set_boolean_tag
+                  selector:
+                    type: zombies.upgrade.selector.self
+                  tag: 'fr_t4'
+
+                - type: zombies.upgrade.effect.prevent_game_end
+          filter:
+            type: zombies.upgrade.filter.selector
+            selector:
+              type: zombies.upgrade.selector.entities_in_area
+              validator:
+                type: zombies.upgrade.validator.zombies_player
+                states: [ zombies.player.state.alive ]
+              target: PLAYERS
+              limitSelf: false
+        filter:
+          type: zombies.upgrade.filter.find_tag_in_selector
+          tag: 'fr_t4_times'
+          condition: LESS_THAN_OR_EQUAL_TO
+          value: 3
+
+    - type: zombies.upgrade.standard
+      triggers:
+        - type: zombies.upgrade.trigger.event
+          event: ZOMBIES_PLAYER_DISMOUNT
+          eventFilter:
+            type: zombies.upgrade.filter.type
+            conditions:
+              - type: zombies.upgrade.filter.condition.zombies_player
+
+        - type: zombies.upgrade.trigger.event
+          event: ZOMBIES_PLAYER_SNEAK
+          eventFilter:
+            type: zombies.upgrade.filter.type
+            conditions:
+              - type: zombies.upgrade.filter.condition.zombies_player
+      effect:
+        type: zombies.upgrade.effect.conditional
+        pass:
+          type: zombies.upgrade.effect.composite
+          delegates:
+            - type: zombies.upgrade.effect.switch_state
+              selector:
+                type: zombies.upgrade.selector.self
+
+            - type: zombies.upgrade.effect.adjust_integer_tag
+              tag: 'fr_t4_times'
+              increment: 1
+              limit: 4
+
+            - type: zombies.upgrade.effect.prevent_game_end
+              removeFlag: true
+
+            - type: zombies.upgrade.effect.set_boolean_tag
+              selector:
+                type: zombies.upgrade.selector.self
+              tag: 'fr_t4'
+              value: false
+
+            - type: zombies.upgrade.effect.sound
+              sound: { name: 'minecraft:entity.horse.death', source: PLAYER, volume: 2.0, pitch: 0.5 }
+              broadcast: true
+
+            - type: zombies.upgrade.effect.message
+              message: <#3d0708>You refuse to die.</#3d0708>
+
+            - type: zombies.upgrade.effect.temporal
+              timer:
+                type: zombies.upgrade.timer.constant
+                duration: 100
+              resetTimerOnApply: true
+              delegate:
+                type: zombies.upgrade.effect.composite
+                delegates:
+                  - type: zombies.upgrade.effect.set_boolean_tag
+                    selector:
+                      type: zombies.upgrade.selector.self
+                    tag: 'phantazm.proxima.can_pathfind_to'
+                    ephemeral: true
+                    value: false
+
+                  - type: zombies.upgrade.effect.set_boolean_tag
+                    selector:
+                      type: zombies.upgrade.selector.self
+                    ephemeral: true
+                    tag: 'fr_t4_invincibility'
+        filter:
+          type: zombies.upgrade.filter.selector
+          selector:
+            type: zombies.upgrade.selector.self
+            validator:
+              type: zombies.upgrade.validator.boolean_tag
+              tag: 'fr_t4'
+
+    - type: zombies.upgrade.standard
+      triggers:
+        - type: zombies.upgrade.trigger.event
+          event: ZOMBIES_PLAYER_REVIVE
+          eventFilter:
+            type: zombies.upgrade.filter.type
+            conditions:
+              - type: zombies.upgrade.filter.condition.zombies_player
+      effect:
+        type: zombies.upgrade.effect.set_boolean_tag
+        selector:
+          type: zombies.upgrade.selector.self
+        tag: 'fr_t4'
+        value: false
+
+    - type: zombies.upgrade.standard
+      triggers:
+        - type: zombies.upgrade.trigger.event
+          event: ZOMBIES_PLAYER_DAMAGE
+          eventFilter:
+            type: zombies.upgrade.filter.type
+            conditions:
+              - type: zombies.upgrade.filter.condition.zombies_player
+      effect:
+        type: zombies.upgrade.effect.conditional
+        pass:
+          type: zombies.upgrade.effect.cancel
+        filter:
+          type: zombies.upgrade.filter.selector
+          selector:
+            type: zombies.upgrade.selector.self
+            validator:
+              type: zombies.upgrade.validator.boolean_tag
+              tag: 'fr_t4_invincibility'

@@ -1,0 +1,137 @@
+key: firecracker_fge
+type: minecraft:zombie
+tags: [ deployable ]
+pathfinding:
+  type: proxima.path_settings.ground
+  jumpHeight: 0
+  fallTolerance: 0
+  stepHeight: 0
+
+meta:
+  customName: <#831c0e>Firecracker</#831c0e>
+  isBaby: true
+  isInvisible: true
+
+extra:
+  bypassEndlessScaling: true
+  resistFire: true
+  ticksUntilDeath: 400
+  partOfRound: false
+
+equipment:
+  BOOTS: '{id:"leather_boots",Count:1,tag:{display:{color:8592398}}}'
+  LEGGINGS: '{id:"leather_leggings",Count:1,tag:{display:{color:8592398}}}'
+  CHESTPLATE: '{id:"leather_chestplate",Count:1,tag:{display:{color:8592398}}}'
+  HELMET: '{id:"player_head",Count:1,tag:{display:{Name:"{\"text\":\"Firecracker\"}"},SkullOwner:{Id:[I;1465612950,-2020391593,-1538072832,-1406828544],Properties:{textures:[{Value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTNlYWY2ODU5NTNkZWM0OTJiMzQ5ZTVjYTYyMGMyYThhZGIxMjlkNzUyMjQ5ZWMzMGIzN2FkZDI2YjRhOWM1ZiJ9fX0="}]}}}}'
+
+attributes:
+  generic.max_health: 25
+  generic.movement_speed: 0
+
+skills:
+  - type: mob.skill.group
+    trigger: DAMAGED
+    delegates:
+      - type: mob.skill.play_sound
+        selector:
+          type: mob.selector.self
+        sound: { name: 'minecraft:block.copper.break', source: HOSTILE, volume: 1.5, pitch: 0.7 }
+
+      - type: mob.skill.play_sound
+        selector:
+          type: mob.selector.self
+        sound: { name: 'minecraft:block.copper.break', source: HOSTILE, volume: 1.5, pitch: 0.7 }
+
+      - type: mob.skill.play_sound
+        selector:
+          type: mob.selector.self
+        sound: { name: 'minecraft:block.copper.break', source: HOSTILE, volume: 1.5, pitch: 0.7 }
+
+  - type: mob.skill.play_sound
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.iron_golem.death', source: HOSTILE, volume: 1.5, pitch: 1.5 }
+
+  - type: mob.skill.timer
+    interval: 70
+    delegate:
+      type: mob.skill.group
+      delegates:
+        - type: mob.skill.play_sound
+          selector:
+            type: mob.selector.self
+          sound: { name: 'minecraft:item.firecharge.use', source: HOSTILE, volume: 1.5, pitch: 0.8 }
+
+        - type: mob.skill.spawn_particle
+          selector:
+            type: mob.selector.self
+          particle:
+            type: particle.wrapper
+            particle: flame
+            variantData:
+              type: particle.variant_data.none
+            distance: true
+            offsetX: 5.0
+            offsetY: 0.1
+            offsetZ: 4.0
+            data: 0.0
+            particleCount: 20
+          bounds:
+            origin:
+              x: 0.0
+              y: 1.0
+              z: 0.0
+            lengths:
+              x: 0.0
+              y: 0.0
+              z: 0.0
+
+        - type: mob.skill.damage
+          selector:
+            type: mob.selector.entities_in_area
+            originSelector:
+              type: mob.selector.self
+            range: 4
+            target: PLAYERS
+            validator: /alivePlayers
+          amount: 3
+          damageType: damage.fire
+
+        - type: mob.skill.damage_over_time
+          trigger: ATTACK
+          selector:
+            type: mob.selector.entities_in_area
+            originSelector:
+              type: mob.selector.self
+            range: 4
+            target: PLAYERS
+            validator: /alivePlayers
+          validator: /alivePlayers
+          damageAmount: 1.5
+          bypassArmor: true
+          damageInterval: 10
+          damageTime: 80
+          damageType: damage.fire
+          exceedMobLifetime: true
+          sound: { name: 'minecraft:entity.player.hurt_on_fire', source: PLAYER, volume: 1.0, pitch: 1.0 }
+
+        - type: mob.skill.temporal
+          trigger: ATTACK
+          minDuration: 80
+          maxDuration: 80
+          delegate:
+            type: mob.skill.apply_fire
+            trigger: ATTACK
+            selector:
+              type: mob.selector.entities_in_area
+              originSelector:
+                type: mob.selector.self
+              range: 4
+              target: PLAYERS
+              validator: /alivePlayers
+
+alivePlayers:
+  type: zombies.mob.validator.zombies_player
+  states: [ zombies.player.state.alive ]
+  blacklist: false

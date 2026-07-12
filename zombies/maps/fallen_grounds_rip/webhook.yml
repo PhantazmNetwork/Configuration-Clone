@@ -1,0 +1,4 @@
+webhookURL: ""
+webhookFormat: "'{\"content\":null,\"embeds\":[{\"color\":2829617,\"image\":{\"url\":\"https://i.imgur.com/6dvUirQ.png\"}},{\"description\":\"**```asciidoc\\n              \u2726 Fallen Grounds WIN                        \\n```**\\n**\u00BB** `'{2,choice,1#Solo|2#Duo|3#Trio|3<quad}'` *Achieved on '{0}'*\\n\",\"color\":2829617,\"fields\":[{\"name\":\":star2: \u00BB DIFFICULTY\",\"value\":\"\u30FB**`RIP, 4\u2726`**\",\"inline\":true},{\"name\":\":stopwatch: \u00BB TIME\",\"value\":\"\u30FB`'{1}'`\",\"inline\":true},{\"name\":\":game_die: \u00BB MODIFIERS\",\"value\":\"\u30FB'{4}'\",\"inline\":true},{\"name\":\":video_game: \u00BB PLAYERS & KILLS\",\"value\":\"\u30FB'{3}'\"}],\"image\":{\"url\":\"https://i.imgur.com/cYB9Tc5.png\"}}],\"attachments\":[]}'"
+playerFormat: "{0} `({1})`"
+enabled: true

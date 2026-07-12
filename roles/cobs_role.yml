@@ -1,0 +1,6 @@
+type: role.basic
+identifier: cobs_role
+chatFormat: '<#733df0>[Cob Role] <name>'
+displayNameFormat: '<#733df0><name>'
+priority: 999
+permissions: [ ]

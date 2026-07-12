@@ -1,0 +1,77 @@
+id: frb_t1
+data:
+  type: zombies.upgrade.composite
+  upgrades:
+    - type: zombies.upgrade.standard
+      triggers:
+        - type: zombies.upgrade.trigger.event
+          event: ZOMBIES_PLAYER_MODIFY_UPGRADE
+          eventFilter:
+            type: zombies.upgrade.filter.type
+            conditions:
+              - type: zombies.upgrade.filter.condition.zombies_player
+      effect:
+        type: zombies.upgrade.effect.count_upgrade
+        upgradeKeys: [ frb_t1, frb_t2, frb_t3, frb_t4 ]
+        outputTag: 'frb_t1'
+
+    - type: zombies.upgrade.standard
+      triggers:
+        - type: zombies.upgrade.trigger.event
+          event: ENTITY_DAMAGE_BY_GUN
+          eventFilter:
+            type: zombies.upgrade.filter.type
+            conditions:
+              - type: zombies.upgrade.filter.condition.player_shooter
+      effect:
+        type: zombies.upgrade.effect.conditional
+        pass:
+          type: zombies.upgrade.effect.temporal
+          resetTimerOnApply: true
+          timer:
+            type: zombies.upgrade.timer.constant
+            duration: 60
+          delegate:
+            type: zombies.upgrade.effect.apply_attribute
+            selector:
+              type: zombies.upgrade.selector.event
+              validator:
+                type: zombies.upgrade.validator.mob_in_round
+              useTarget: true
+            attribute: generic.movement_speed
+            amount: -0.025
+            operation: MULTIPLY_BASE
+            shareKey: 'frb_t1_share'
+            scaling:
+              type: zombies.upgrade.effect.scaling.tag
+              selector:
+                type: zombies.upgrade.selector.self
+              tag: 'frb_t1'
+        fail:
+          type: zombies.upgrade.effect.temporal
+          resetTimerOnApply: true
+          timer:
+            type: zombies.upgrade.timer.constant
+            duration: 60
+          delegate:
+            type: zombies.upgrade.effect.apply_attribute
+            selector:
+              type: zombies.upgrade.selector.event
+              validator:
+                type: zombies.upgrade.validator.mob_in_round
+              useTarget: true
+            attribute: generic.movement_speed
+            amount: -0.05
+            operation: MULTIPLY_BASE
+            shareKey: 'frb_t1_share'
+            scaling:
+              type: zombies.upgrade.effect.scaling.tag
+              selector:
+                type: zombies.upgrade.selector.self
+              tag: 'frb_t1'
+        filter:
+          type: zombies.upgrade.filter.type
+          conditions:
+            - type: zombies.upgrade.filter.condition.mob_flag
+              flag: 'boss'
+              useTarget: true

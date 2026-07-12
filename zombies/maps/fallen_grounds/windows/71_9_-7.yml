@@ -1,0 +1,11 @@
+frameRegion:
+  origin: {x: 71, y: 9, z: -7}
+  lengths: {x: 1, y: 2, z: 3}
+repairSound: {name: 'minecraft:block.wood.place', source: BLOCK, volume: 2.0, pitch: 1.0}
+repairAllSound: {name: 'minecraft:block.wooden_trapdoor.close', source: BLOCK, volume: 2.0,
+  pitch: 1.0}
+breakSound: {name: 'minecraft:block.wood.break', source: HOSTILE, volume: 2.0, pitch: 0.8}
+breakAllSound: {name: 'minecraft:entity.zombie.break_wooden_door', source: HOSTILE,
+  volume: 2.0, pitch: 1.0}
+repairActions: []
+breakActions: []

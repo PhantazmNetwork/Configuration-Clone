@@ -1,0 +1,124 @@
+countdown:
+  type: zombies.sidebar.updater
+  sectionPaths: [ ../header ]
+
+  header:
+    type: zombies.sidebar.section.collection
+    lineUpdaterPaths: [ /date, /separator, /map, ../players, /blankLine, ../counter, /separator, /network ]
+
+    players:
+      type: zombies.sidebar.line_updater.joined_players
+      format: "<#9096ad>Players</#9096ad><#b8bfde>:</#b8bfde> <yellow><current_player_count></yellow><#b8bfde>/</#b8bfde><yellow><max_player_count></yellow>"
+
+    counter:
+      type: zombies.sidebar.line_updater.constant
+      component: "<#9096ad>Starting</#9096ad><#b8bfde><b>...</b></#b8bfde>"
+
+
+inGame:
+  type: zombies.sidebar.updater
+  sectionPaths: [ ../header, ../zombiesPlayersSection, ../space, ../kills, ../footer ]
+
+  header:
+    type: zombies.sidebar.section.collection
+    lineUpdaterPaths: [ /date, /separator, ../round, ../remainingZombies, /blankLine ]
+
+    round:
+      type: zombies.sidebar.line_updater.round
+      format: "<red><b>Round <round>"
+
+    remainingZombies:
+      type: zombies.sidebar.line_updater.remaining_zombies
+      format: "<#9096ad>Zombies Left</#9096ad><#b8bfde>:</#b8bfde> <yellow><remaining_zombies></yellow>"
+
+  zombiesPlayersSection:
+    type: zombies.sidebar.section.zombies_players
+    creator:
+      type: zombies.sidebar.line_updater.creator.conditional
+      condition:
+        type: zombies.sidebar.condition.state
+        state: zombies.player.state.alive
+        requireAbsent: false
+      success:
+        type: zombies.sidebar.line_updater.creator.coins
+        format: "<player><#b8bfde>:</#b8bfde> <gold><coins></gold>"
+      failure:
+        type: zombies.sidebar.line_updater.creator.state
+        format: "<player><#b8bfde>:</#b8bfde> <state>"
+
+  space:
+    type: zombies.sidebar.section.collection
+    lineUpdaterPaths: [ /blankLine ]
+
+  kills:
+    type: zombies.sidebar.section.zombies_player
+    creatorPath: ./creator
+
+    creator:
+      type: zombies.sidebar.line_updater.creator.kills
+      format: <#9096ad>Kills</#9096ad><#b8bfde>:</#b8bfde> <yellow><kills></yellow>
+
+  footer:
+    type: zombies.sidebar.section.collection
+    lineUpdaterPaths: [ ../time, /map, /separator, /network ]
+
+    time:
+      type: zombies.sidebar.line_updater.ticks
+      format: "<#9096ad>Time</#9096ad><#b8bfde>:</#b8bfde> <yellow><time></yellow>"
+      tickFormatterPath: ./tickFormatter
+
+      tickFormatter:
+        type: core.tick_formatter.analog
+        ceil: false
+
+win:
+  type: zombies.sidebar.updater
+  sectionPaths: [ ../header, /inGame/zombiesPlayersSection, /inGame/space, /inGame/kills, ../footer ]
+
+  header:
+    type: zombies.sidebar.section.collection
+    lineUpdaterPaths: [ /date, /separator, /winning, /inGame/header/remainingZombies, /blankLine ]
+
+  footer:
+    type: zombies.sidebar.section.collection
+    lineUpdaterPaths: [ /inGame/footer/time, /map, /separator, /network ]
+
+lose:
+  type: zombies.sidebar.updater
+  sectionPaths: [ ../header, /inGame/zombiesPlayersSection, /inGame/space, /inGame/kills, ../footer ]
+
+  header:
+    type: zombies.sidebar.section.collection
+    lineUpdaterPaths: [ /date, /separator, /losing, /inGame/header/remainingZombies, /blankLine ]
+
+  footer:
+    type: zombies.sidebar.section.collection
+    lineUpdaterPaths: [ /inGame/footer/time, /map, /separator, /network ]
+
+date:
+  type: zombies.sidebar.line_updater.date
+  format: "<#6b6f80><date:'MM/dd/yy'></#6b6f80> <#7c8194>2✦</#7c8194>"
+
+separator:
+  type: zombies.sidebar.line_updater.constant
+  component: "<gradient:#616575:#4a4c59><st>⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯</st></gradient:#616575:#4a4c59>"
+
+blankLine:
+  type: zombies.sidebar.line_updater.constant
+  component: ""
+
+map:
+  type: zombies.sidebar.line_updater.constant
+  component: "<#9096ad>Map</#9096ad><#b8bfde>:</#b8bfde> <yellow>GAU</yellow>"
+
+network:
+  type: zombies.sidebar.line_updater.constant
+  component: "<#fffa9e>✦</#fffa9e> <gradient:#bf1f41:#ec5b26><b>mc.phantazm.org</b></gradient:#bf1f41:#ec5b26>"
+
+winning:
+  type: zombies.sidebar.line_updater.constant
+  component: "<green><b>You Win!"
+
+losing:
+  type: zombies.sidebar.line_updater.constant
+  component: "<red><b>Game Over"

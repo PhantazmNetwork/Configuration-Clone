@@ -1,0 +1,95 @@
+id: fr_ew_synergy
+data:
+  type: zombies.upgrade.composite
+  upgrades:
+    - type: zombies.upgrade.standard
+      triggers:
+        - type: zombies.upgrade.trigger.event
+          event: ZOMBIES_PLAYER_KNOCK
+          eventFilter:
+            type: zombies.upgrade.filter.type
+            conditions:
+              - type: zombies.upgrade.filter.condition.zombies_player
+      effect:
+        type: zombies.upgrade.effect.composite
+        delegates:
+          - type: zombies.upgrade.effect.adjust_integer_tag
+            tag: 'fr_ew'
+            increment: 1
+            limit: 1
+            ephemeral: true
+
+          - type: zombies.upgrade.effect.set_boolean_tag
+            tag: 'phantazm.zombies.use_equipment_while_knocked'
+            value: true
+
+          - type: zombies.upgrade.effect.apply_attribute
+            selector:
+              type: zombies.upgrade.selector.self
+            scaling:
+              type: zombies.upgrade.effect.scaling.tag
+              tag: 'fr_ew'
+            attribute: phantazm.gun_fire_delay
+            amount: -1.0
+            operation: MULTIPLY_BASE
+            shareKey: 'fr_ew_share'
+
+    - type: zombies.upgrade.standard
+      triggers:
+        - type: zombies.upgrade.trigger.event
+          event: GUN_LOSE_AMMO
+          eventFilter:
+            type: zombies.upgrade.filter.type
+            conditions:
+              - type: zombies.upgrade.filter.condition.player_shooter
+      effect:
+        type: zombies.upgrade.effect.conditional
+        pass:
+          type: zombies.upgrade.effect.cancel
+        filter:
+          type: zombies.upgrade.filter.find_tag_in_selector
+          tag: 'fr_ew'
+          value: 1
+
+    - type: zombies.upgrade.standard
+      triggers:
+        - type: zombies.upgrade.trigger.event
+          event: ZOMBIES_PLAYER_START_REVIVE
+          eventFilter:
+            type: zombies.upgrade.filter.type
+            conditions:
+              - type: zombies.upgrade.filter.condition.zombies_player_target
+
+        - type: zombies.upgrade.trigger.event
+          event: ZOMBIES_PLAYER_REVIVE
+          eventFilter:
+            type: zombies.upgrade.filter.type
+            conditions:
+              - type: zombies.upgrade.filter.condition.zombies_player_target
+      effect:
+        type: zombies.upgrade.effect.composite
+        delegates:
+          - type: zombies.upgrade.effect.adjust_integer_tag
+            tag: 'fr_ew'
+            increment: -1
+            limit: 0
+            ephemeral: true
+
+          - type: zombies.upgrade.effect.sound
+            sound: { name: 'minecraft:entity.horse.eat', source: PLAYER, volume: 2.0, pitch: 1.2 }
+            broadcast: false
+
+          - type: zombies.upgrade.effect.set_boolean_tag
+            tag: 'phantazm.zombies.use_equipment_while_knocked'
+            value: false
+
+          - type: zombies.upgrade.effect.apply_attribute
+            selector:
+              type: zombies.upgrade.selector.self
+            scaling:
+              type: zombies.upgrade.effect.scaling.tag
+              tag: 'fr_ew'
+            attribute: phantazm.gun_fire_delay
+            amount: -1.0
+            operation: MULTIPLY_BASE
+            shareKey: 'fr_ew_share'

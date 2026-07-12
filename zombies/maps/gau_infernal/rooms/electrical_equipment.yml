@@ -1,0 +1,10 @@
+id: electrical_equipment
+displayName: <green><b>Electrical Equipment
+regions:
+  - origin: { x: 63, y: 0, z: 49 }
+    lengths: { x: 14, y: 7, z: 7 }
+  - origin: { x: 76, y: 0, z: 56 }
+    lengths: { x: 1, y: 7, z: 4 }
+  - origin: { x: 77, y: 0, z: 53 }
+    lengths: { x: 8, y: 6, z: 7 }
+openActions: [ ]

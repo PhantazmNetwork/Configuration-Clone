@@ -1,0 +1,142 @@
+key: charred_android
+type: minecraft:wither_skeleton
+pathfinding:
+  type: proxima.path_settings.ground
+  jumpHeight: 1.25
+  fallTolerance: 4
+  stepHeight: 0.5
+
+meta:
+  customName: <dark_gray>Charred Rogue Android</dark_gray>
+
+equipment:
+  BOOTS: '{id:"netherite_boots",Count:1}'
+  LEGGINGS: '{id:"netherite_leggings",Count:1}'
+  CHESTPLATE: '{id:"netherite_chestplate",Count:1}'
+  HELMET: '{id:"player_head",Count:1,tag:{display:{Name:"{\"text\":\"Rogue Android\"}"},SkullOwner:{Id:[I;-494756349,-526955692,-1655766865,-1946868088],Properties:{textures:[{Value:"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2QyMmFkNGEyMTY1YTlhMDI5ZjI5NTYwMDhlMGVmMjQ2NmYyNDMwNzdhNzgxZTY3MGUzNmFjOWY0OGRjNmU3NiJ9fX0="}]}}}}'
+
+attributes:
+  generic.max_health: 45
+  generic.movement_speed: 0.23
+  generic.attack_damage: 6
+  generic.armor: 14
+  generic.attack_knockback: 0.35
+
+skills:
+  - type: mob.skill.temporal
+    trigger: ATTACK
+    minDuration: 30
+    maxDuration: 30
+    delegate:
+      type: mob.skill.attribute_modifying
+      attribute: generic.movement_speed
+      amount: -1.0
+      attributeOperation: MULTIPLY_TOTAL
+      stage: zombies_game
+      selector:
+        type: mob.selector.last_hit
+
+  - type: mob.skill.play_sound
+    trigger: ATTACK
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.vex.hurt', source: HOSTILE, volume: 1.5, pitch: 2.0 }
+
+  - type: mob.skill.spawn_particle
+    trigger: ATTACK
+    selector:
+      type: mob.selector.last_hit
+    particle:
+      type: particle.wrapper
+      particle: crit
+      variantData:
+        type: particle.variant_data.none
+      distance: true
+      offsetX: 0.25
+      offsetY: 0.5
+      offsetZ: 0.25
+      data: 0.0
+      particleCount: 15
+    bounds:
+      origin:
+        x: 0.0
+        y: 1.5
+        z: 0.0
+      lengths:
+        x: 0.0
+        y: 0.0
+        z: 0.0
+
+  - type: mob.skill.play_sound
+    trigger: DAMAGED
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.iron_golem.hit', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+  - type: mob.skill.play_sound
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.iron_golem.death', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+  - type: mob.skill.random_timer
+    minInterval: 100
+    maxInterval: 160
+    delegate:
+      type: mob.skill.random
+      chance: 0.5
+      delegate:
+        type: mob.skill.play_sound
+        selector:
+          type: mob.selector.self
+        sound: { name: 'minecraft:entity.vex.hurt', source: HOSTILE, volume: 1.5, pitch: 0.7 }
+
+  - type: mob.skill.timer
+    interval: 50
+    delegate:
+      type: mob.skill.shoot_projectile
+      selector:
+        type: mob.selector.pathfinding_target
+      hitValidator:
+        type: mob.validator.and
+        validators: [ /alivePlayers, /distanceCheck ]
+      callback:
+        type: mob.skill.spawn_mob.callback.none
+      entity: stun_projectile
+      power: 2
+      spread: 0
+      gravity: false
+
+goals:
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: zombies.mob.goal.break_window
+        breakTicks: 20
+        breakCount: 1
+        breakRadius: 0.5
+
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: mob.goal.melee_attack
+        cooldown: 20
+        range: 0.25
+
+      - type: mob.goal.follow_entity
+        selector:
+          type: mob.selector.entities_in_area
+          originSelector:
+            type: mob.selector.self
+          validator: /alivePlayers
+          target: PLAYERS
+          limit: 1
+        retargetInterval: 20
+        followRange: 1024
+
+alivePlayers:
+  type: zombies.mob.validator.zombies_player
+  states: [ zombies.player.state.alive ]
+  blacklist: false
+
+distanceCheck:
+  type: mob.validator.distance
+  distance: 13

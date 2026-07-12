@@ -1,0 +1,39 @@
+id: qf_t2
+data:
+  type: zombies.upgrade.composite
+  upgrades:
+    - type: zombies.upgrade.standard
+      triggers:
+        - type: zombies.upgrade.trigger.single
+      effect:
+        type: zombies.upgrade.effect.apply_attribute
+        selector:
+          type: zombies.upgrade.selector.self
+        attribute: phantazm.bullet_penetration
+        amount: 1.0
+        operation: MULTIPLY_BASE
+
+    - type: zombies.upgrade.standard
+      triggers:
+        - type: zombies.upgrade.trigger.event
+          event: ENTITY_DAMAGE_BY_GUN
+          eventFilter:
+            type: zombies.upgrade.filter.type
+            conditions:
+              - type: zombies.upgrade.filter.condition.player_shooter
+      effect:
+        type: zombies.upgrade.effect.damage_increase
+        selector:
+          type: zombies.upgrade.selector.event
+          validator:
+            type: zombies.upgrade.validator.boolean
+            validators:
+              - type: zombies.upgrade.validator.mob_in_round
+
+              - type: zombies.upgrade.validator.flag
+                flags: [ 'boss' ]
+            operation: AND
+          useTarget: true
+        scaling:
+          type: zombies.upgrade.effect.scaling.constant
+          value: 1.15

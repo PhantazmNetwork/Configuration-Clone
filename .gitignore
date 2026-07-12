@@ -1,0 +1,38 @@
+*
+!*/
+
+# Track .gitignore and README.md
+!.gitignore
+!README.md
+
+# Track other configuration
+!chat-config.yml
+!party-config.toml
+!pathfinder-config.toml
+!player-config.toml
+!whisper-config.toml
+!shutdown-config.toml
+!join-report-config.toml
+!zombies-config.toml
+!lobbies-config.yml
+!modifier-config.toml
+
+# Track datapacks
+!datapacks/**
+
+# Track localization files
+!lang/**
+
+# Track roles
+!roles/**
+
+# Track all subfolders since they only contain configuration
+!equipment/**
+!mobs/**
+!zombies/**
+!lobbies/**
+!songs/**
+
+# Specifically ignore everything in instance folders as they contain Minecraft worlds
+zombies/instances/**
+lobbies/instances/**

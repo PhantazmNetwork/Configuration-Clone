@@ -1,0 +1,21 @@
+type: zombies.perk.level.non_upgradeable
+key: level0
+equipment:
+  type: zombies.perk.equipment.basic
+  interactor:
+    type: zombies.perk.interactor.none
+  visual:
+    type: zombies.perk.visual.static
+    stack:
+      material: 'minecraft:iron_ingot'
+      displayName: '<!i><blue><b>Extra Weapon</b></blue></!i>'
+      lore:
+        - '<!i><#9096ad>Holding this heavy iron ingot</#9096ad></!i>'
+        - '<!i><#9096ad>somehow makes it so that you can</#9096ad></!i>'
+        - '<!i><#9096ad>carry more firearms.</#9096ad></!i>'
+        - ''
+        - '<!i><#616575>»</#616575> <#9096ad>Bonus Weapon Slots</#9096ad><#b8bfde>:</#b8bfde> <green>1</green></!i>'
+effects:
+  - type: zombies.perk.effect.add_group_slots
+    group: zombies.group.gun
+    additionalSlots: [ 3 ]

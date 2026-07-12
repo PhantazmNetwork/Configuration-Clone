@@ -1,0 +1,6 @@
+type: role.basic
+identifier: developer
+chatFormat: '<#a852f5>[Developer] <name>'
+displayNameFormat: '<#a852f5><name>'
+priority: 999
+permissions: [ ]

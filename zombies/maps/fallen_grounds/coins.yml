@@ -1,0 +1,5 @@
+transactionMessageFormat: <positive:'0#-|1#+'><change> Coins<displays_present:' (<displays:, >)'>
+transactionDisplayFormat: <display>
+gradientFrom: "#ffffff"
+gradientTo: "#ffaa00"
+actionBarDuration: 10

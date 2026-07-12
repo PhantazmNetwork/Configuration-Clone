@@ -1,0 +1,18 @@
+ordinal: 9
+key: phantazm:coin_gain_increase
+displayName: '<green>Coin Gain Increase</green>'
+exclusiveModifiers: [ 'phantazm:coin_gain_decrease' ]
+webhookEmoji: '<:coin_gain_increase:1165203601170378762>'
+abbreviatedDisplayName: '<green>CGI'
+displayItem:
+  material: minecraft:emerald
+  displayName: '<!i><b><yellow>Coin Gain Increase</yellow></b></!i>'
+  lore:
+    - ''
+    - '<!i><#616575>»</#616575> <#f062c1>Increase all coin gain by <green><b>50%</b></green></#f062c1></!i>'
+modifier:
+  type: zombies.modifier.coins
+  group: coin_gain
+  modifierName: '<green>Coin Modifier'
+  modifierAction: MULTIPLY
+  amount: 0.50

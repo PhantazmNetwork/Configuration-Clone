@@ -1,0 +1,32 @@
+type: zombies.corpse
+idleLines:
+  - type: zombies.corpse.line.static
+    message: <#616575><st>⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯</st></#616575>
+
+  - type: zombies.corpse.line.static
+    message: <#9096ad>»</#9096ad> <b><yellow>HOLD <red><key:key.sneak></red> TO REVIVE!</yellow></b>
+
+  - type: zombies.corpse.line.static
+    message: <#616575><st>⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯</st></#616575>
+
+  - type: zombies.corpse.line.time
+    format: <#ff2655>⚠</#ff2655> <red><time_until_death>s</red>
+    tickFormatter:
+      type: core.tick_formatter.precision_second
+      decimalPlaces: 1
+
+revivingLines:
+  - type: zombies.corpse.line.static
+    message: <#616575><st>⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯</st></#616575>
+
+  - type: zombies.corpse.line.static
+    message: <b><yellow>REVIVING<#b8bfde>...</#b8bfde></yellow></b>
+
+  - type: zombies.corpse.line.static
+    message: <#616575><st>⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯</st></#616575>
+
+  - type: zombies.corpse.line.time
+    format: <red><time_until_revive>s</red>
+    tickFormatter:
+      type: core.tick_formatter.precision_second
+      decimalPlaces: 1

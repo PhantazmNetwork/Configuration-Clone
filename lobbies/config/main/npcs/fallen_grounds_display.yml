@@ -1,0 +1,14 @@
+type: npc.entity
+location: { x: -63.5, y: 20.75, z: 142.5, yaw: -90.0, pitch: 0.0 }
+entity:
+  type: npc.entity.supplier.mob
+  entityType: 'minecraft:armor_stand'
+settings:
+  type: npc.entity.settings
+  invisible: true
+  small: true
+  displayName: <#0fb926><b>Grounds
+ticker:
+  type: npc.entity.ticker.none
+interactor:
+  type: npc.interactor.none

@@ -1,0 +1,95 @@
+key: sick_wolf_infernal
+type: minecraft:wolf
+pathfinding:
+  type: proxima.path_settings.ground
+  jumpHeight: 1.25
+  fallTolerance: 4
+  stepHeight: 0.5
+
+meta:
+  angerTime: 69420
+  customName: <#424b1f>Sick Wolf</#424b1f>
+
+attributes:
+  generic.max_health: 55
+  generic.movement_speed: 0.43
+  generic.attack_damage: 10
+  generic.armor: 6
+  generic.attack_knockback: 0.45
+  phantazm.hitbox_expand: 0.45
+
+skills:
+  - type: mob.skill.group
+    trigger: ATTACK
+    delegates:
+      - type: mob.skill.damage_over_time
+        selector:
+          type: mob.selector.last_hit
+        validator: /alivePlayers
+        damageAmount: 1.0
+        bypassArmor: true
+        damageInterval: 20
+        damageTime: 100
+
+      - type: mob.skill.potion
+        selector:
+          type: mob.selector.last_hit
+        potion:
+          effect: minecraft:poison
+          amplifier: 1
+          duration: 100
+          flags: 6
+
+  - type: mob.skill.play_sound
+    trigger: DAMAGED
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.wolf.hurt', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+  - type: mob.skill.play_sound
+    trigger: DEATH
+    selector:
+      type: mob.selector.self
+    sound: { name: 'minecraft:entity.wolf.death', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+  - type: mob.skill.random_timer
+    minInterval: 100
+    maxInterval: 160
+    delegate:
+      type: mob.skill.random
+      chance: 0.5
+      delegate:
+        type: mob.skill.play_sound
+        selector:
+          type: mob.selector.self
+        sound: { name: 'minecraft:entity.wolf.growl', source: HOSTILE, volume: 1.5, pitch: 1.0 }
+
+goals:
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: zombies.mob.goal.break_window
+        breakTicks: 15
+        breakCount: 1
+        breakRadius: 0.5
+
+  - type: mob.goal_applier.collection
+    goalCreators:
+      - type: mob.goal.melee_attack
+        cooldown: 20
+        range: 0.25
+
+      - type: mob.goal.follow_entity
+        selector:
+          type: mob.selector.entities_in_area
+          originSelector:
+            type: mob.selector.self
+          validator: /alivePlayers
+          target: PLAYERS
+          limit: 1
+        retargetInterval: 20
+        followRange: 1024
+
+alivePlayers:
+  type: zombies.mob.validator.zombies_player
+  states: [ zombies.player.state.alive ]
+  blacklist: false
